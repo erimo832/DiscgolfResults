@@ -1,1 +1,1 @@
-# DiscgolfResults
+# Discgolf results
