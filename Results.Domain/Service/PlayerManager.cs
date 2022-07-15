@@ -93,6 +93,11 @@ namespace Results.Domain.Service
             return Repository.GetAll();
         }
 
+        public Player Get(int playerId)
+        {
+            return Repository.Get(playerId);
+        }
+
         public void InsertPlayerHcps(IList<PlayerCourseLayoutHcp> layoutHcps)
         {
             PlayerCourseLayoutHcpRepository.Insert(layoutHcps);

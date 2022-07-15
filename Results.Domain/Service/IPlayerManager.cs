@@ -7,6 +7,7 @@ namespace Results.Domain.Service
     {
         Player GetPlayer(string pdgaNr, string firstName, string lastName, IDuplicatePlayerConfiguration duplicatePlayers);
         IList<Player> GetAll();
+        Player Get(int playerId);
 
         void InsertPlayerHcps(IList<PlayerCourseLayoutHcp> layoutHcps);
     }

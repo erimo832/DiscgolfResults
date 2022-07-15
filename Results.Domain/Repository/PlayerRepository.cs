@@ -21,6 +21,14 @@ namespace Results.Domain.Repository
             }
         }
 
+        public Player Get(int playerId)
+        {
+            using (var context = new ResultContext(Config))
+            {
+                return context.Players.FirstOrDefault(x => x.PlayerId == playerId);
+            }
+        }
+
         public void Insert(IList<Player> players)
         {
             using (var context = new ResultContext(Config))
@@ -48,6 +56,6 @@ namespace Results.Domain.Repository
                     context.SaveChanges();
                 }
             }
-        }
+        }   
     }
 }
