@@ -12,3 +12,22 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+
+
+/* Player highlighting */
+
+.avg
+{
+  background-color: rgba(74,184,105,.2)
+}
+
+.top
+{
+  background-color: rgba(0,0,0,.05)
+}
+
+.none
+{
+  background-color:  rgba(255,255,255,.05)
+}
