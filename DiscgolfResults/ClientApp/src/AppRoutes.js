@@ -7,7 +7,7 @@ import { PointLeaderboard } from './components/leaderboards/PointLeaderboard';
 import { ScoreLeaderboard} from './components/leaderboards/ScoreLeaderboard';
 import { CtpLeaderboard} from './components/leaderboards/CtpLeaderboard';
 import { Players } from './components/players/Players';
-import { PlayerInfo } from './components/players/PlayerInfo';
+import { Details } from './components/players/Details';
 
 const AppRoutes = [
   {
@@ -27,8 +27,8 @@ const AppRoutes = [
     element: <Players />
   },
   {
-    path: '/playerinfo',
-    element: <PlayerInfo />
+    path: '/players/:playerId',
+    element: <Details />
   },
   {
     path: '/leaderboards/point',

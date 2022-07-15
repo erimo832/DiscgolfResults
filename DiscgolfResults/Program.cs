@@ -55,5 +55,6 @@ TODO:
     - Hole stats
         - Avg score per series
  - Move solution file
+ - Disable highlighting swagger
  
  */

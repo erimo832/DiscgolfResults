@@ -19,7 +19,7 @@ export class Players extends Component {
     this.populateResultData();
   }
 
-  static renderPlayersTable(hcpList) {
+  static renderPlayersTable(players) {
     return (
       <table className='table table-condensed table-striped table-sm' aria-labelledby="tabelLabel">
         <thead>
@@ -28,14 +28,10 @@ export class Players extends Component {
           </tr>
         </thead>
         <tbody>
-          {hcpList.map(player =>
-            <tr key={player}>
+          {players.map(x =>
+            <tr key={x.playerId}>
                 <td>
-                    <NavLink tag={Link} className="text-dark" to={{
-                        pathname:"/playerInfo",
-                        playerName: {player}
-                    }}>{player}</NavLink>
-                    
+                  <NavLink href={"players/" + x.playerId }>{x.firstName + ' ' + x.lastName}</NavLink>
                 </td>              
             </tr>
           )}
@@ -59,7 +55,7 @@ export class Players extends Component {
   }
 
   async populateResultData() {
-    const response = await fetch(process.env.REACT_APP_API_ENDPOINT +'/api/Players');
+    const response = await fetch('/api/players');
     const data = await response.json();
     this.setState({ players: data, loading: false });
   }

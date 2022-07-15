@@ -21,7 +21,7 @@ namespace DiscgolfResults.Controllers
             int courseLayoutId = 1;
             var result = RoundManager.GetScoresBy(playerId, courseLayoutId);
 
-            return result;
+            return result.OrderByDescending(x => x.StartTime);
         }
     }
 }
