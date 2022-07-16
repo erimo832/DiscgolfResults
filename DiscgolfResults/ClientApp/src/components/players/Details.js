@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 
 export function Details() {
   const [loading, setLoading] = useState(true);
-  const [rounds, setRounds] = useState();
+  const [rounds, setRounds] = useState(null);
   let params = useParams(rounds);
 
   let contents = loading
@@ -14,7 +14,8 @@ export function Details() {
       : renderDetailsTable(rounds);
 
   useEffect(() => {
-    fetchData();
+    if(rounds === null)
+      fetchData();
   });
 
   function renderDetailsTable(info) {
@@ -37,12 +38,12 @@ export function Details() {
                 </tr>
             </thead>
             <tbody>
-                {info.map(x =>
+                {info.eventResults.map(x =>
                 <tr key={x.startTime} className={x.inHcpAvgCalculation ? 'avg' : (x.inHcpCalculation === true ? 'top' : 'none' ) }>                    
-                    <td className="d-none d-lg-table-cell">x.eventName</td>
+                    <td className="d-none d-lg-table-cell">{x.eventName}</td>
                     <td>{x.startTime.substring(0,10)}</td>
-                    <td>x.placemenet</td>
-                    <td>x.roundPoints</td>
+                    <td>{x.placement}</td>
+                    <td>{x.points}</td>
                     <td>{x.score}</td>
                     <td className="d-none d-sm-table-cell">x.hcp</td>
                     <td className="d-none d-sm-table-cell">x.hcpScore</td>
@@ -55,7 +56,7 @@ export function Details() {
   }
 
   async function fetchData() {
-    var path = '/api/players/'+ params.playerId + '/round-scores';
+    var path = '/api/players/'+ params.playerId + '/details';
     const response = await fetch(path);
     const data = await response.json();
 

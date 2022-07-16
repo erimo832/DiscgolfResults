@@ -28,7 +28,7 @@ namespace Results.Domain.Service
         public void UpdateHcp()
         {
             var layouts = CourseManager.GetAllLayouts();
-            var players = PlayerManager.GetAll();
+            var players = PlayerManager.GetBy();
 
             var hcps = new List<PlayerCourseLayoutHcp>();
 

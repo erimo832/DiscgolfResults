@@ -7,5 +7,7 @@
         public int CourseHoleId { get; set; }
         public int Score { get; set; }
         public bool IsCtp { get; set; }
+
+        public CourseHole CourseHole { get; set; } 
     }
 }

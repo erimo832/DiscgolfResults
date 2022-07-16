@@ -9,6 +9,7 @@ namespace DiscgolfResults.Extensions
         {
             services.TryAddTransient<IEventResultTranslator, EventResultTranslator>();
             services.TryAddTransient<IPlayerTranslator, PlayerTranslator>();
+            services.TryAddTransient<IPlayerDetailsTranslator, PlayerDetailsTranslator>();
 
             return services;
         }

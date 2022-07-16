@@ -46,7 +46,6 @@ namespace Results.Domain.Repository
                     .If(includePlayerhcp, q => q.Include(x => x.PlayerCourseLayoutHcp))
                     .If(serieId != -1, q => q.Where(x => x.SerieId == serieId))
                     .ToList();
-
             }
         }
     }

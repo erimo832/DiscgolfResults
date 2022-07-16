@@ -28,7 +28,7 @@ namespace Results.Domain.Service
                 lastName = replacePlayer.LastName;
             }
 
-            var players = Repository.GetAll();
+            var players = Repository.GetBy();
 
             var player = players.FirstOrDefault(x => x.PdgaNumber != null && x.PdgaNumber.ToString() == pdgaNr);
 
@@ -88,9 +88,9 @@ namespace Results.Domain.Service
             return false;
         }
 
-        public IList<Player> GetAll()
+        public IList<Player> GetBy(int playerId = -1, bool includePlayerEvents = false, bool includeRoundScores = false, bool includeCourseHcps = false)
         {
-            return Repository.GetAll();
+            return Repository.GetBy(playerId, includePlayerEvents, includeRoundScores, includeCourseHcps);
         }
 
         public Player Get(int playerId)

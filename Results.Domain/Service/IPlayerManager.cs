@@ -6,7 +6,7 @@ namespace Results.Domain.Service
     public interface IPlayerManager
     {
         Player GetPlayer(string pdgaNr, string firstName, string lastName, IDuplicatePlayerConfiguration duplicatePlayers);
-        IList<Player> GetAll();
+        IList<Player> GetBy(int playerId = -1, bool includePlayerEvents = false, bool includeRoundScores = false, bool includeCourseHcps = false);
         Player Get(int playerId);
 
         void InsertPlayerHcps(IList<PlayerCourseLayoutHcp> layoutHcps);

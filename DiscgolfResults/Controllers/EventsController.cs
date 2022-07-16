@@ -24,7 +24,7 @@ namespace DiscgolfResults.Controllers
         public IEnumerable<EventResultResponse> GetEventBySeriesId(int seriesId)
         {
             var data = EventManager.GetBy(seriesId: seriesId, includePlayerEvents: true, includePlayerhcp: true);
-            var players = PlayerManager.GetAll();
+            var players = PlayerManager.GetBy();
 
             return Translator.Translate(data, players);
         }

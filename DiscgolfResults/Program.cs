@@ -45,8 +45,7 @@ app.Run();
 /*
  
 TODO:
- - Separate view- and backend-models with transformers
- - Start to migrate old pages
+ - Separate view- and backend-models with transformers 
  - New
     - Player stats
         - Hcp trend

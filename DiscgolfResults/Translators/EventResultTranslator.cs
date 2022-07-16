@@ -20,7 +20,7 @@ namespace DiscgolfResults.Translators
                     eventResults.Add(new Result
                     {
                         FullName = player.FullName,
-                        NumberOfCtps = -1,
+                        NumberOfCtps = 0,
                         Placement = pe.Placement,
                         PlacementHcp = pe.PlacementHcp,
                         HcpBefore = hcp.HcpBefore,

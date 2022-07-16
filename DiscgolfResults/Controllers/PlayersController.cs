@@ -23,7 +23,7 @@ namespace DiscgolfResults.Controllers
         [Route("api/players")]
         public IEnumerable<PlayerResponse> GetAll()
         {
-            var data = Manager.GetAll();
+            var data = Manager.GetBy();
 
             return Translator.Translate(data);
         }
