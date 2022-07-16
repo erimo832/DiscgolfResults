@@ -22,7 +22,7 @@ namespace DiscgolfResults.Translators
                     HcpAfter = hcp.HcpAfter,
                     HcpBefore = hcp.HcpBefore,
                     HcpScore = ev.TotalHcpScore,
-                    NumberOfCtps = player.RoundScores.Sum(x => x.NumberOfCtps),
+                    NumberOfCtps = ev.NumberOfCtp,
                     Placement = ev.Placement,
                     PlacementHcp = ev.PlacementHcp,
                     Points = ev.HcpPoints,

@@ -12,6 +12,7 @@
         public int Placement { get; set; }
         public int PlacementHcp { get; set; }
         public double HcpPoints { get; set; }
+        public int NumberOfCtp { get; set; }
 
         public Player Player { get; set; } = null;
         public Event Event { get; set; } = null;

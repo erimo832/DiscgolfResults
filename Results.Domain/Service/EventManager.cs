@@ -51,7 +51,8 @@ namespace Results.Domain.Service
                         EventId = playerHcp.EventId,
                         PlayerId = playerHcp.PlayerId,
                         TotalScore = ev.Rounds.SelectMany(x => x.RoundScores).Where(x => x.PlayerId == playerHcp.PlayerId).Sum(z => z.Score),
-                        TotalHcpScore = ev.Rounds.SelectMany(x => x.RoundScores).Where(x => x.PlayerId == playerHcp.PlayerId).Sum(z => z.Score) - playerHcp.HcpBefore //Is a bug here if multiple rounds on different layouts
+                        TotalHcpScore = ev.Rounds.SelectMany(x => x.RoundScores).Where(x => x.PlayerId == playerHcp.PlayerId).Sum(z => z.Score) - playerHcp.HcpBefore, //Is a bug here if multiple rounds on different layouts
+                        NumberOfCtp = ev.Rounds.SelectMany(x => x.RoundScores).Where(x => x.PlayerId == playerHcp.PlayerId).Sum(z => z.NumberOfCtps)
                     });
                 }
 

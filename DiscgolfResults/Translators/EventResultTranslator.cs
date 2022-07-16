@@ -20,7 +20,7 @@ namespace DiscgolfResults.Translators
                     eventResults.Add(new Result
                     {
                         FullName = player.FullName,
-                        NumberOfCtps = 0,
+                        NumberOfCtps = pe.NumberOfCtp,
                         Placement = pe.Placement,
                         PlacementHcp = pe.PlacementHcp,
                         HcpBefore = hcp.HcpBefore,
@@ -28,7 +28,7 @@ namespace DiscgolfResults.Translators
                         PlayerId = pe.PlayerId,
                         Points = pe.HcpPoints,
                         Score = pe.TotalScore,
-                        HcpScore = pe.TotalHcpScore,
+                        HcpScore = pe.TotalHcpScore
                     });
                 }
 
