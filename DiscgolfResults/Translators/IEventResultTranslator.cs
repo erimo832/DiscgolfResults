@@ -1,7 +1,7 @@
 ﻿using DiscgolfResults.Contracts.Responses;
 using Results.Domain.Model;
 
-namespace DiscgolfResults.Transformers
+namespace DiscgolfResults.Translators
 {
     public interface IEventResultTranslator
     {

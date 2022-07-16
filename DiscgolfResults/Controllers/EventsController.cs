@@ -1,5 +1,5 @@
 ﻿using DiscgolfResults.Contracts.Responses;
-using DiscgolfResults.Transformers;
+using DiscgolfResults.Translators;
 using Microsoft.AspNetCore.Mvc;
 using Results.Domain.Service;
 

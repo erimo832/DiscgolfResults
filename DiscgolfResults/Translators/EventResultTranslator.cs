@@ -1,7 +1,7 @@
 ﻿using DiscgolfResults.Contracts.Responses;
 using Results.Domain.Model;
 
-namespace DiscgolfResults.Transformers
+namespace DiscgolfResults.Translators
 {
     public class EventResultTranslator : IEventResultTranslator
     {
@@ -19,7 +19,7 @@ namespace DiscgolfResults.Transformers
 
                     eventResults.Add(new Result
                     {
-                        FullName = player.FullName,                        
+                        FullName = player.FullName,
                         NumberOfCtps = -1,
                         Placement = pe.Placement,
                         PlacementHcp = pe.PlacementHcp,
@@ -30,7 +30,7 @@ namespace DiscgolfResults.Transformers
                         Score = pe.TotalScore,
                         HcpScore = pe.TotalHcpScore,
                     });
-                } 
+                }
 
                 result.Add(new EventResultResponse
                 {

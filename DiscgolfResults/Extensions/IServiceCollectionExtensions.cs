@@ -1,4 +1,4 @@
-﻿using DiscgolfResults.Transformers;
+﻿using DiscgolfResults.Translators;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace DiscgolfResults.Extensions
@@ -8,6 +8,7 @@ namespace DiscgolfResults.Extensions
         public static IServiceCollection AddTranslators(this IServiceCollection services)
         {
             services.TryAddTransient<IEventResultTranslator, EventResultTranslator>();
+            services.TryAddTransient<IPlayerTranslator, PlayerTranslator>();
 
             return services;
         }
