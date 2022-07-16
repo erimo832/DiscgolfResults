@@ -1,6 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState, useEffect } from 'react';
 import i18n from "../../i18n";
+import { Grid } from '../common/Grid';
+import Collapse, { Panel } from 'rc-collapse';
 import { useParams } from 'react-router-dom';
 
 
@@ -16,43 +18,39 @@ export function Details() {
   useEffect(() => {
     if(rounds === null)
       fetchData();
+
+    //TODO: Add highligting on included events in calculation and what are used for avg cals
   });
 
   function renderDetailsTable(info) {
     if(info.length === 0)
         return (<div>{i18n.t('playersinfo_no_found')}</div>);
-
+    
     return (
         <div>
-            <div></div>
-            <table className='table table-condensed table-sm' aria-labelledby="tabelLabel">
-            <thead>
-                <tr>                    
-                    <th className="d-none d-lg-table-cell">{i18n.t('column_round')}</th>
-                    <th>{i18n.t('column_date')}</th>
-                    <th>{i18n.t('column_place')}</th>
-                    <th>{i18n.t('column_points')}</th>
-                    <th>{i18n.t('column_score')}</th>
-                    <th className="d-none d-sm-table-cell">{i18n.t('column_hcp')}</th>
-                    <th className="d-none d-sm-table-cell">{i18n.t('column_hcpscore')}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {info.eventResults.map(x =>
-                <tr key={x.startTime} className={x.inHcpAvgCalculation ? 'avg' : (x.inHcpCalculation === true ? 'top' : 'none' ) }>                    
-                    <td className="d-none d-lg-table-cell">{x.eventName}</td>
-                    <td>{x.startTime.substring(0,10)}</td>
-                    <td>{x.placement}</td>
-                    <td>{x.points}</td>
-                    <td>{x.score}</td>
-                    <td className="d-none d-sm-table-cell">x.hcp</td>
-                    <td className="d-none d-sm-table-cell">x.hcpScore</td>
-                </tr>
-                )}
-            </tbody>
-            </table>
+          <h1>{info.fullName}</h1>
+          <Grid data={info.eventResults} format={getGridConf()} />
         </div>
     );
+  }
+
+  function getGridConf()
+  {
+    return {
+      className: "table table-striped",
+      key: "eventId",
+      detailsArray: "",
+      detailsValue: "",
+      columns: [
+        {columnName: "eventName",   headerText: i18n.t('column_round'),    headerClassName: "", rowClassName: ""},
+        {columnName: "startTime",   headerText: i18n.t('column_date'),     headerClassName: "", rowClassName: "", formatedValue: function(x) {  return x.startTime.substring(0,10); }},
+        {columnName: "placement",   headerText: i18n.t('column_place'),    headerClassName: "", rowClassName: ""},
+        {columnName: "points",      headerText: i18n.t('column_points'),   headerClassName: "", rowClassName: ""},
+        {columnName: "score",       headerText: i18n.t('column_score'),    headerClassName: "", rowClassName: ""},
+        {columnName: "hcpBefore",   headerText: i18n.t('column_hcp'),      headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"},
+        {columnName: "hcpScore",    headerText: i18n.t('column_hcpscore'), headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"}       
+      ]
+    };
   }
 
   async function fetchData() {
@@ -65,10 +63,8 @@ export function Details() {
   };
 
   return (
-    <div>
-        <h1 id="tabelLabel">{i18n.t('players_header')}</h1>
-        <p>{i18n.t('players_description')}</p>        
+    <div>         
         {contents}
-      </div>
+    </div>
   );
 }

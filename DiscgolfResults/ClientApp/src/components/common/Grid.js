@@ -85,7 +85,7 @@ export class Grid extends Component {
 
     return (
         <tr key={obj.key} onClick={() => this.handleRowSelected(obj.key)} >
-            {this.state.format.columns.map(x => <td key={obj.key + x.columnName} className={x.rowClassName}>{obj.value[x.columnName]}</td> )}
+            {this.state.format.columns.map(x => <td key={obj.key + x.columnName} className={x.rowClassName}>{ typeof(x.formatedValue) === 'function' ? x.formatedValue(obj.value) : obj.value[x.columnName]}</td> )}
         </tr>
         );
   }

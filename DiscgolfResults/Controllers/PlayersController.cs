@@ -25,7 +25,7 @@ namespace DiscgolfResults.Controllers
         {
             var data = Manager.GetBy();
 
-            return Translator.Translate(data);
+            return Translator.Translate(data).OrderBy(x => x.FullName);
         }
 
         [HttpGet]
