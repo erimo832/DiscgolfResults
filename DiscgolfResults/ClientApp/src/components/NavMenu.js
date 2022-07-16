@@ -5,8 +5,6 @@ import './NavMenu.css';
 import i18n from '../i18n';
 
 export class NavMenu extends Component {
-  //static displayName = NavMenu.name;
-
   constructor (props) {
     super(props);
 
@@ -29,12 +27,7 @@ export class NavMenu extends Component {
     });
   }
 
-  render () { 
-    /*
-    <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/players">nt_Players</NavLink>
-                </NavItem>
-    */
+  render () {     
     return (
       <header>        
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>

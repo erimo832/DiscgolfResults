@@ -1,5 +1,3 @@
-import { Counter } from "./components/Counter";
-import { FetchData } from "./components/FetchData";
 import { Home } from "./components/Home";
 import { Hcp } from './components/Hcp';
 import { Rounds } from './components/Rounds';
@@ -41,14 +39,6 @@ const AppRoutes = [
   {
     path: '/leaderboards/ctp',
     element: <CtpLeaderboard />
-  },
-  {
-    path: '/counter',
-    element: <Counter />
-  },
-  {
-    path: '/fetch-data',
-    element: <FetchData />
   }
 ];
 
