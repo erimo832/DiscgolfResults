@@ -36,7 +36,7 @@ namespace Results.Domain.Service
 
         public void UpdateEventResults()
         {
-            var events = Repository.GetAll(includePlayerhcp: true, includeRounds: true);
+            var events = Repository.GetBy(includePlayerhcp: true, includeRounds: true);
 
             var results = new List<PlayerEvent>();
 
@@ -95,5 +95,14 @@ namespace Results.Domain.Service
             return maxScore - (place - 1);
         }
 
+        public IList<PlayerEvent> GetPlayerEvents(int playerId)
+        {
+            return PlayerEventRepository.GetPlayerEvents(playerId);
+        }
+
+        public IList<Event> GetBy(int seriesId = -1, bool includeRounds = false, bool includePlayerEvents = false, bool includePlayerhcp = false)
+        {
+            return Repository.GetBy(seriesId, includeRounds, includePlayerEvents, includePlayerhcp);
+        }
     }
 }

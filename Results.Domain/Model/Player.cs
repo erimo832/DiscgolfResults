@@ -8,5 +8,6 @@
         public int? PdgaNumber { get; set; }
 
         public string PdgaNumberAsString => PdgaNumber == null ? "" : PdgaNumber.Value.ToString();
+        public string FullName => $"{FirstName} {LastName}";
     }
 }

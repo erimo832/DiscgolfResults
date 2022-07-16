@@ -25,5 +25,13 @@ namespace Results.Domain.Repository
                 context.SaveChanges();
             }
         }
+
+        public IList<PlayerEvent> GetPlayerEvents(int playerId)
+        {
+            using (var context = new ResultContext(Config))
+            {
+                return context.PlayerEvents.Where(x => x.PlayerId == playerId).ToList();
+            }
+        }
     }
 }

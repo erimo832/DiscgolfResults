@@ -1,10 +1,13 @@
+using DiscgolfResults.Extensions;
 using Microsoft.OpenApi.Models;
 using Results.Domain;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddResultBackend(builder.Configuration);
+builder.Services
+    .AddResultBackend(builder.Configuration)
+    .AddTranslators();
 
 builder.Services.AddSwaggerGen(c =>
 {

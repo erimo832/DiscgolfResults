@@ -30,10 +30,9 @@ export class Rounds extends Component {
 
   getItems(rounds) {
     const items = [];
-    for (let i = 0, len = rounds.length; i < len; i++) {
-      const key = i + 1;
+    for (let i = 0, len = rounds.length; i < len; i++) {      
       items.push(
-        <Panel header={`${rounds[i].eventName}`} key={key}>          
+        <Panel header={`${rounds[i].eventName}`} key={rounds[i].eventId}>          
           <Grid data={this.getDataForGrid(rounds[i].results)} format={this.getGridConf()} />
         </Panel>
       );
@@ -49,14 +48,14 @@ export class Rounds extends Component {
       detailsArray: "",
       detailsValue: "",
       columns: [
-        {columnName: "place",         headerText: i18n.t('column_place'),     headerClassName: "", rowClassName: ""},
+        {columnName: "placementHcp",  headerText: i18n.t('column_place'),     headerClassName: "", rowClassName: ""},
         {columnName: "fullName",      headerText: i18n.t('column_name'),      headerClassName: "", rowClassName: ""},
         {columnName: "points",        headerText: i18n.t('column_points'),    headerClassName: "", rowClassName: ""},
         {columnName: "score",         headerText: i18n.t('column_score'),     headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"},
-        {columnName: "hcp",           headerText: i18n.t('column_hcp'),       headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"},
-        {columnName: "hcpAfterRound", headerText: i18n.t('column_hcpafter'),  headerClassName: "d-none d-md-table-cell", rowClassName: "d-none d-md-table-cell"},
+        {columnName: "hcpBefore",     headerText: i18n.t('column_hcp'),       headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"},
+        {columnName: "hcpAfter",      headerText: i18n.t('column_hcpafter'),  headerClassName: "d-none d-md-table-cell", rowClassName: "d-none d-md-table-cell"},
         {columnName: "hcpScore",      headerText: i18n.t('column_hcpscore'),  headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"},
-        {columnName: "isCtp",         headerText: i18n.t('column_ctp'),       headerClassName: "d-none d-md-table-cell", rowClassName: "d-none d-md-table-cell"}        
+        {columnName: "numberOfCtps",  headerText: i18n.t('column_ctp'),       headerClassName: "d-none d-md-table-cell", rowClassName: "d-none d-md-table-cell"}        
       ]
     };
   }
@@ -86,7 +85,7 @@ export class Rounds extends Component {
   }
 
   async populateResultData() {
-    const response = await fetch(process.env.REACT_APP_API_ENDPOINT +'/api/Rounds');
+    const response = await fetch('api/series/6/events');
     const data = await response.json();
     this.setState({ rounds: data, loading: false });
   }

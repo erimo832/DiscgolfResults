@@ -36,7 +36,7 @@ namespace Results.Domain.Repository
             }
         }
 
-        public IList<Event> GetAll(bool includeRounds = false, bool includePlayerEvents = false, bool includePlayerhcp = false)
+        public IList<Event> GetBy(int serieId = -1, bool includeRounds = false, bool includePlayerEvents = false, bool includePlayerhcp = false)
         {
             using (var context = new ResultContext(Config))
             {
@@ -44,6 +44,7 @@ namespace Results.Domain.Repository
                     .If(includeRounds, q => q.Include(x => x.Rounds).ThenInclude(y => y.RoundScores))
                     .If(includePlayerEvents, q => q.Include(x => x.PlayerEvents))
                     .If(includePlayerhcp, q => q.Include(x => x.PlayerCourseLayoutHcp))
+                    .If(serieId != -1, q => q.Where(x => x.SerieId == serieId))
                     .ToList();
 
             }
