@@ -26,7 +26,7 @@ namespace DiscgolfResults.Controllers
             var data = SerieManager.GetBy(includeEvents: true, includePlayerEvents: true, includePlayerhcp: false);
             var players = PlayerManager.GetBy();
 
-            return Translator.Translate(data, players).OrderByDescending(x => x.).ToList();
+            return Translator.Translate(data, players).OrderByDescending(x => x.SerieId).ToList();
         }
 
         [HttpGet]
