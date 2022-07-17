@@ -48,6 +48,10 @@ namespace Results.Domain.Proxies.Transformers
 
                 if (roundScore != null && !roundScore.Totalscore.Contains("DNF") && !roundScore.Totalscore.Contains("DNS"))
                 {
+                    //Check if missing hole scores
+                    if (roundScore.IsDnfScore())
+                        continue;
+
                     var player = PlayerManager.GetPlayer(roundScore?.PDGAnumber ?? "", roundScore?.Firstname ?? "", roundScore?.Lastname ?? "", duplicatePlayers);
 
                     var score = new RoundScore
@@ -149,6 +153,33 @@ namespace Results.Domain.Proxies.Transformers
 
         [Column("Total score")]
         public string Totalscore { get; set; } = "";
+
+        public bool IsDnfScore()
+        {
+            if (H1 == null || 
+                H2 == null ||
+                H3 == null ||
+                H4 == null ||
+                H5 == null ||
+                H6 == null ||
+                H7 == null ||
+                H8 == null ||
+                H9 == null ||
+                H10 == null ||
+                H11 == null ||
+                H12 == null ||
+                H13 == null ||
+                H14 == null ||
+                H15 == null ||
+                H16 == null ||
+                H17 == null ||
+                H18 == null ||
+                H19 == null ||
+                H20 == null)
+                return true;
+
+            return false;
+        }
     }
 
     public class PoolInformation
