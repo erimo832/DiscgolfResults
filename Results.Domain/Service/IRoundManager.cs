@@ -6,6 +6,6 @@ namespace Results.Domain.Service
     public interface IRoundManager
     {
         IList<Round> GetBy(int eventId);
-        IList<RoundScoreRo> GetScoresBy(int playerId, int courseLayoutId);
+        IList<RoundScoreRo> GetScoresBy(int playerId = -1, int courseLayoutId = -1);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Results.Domain.Configuration;
+﻿using Results.Domain.Common.Extensions;
+using Results.Domain.Configuration;
 using Results.Domain.Model;
 using Results.Domain.Model.Context;
 using Results.Domain.Model.ReadObjects;
@@ -52,8 +53,9 @@ namespace Results.Domain.Repository
                         Score = rs.Score
                     })
                     //.Where(x => x.PlayerId == playerId && x.Round.CourseLayoutId == courseLayoutId).ToList();
-                    .Where(x => x.PlayerId == playerId).ToList()
-                    .Where(x => x.CourseLayoutId == courseLayoutId).ToList();
+                    .If(playerId != -1, q => q.Where(x => x.PlayerId == playerId))
+                    .If(playerId != -1, q => q.Where(x => x.CourseLayoutId == courseLayoutId))
+                    .ToList();
             }
         }
     }

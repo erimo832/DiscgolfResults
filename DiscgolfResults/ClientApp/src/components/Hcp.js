@@ -25,12 +25,12 @@ export class Hcp extends Component {
   {
     return {
       className: "table table-striped",
-      key: "fullName",
+      key: "playerId",
       detailsArray: "",
       detailsValue: "",
       columns: [        
         {columnName: "fullName",  headerText: i18n.t('column_name'), headerClassName: "", rowClassName: ""},
-        {columnName: "hcp",       headerText: i18n.t('column_hcp'),  headerClassName: "", rowClassName: ""}
+        {columnName: "currentHcp",       headerText: i18n.t('column_hcp'),  headerClassName: "", rowClassName: ""}
       ]
     };
   }
@@ -56,7 +56,7 @@ export class Hcp extends Component {
   }
 
   async populateResultData() {
-    const response = await fetch(process.env.REACT_APP_API_ENDPOINT +'/api/Players/currentHcp');
+    const response = await fetch('api/players/handicaps');
     const data = await response.json();
     this.setState({ hcp: data, loading: false });
   }

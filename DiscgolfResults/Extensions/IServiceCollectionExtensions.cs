@@ -11,6 +11,7 @@ namespace DiscgolfResults.Extensions
             services.TryAddTransient<IPlayerTranslator, PlayerTranslator>();
             services.TryAddTransient<IPlayerDetailsTranslator, PlayerDetailsTranslator>();
             services.TryAddTransient<ISerieLeaderboardTranslator, SerieLeaderboardTranslator>();
+            services.TryAddTransient<IPlayerHcpTranslator, PlayerHcpTranslator>();
 
             return services;
         }

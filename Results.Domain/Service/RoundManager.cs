@@ -1,11 +1,6 @@
 ﻿using Results.Domain.Model;
 using Results.Domain.Model.ReadObjects;
 using Results.Domain.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Results.Domain.Service
 {
@@ -25,7 +20,7 @@ namespace Results.Domain.Service
             return Repository.GetBy(eventId);
         }
 
-        public IList<RoundScoreRo> GetScoresBy(int playerId, int courseLayoutId)
+        public IList<RoundScoreRo> GetScoresBy(int playerId = -1, int courseLayoutId = -1)
         {
             return RoundScoreRepository.GetScoresBy(playerId, courseLayoutId);
         }
