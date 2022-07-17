@@ -31,7 +31,12 @@
         public double MaxScore { get; set; }
         public int NumberOfEvents { get; set; }
 
-        public List<double> EventScores { get; set; } = new List<double>();
+        public List<EventScore> EventScores { get; set; } = new List<EventScore>();
+
+        public class EventScore
+        {
+            public double Score { get; set; }
+        }
     }
 
     public class HcpResult
@@ -47,7 +52,13 @@
         public double MaxPoints { get; set; }
         public int NumberOfEvents { get; set; }
 
-        public List<double> EventPoints { get; set; } = new List<double>();
+        public List<EventPoint> EventPoints { get; set; } = new List<EventPoint>();
+
+        public class EventPoint
+        {
+            public double Points { get; set; }
+            public double HcpScore { get; set; }
+        }
     }
 
 }

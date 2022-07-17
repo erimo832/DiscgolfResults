@@ -5,6 +5,9 @@ namespace DiscgolfResults.Translators
 {
     public class SerieLeaderboardTranslator : ISerieLeaderboardTranslator
     {
+        private const int _numDecimalsAvg = 2;
+        private const int _numDecimalsSum = 1;
+
         public IList<SerieLeaderboardResponse> Translate(IList<Serie> series, IList<Player> players)
         {
             var result = new List<SerieLeaderboardResponse>();
@@ -35,10 +38,10 @@ namespace DiscgolfResults.Translators
                 {
                     if (!dictionary.ContainsKey(item.PlayerId))
                     {
-                        dictionary.Add(item.PlayerId, new HcpResult { PlayerId = item.PlayerId, FullName = players.First(x => x.PlayerId == item.PlayerId).FullName, NumberOfEvents = 0, EventPoints = new List<double>(), Placement = 0 });
+                        dictionary.Add(item.PlayerId, new HcpResult { PlayerId = item.PlayerId, FullName = players.First(x => x.PlayerId == item.PlayerId).FullName, NumberOfEvents = 0, EventPoints = new List<HcpResult.EventPoint>(), Placement = 0 });
                     }
 
-                    dictionary[item.PlayerId].EventPoints.Add(item.HcpPoints);
+                    dictionary[item.PlayerId].EventPoints.Add(new HcpResult.EventPoint { Points = item.HcpPoints, HcpScore = item.TotalHcpScore });
                     dictionary[item.PlayerId].NumberOfEvents++;
                 }
             }
@@ -48,15 +51,14 @@ namespace DiscgolfResults.Translators
             foreach (var item in result)
             {
                 //reduce to max numer of rounds
-                item.EventPoints = item.EventPoints.OrderByDescending(x => x).Take(serie.RoundsToCount).ToList();
+                item.EventPoints = item.EventPoints.OrderByDescending(x => x.Points).Take(serie.RoundsToCount).ToList();
                 item.NumberOfEvents = item.NumberOfEvents > serie.RoundsToCount ? serie.RoundsToCount : item.NumberOfEvents;
-                item.AvgPoints = item.EventPoints.Average();
-                item.MaxPoints = item.EventPoints.Max(x => x);
-                item.MinPoints = item.EventPoints.Min(x => x);
-                item.TotalPoints = item.EventPoints.Sum(x => x);
-                item.TotalHcpScore = 0;
-                item.AvgHcpScore = 0;
-                throw new NotImplementedException();
+                item.AvgPoints = Math.Round(item.EventPoints.Select(x => x.Points).Average(), _numDecimalsAvg);
+                item.MaxPoints = item.EventPoints.Select(x => x.Points).Max(x => x);
+                item.MinPoints = item.EventPoints.Select(x => x.Points).Min(x => x);
+                item.TotalPoints = Math.Round(item.EventPoints.Sum(x => x.Points), _numDecimalsSum);
+                item.TotalHcpScore = Math.Round(item.EventPoints.Sum(x => x.HcpScore), _numDecimalsSum);
+                item.AvgHcpScore = Math.Round(item.EventPoints.Select(x => x.HcpScore).Average(), _numDecimalsAvg);
             }
 
             result = result.OrderByDescending(x => x.TotalPoints).ToList();
@@ -90,10 +92,10 @@ namespace DiscgolfResults.Translators
                 {
                     if (!dictionary.ContainsKey(item.PlayerId))
                     {
-                        dictionary.Add(item.PlayerId, new ScoreResult { PlayerId = item.PlayerId, FullName = players.First(x => x.PlayerId == item.PlayerId).FullName, NumberOfEvents = 0, EventScores = new List<double>(), Placement = 0 });
+                        dictionary.Add(item.PlayerId, new ScoreResult { PlayerId = item.PlayerId, FullName = players.First(x => x.PlayerId == item.PlayerId).FullName, NumberOfEvents = 0, EventScores = new List<ScoreResult.EventScore>(), Placement = 0 });
                     }
 
-                    dictionary[item.PlayerId].EventScores.Add(item.TotalScore);
+                    dictionary[item.PlayerId].EventScores.Add(new ScoreResult.EventScore { Score = item.TotalScore });
                     dictionary[item.PlayerId].NumberOfEvents++;
                 }
             }
@@ -103,12 +105,12 @@ namespace DiscgolfResults.Translators
             foreach (var item in result)
             {
                 //reduce to max numer of rounds
-                item.EventScores = item.EventScores.OrderBy(x => x).Take(serie.RoundsToCount).ToList();
+                item.EventScores = item.EventScores.OrderBy(x => x.Score).Take(serie.RoundsToCount).ToList();
                 item.NumberOfEvents = item.NumberOfEvents > serie.RoundsToCount ? serie.RoundsToCount : item.NumberOfEvents;
-                item.AvgScore = item.EventScores.Average();
-                item.MaxScore = item.EventScores.Max(x => x);
-                item.MinScore = item.EventScores.Min(x => x);
-                item.TotalScore = item.EventScores.Sum(x => x);
+                item.AvgScore = Math.Round(item.EventScores.Select(x => x.Score).Average(), _numDecimalsAvg);
+                item.MaxScore = item.EventScores.Select(x => x.Score).Max(x => x);
+                item.MinScore = item.EventScores.Select(x => x.Score).Min(x => x);
+                item.TotalScore = Math.Round(item.EventScores.Sum(x => x.Score), _numDecimalsSum);
             }
 
             result = result.OrderByDescending(x => x.NumberOfEvents).ThenBy(x => x.AvgScore).ToList();

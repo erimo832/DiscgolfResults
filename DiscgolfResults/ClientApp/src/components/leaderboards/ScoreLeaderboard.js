@@ -37,10 +37,9 @@ export class ScoreLeaderboard extends Component {
   getItems(series) {
     const items = [];
     
-    for (let i = 0, len = series.length; i < len; i++) {
-      const key = i + 1;
+    for (let i = 0, len = series.length; i < len; i++) {      
       items.push(
-        <Panel header={`${series[i].serieName}`} key={key}>
+        <Panel header={`${series[i].serieName}`} key={series[i].serieId}>
           <Container>
             <Row>
                <Col sm={12} lg={12}>
@@ -49,7 +48,7 @@ export class ScoreLeaderboard extends Component {
             </Row>
             <Row>
               <Col sm={12} lg={12}>
-                <Grid data={this.getDataForGrid(series[i].placements)} format={this.getGridConf()} />
+                <Grid data={this.getDataForGrid(series[i].scoreResults)} format={this.getGridConf()} />
               </Col>
             </Row>
         </Container>
@@ -63,29 +62,23 @@ export class ScoreLeaderboard extends Component {
   {
     return {
       className: "table",
-      key: "fullName",
-      detailsArray: "topResults",
+      key: "playerId",
+      detailsArray: "eventScores",
       detailsValue: "score",
       columns: [
-        {columnName: "place",           headerText: i18n.t('column_place'),     headerClassName: "",                        rowClassName: ""},
+        {columnName: "placement",       headerText: i18n.t('column_place'),     headerClassName: "",                        rowClassName: ""},
         {columnName: "fullName",        headerText: i18n.t('column_name'),      headerClassName: "",                        rowClassName: ""},
         {columnName: "avgScore",        headerText: i18n.t('column_avgscore'),  headerClassName: "",                        rowClassName: ""},
         {columnName: "totalScore",      headerText: i18n.t('column_totalscore'),headerClassName: "d-none d-lg-table-cell",  rowClassName: "d-none d-lg-table-cell"},
         {columnName: "minScore",        headerText: i18n.t('column_minthrows'), headerClassName: "d-none d-sm-table-cell",  rowClassName: "d-none d-sm-table-cell"},
         {columnName: "maxScore",        headerText: i18n.t('column_maxthrows'), headerClassName: "d-none d-sm-table-cell",  rowClassName: "d-none d-sm-table-cell"},
-        {columnName: "numberOfRounds",  headerText: i18n.t('column_rounds'),    headerClassName: "d-none d-lg-table-cell",  rowClassName: "d-none d-lg-table-cell"}        
+        {columnName: "numberOfEvents",  headerText: i18n.t('column_rounds'),    headerClassName: "d-none d-lg-table-cell",  rowClassName: "d-none d-lg-table-cell"}        
       ]
     };
   }
 
   getDataForGrid(data)
   {
-    data.forEach(x => 
-    { // add aggragated values
-      x.minScore = x.topResults[0].score;
-      x.maxScore = x.topResults[x.topResults.length - 1].score
-    });
-
     return data;
   }
 
@@ -104,8 +97,8 @@ export class ScoreLeaderboard extends Component {
   }
 
   async populateResultData() {
-    const response = await fetch(process.env.REACT_APP_API_ENDPOINT +'/api/Series/scoreLeaderbords');
+    const response = await fetch('api/series/6/leaderboards');
     const data = await response.json();
-    this.setState({ series: data, loading: false });
+    this.setState({ series: [ data ], loading: false });
   }
 }

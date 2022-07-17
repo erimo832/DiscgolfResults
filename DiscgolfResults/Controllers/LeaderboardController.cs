@@ -23,7 +23,7 @@ namespace DiscgolfResults.Controllers
         [Route("api/series/{seriesId}/leaderboards")]
         public SerieLeaderboardResponse? GetEventBySeriesId(int seriesId)
         {
-            var data = SerieManager.GetBy(seriesId: seriesId, includeEvents: true, includePlayerEvents: true, includePlayerhcp: true);
+            var data = SerieManager.GetBy(seriesId: seriesId, includeEvents: true, includePlayerEvents: true, includePlayerhcp: false);
             var players = PlayerManager.GetBy();
 
             return Translator.Translate(data, players).FirstOrDefault();

@@ -31,14 +31,13 @@ export class CtpLeaderboard extends Component {
 
   getItems(series) {
     const items = [];
-    for (let i = 0, len = series.length; i < len; i++) {
-      const key = i + 1;
+    for (let i = 0, len = series.length; i < len; i++) {      
       items.push(
-        <Panel header={`${series[i].serieName}`} key={key}>          
+        <Panel header={`${series[i].serieName}`} key={series[i].serieId}>          
           <Container>            
             <Row>            
               <Col sm={12} lg={12}>                
-                <Grid data={this.getDataForGrid(series[i].placements)} format={this.getGridConf()} />
+                <Grid data={this.getDataForGrid(series[i].ctpResults)} format={this.getGridConf()} />
               </Col>              
             </Row>
             
@@ -53,14 +52,14 @@ export class CtpLeaderboard extends Component {
   {
     return {
       className: "table",
-      key: "fullName",
+      key: "playerId",
       detailsArray: "",
       detailsValue: "",
       columns: [
-        {columnName: "place",           headerText: i18n.t('column_place'),         headerClassName: "", rowClassName: ""},
+        {columnName: "placement",       headerText: i18n.t('column_place'),         headerClassName: "", rowClassName: ""},
         {columnName: "fullName",        headerText: i18n.t('column_name'),          headerClassName: "", rowClassName: ""},
-        {columnName: "ctps",            headerText: i18n.t('column_numerofctps'),   headerClassName: "", rowClassName: ""},      
-        {columnName: "numberOfRounds",  headerText: i18n.t('column_rounds'),        headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"}        
+        {columnName: "numberOfCtps",    headerText: i18n.t('column_numerofctps'),   headerClassName: "", rowClassName: ""},      
+        {columnName: "numberOfEvents",  headerText: i18n.t('column_rounds'),        headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"}        
       ]
     };
   }
@@ -85,8 +84,8 @@ export class CtpLeaderboard extends Component {
   }
 
   async populateResultData() {
-    const response = await fetch(process.env.REACT_APP_API_ENDPOINT +'/api/Series/ctpLeaderbords');
+    const response = await fetch('api/series/6/leaderboards');
     const data = await response.json();
-    this.setState({ series: data, loading: false });
+    this.setState({ series: [ data ], loading: false });
   }
 }

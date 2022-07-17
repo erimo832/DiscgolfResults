@@ -39,9 +39,8 @@ export class PointLeaderboard extends Component {
     const items = [];
     
     for (let i = 0, len = series.length; i < len; i++) {
-      const key = i + 1;
       items.push(
-        <Panel header={`${series[i].serieName}`} key={key}>
+        <Panel header={`${series[i].serieName}`} key={series[i].serieId}>
           <Container>
             <Row>
                <Col sm={12} lg={12}>
@@ -50,7 +49,7 @@ export class PointLeaderboard extends Component {
             </Row>
             <Row>
               <Col sm={12} lg={12}>                
-                <Grid data={this.getDataForGrid(series[i].placements)} format={this.getGridConf()} />
+                <Grid data={this.getDataForGrid(series[i].hcpResults)} format={this.getGridConf()} />
               </Col>
             </Row>
         </Container>
@@ -64,11 +63,11 @@ export class PointLeaderboard extends Component {
   {
     return {
       className: "table",
-      key: "fullName",
-      detailsArray: "topResults",
+      key: "playerId",
+      detailsArray: "eventPoints",
       detailsValue: "points",
       columns: [
-        {columnName: "place",           headerText: i18n.t('column_place'),         headerClassName: "", rowClassName: ""},
+        {columnName: "placement",       headerText: i18n.t('column_place'),         headerClassName: "", rowClassName: ""},
         {columnName: "fullName",        headerText: i18n.t('column_name'),          headerClassName: "", rowClassName: ""},
         {columnName: "totalPoints",     headerText: i18n.t('column_totalpoints'),   headerClassName: "", rowClassName: ""},
         {columnName: "avgPoints",       headerText: i18n.t('column_avgpoints'),     headerClassName: "d-none d-lg-table-cell", rowClassName: "d-none d-lg-table-cell"},
@@ -76,19 +75,13 @@ export class PointLeaderboard extends Component {
         {columnName: "totalHcpScore",   headerText: i18n.t('column_totalhcpscore'), headerClassName: "d-none d-lg-table-cell", rowClassName: "d-none d-lg-table-cell"},
         {columnName: "maxPoints",       headerText: i18n.t('column_maxpoints'),     headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"},
         {columnName: "minPoints",       headerText: i18n.t('column_minpoints'),     headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"},        
-        {columnName: "numberOfRounds",  headerText: i18n.t('column_rounds'),        headerClassName: "d-none d-lg-table-cell", rowClassName: "d-none d-lg-table-cell"}        
+        {columnName: "numberOfEvents",  headerText: i18n.t('column_rounds'),        headerClassName: "d-none d-lg-table-cell", rowClassName: "d-none d-lg-table-cell"}        
       ]
     };
   }
 
   getDataForGrid(data)
   {
-    data.forEach(x => 
-    { // add aggragated values
-      x.maxPoints = x.topResults[0].points;
-      x.minPoints = x.topResults[x.topResults.length - 1].points
-    });
-
     return data;
   }
 
@@ -107,8 +100,8 @@ export class PointLeaderboard extends Component {
   }
 
   async populateResultData() {
-    const response = await fetch(process.env.REACT_APP_API_ENDPOINT +'/api/Series/hcpLeaderbords');
+    const response = await fetch('api/series/6/leaderboards');
     const data = await response.json();
-    this.setState({ series: data, loading: false });
+    this.setState({ series: [ data ], loading: false });
   }
 }
