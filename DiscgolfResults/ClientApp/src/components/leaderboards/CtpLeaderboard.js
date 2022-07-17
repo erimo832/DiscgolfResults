@@ -84,8 +84,8 @@ export class CtpLeaderboard extends Component {
   }
 
   async populateResultData() {
-    const response = await fetch('api/series/6/leaderboards');
+    const response = await fetch('api/series/leaderboards');
     const data = await response.json();
-    this.setState({ series: [ data ], loading: false });
+    this.setState({ series: data, loading: false });
   }
 }

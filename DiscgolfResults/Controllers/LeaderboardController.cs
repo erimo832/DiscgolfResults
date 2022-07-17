@@ -20,8 +20,18 @@ namespace DiscgolfResults.Controllers
         private IPlayerManager PlayerManager { get; }
 
         [HttpGet]
+        [Route("api/series/leaderboards")]
+        public IList<SerieLeaderboardResponse> GetAll()
+        {
+            var data = SerieManager.GetBy(includeEvents: true, includePlayerEvents: true, includePlayerhcp: false);
+            var players = PlayerManager.GetBy();
+
+            return Translator.Translate(data, players).OrderByDescending(x => x.).ToList();
+        }
+
+        [HttpGet]
         [Route("api/series/{seriesId}/leaderboards")]
-        public SerieLeaderboardResponse? GetEventBySeriesId(int seriesId)
+        public SerieLeaderboardResponse? GetBySeriesId(int seriesId)
         {
             var data = SerieManager.GetBy(seriesId: seriesId, includeEvents: true, includePlayerEvents: true, includePlayerhcp: false);
             var players = PlayerManager.GetBy();
