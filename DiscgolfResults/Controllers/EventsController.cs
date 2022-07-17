@@ -20,6 +20,16 @@ namespace DiscgolfResults.Controllers
         private IPlayerManager PlayerManager { get; }
 
         [HttpGet]
+        [Route("api/series/events")]
+        public IEnumerable<EventResultResponse> GetAll()
+        {
+            var data = EventManager.GetBy(includePlayerEvents: true, includePlayerhcp: true);
+            var players = PlayerManager.GetBy();
+
+            return Translator.Translate(data, players);
+        }
+
+        [HttpGet]
         [Route("api/series/{seriesId}/events")]
         public IEnumerable<EventResultResponse> GetEventBySeriesId(int seriesId)
         {
