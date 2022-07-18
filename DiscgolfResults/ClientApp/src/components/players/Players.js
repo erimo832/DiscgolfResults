@@ -30,8 +30,8 @@ export class Players extends Component {
         <tbody>
           {players.map(x =>
             <tr key={x.playerId}>
-                <td>
-                  <NavLink href={"players/" + x.playerId }>{x.firstName + ' ' + x.lastName}</NavLink>
+                <td>                  
+                  <NavLink href={"players/" + x.playerId } className="text-dark">{x.firstName + ' ' + x.lastName}</NavLink>
                 </td>              
             </tr>
           )}
