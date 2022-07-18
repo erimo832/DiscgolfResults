@@ -56,7 +56,7 @@ namespace Results.Domain.Proxies.Transformers
 
                     var score = new RoundScore
                     {
-                        NumberOfCtps = 0, //TODO: fix ctp
+                        NumberOfCtps = 0, 
                         HoleResults = new List<HoleResult>(),
                         Score = Convert.ToInt32(roundScore?.Totalscore ?? "100"),
                         PlayerId = player?.PlayerId ?? 0,
@@ -66,55 +66,52 @@ namespace Results.Domain.Proxies.Transformers
                     score.RoundHcp = HcpManager.RoundHcp(score.Score, courseLayout);
 
                     //Todo refactor parse more dynamically?
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H1))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H1 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 1).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H2))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H2 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 2).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H3))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H3 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 3).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H4))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H4 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 4).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H5))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H5 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 5).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H6))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H6 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 6).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H7))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H7 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 7).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H8))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H8 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 8).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H9))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H9 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 9).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H10))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H10 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 10).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H11))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H11 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 11).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H12))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H12 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 12).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H13))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H13 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 13).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H14))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H14 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 14).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H15))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H15 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 15).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H16))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H16 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 16).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H17))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H17 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 17).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H18))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H18 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 18).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H19))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H19 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 19).CourseHoleId });
-                    if (!string.IsNullOrWhiteSpace(roundScore?.H20))
-                        score.HoleResults.Add(new HoleResult { Score = Convert.ToInt32(roundScore?.H20 ?? "0"), IsCtp = false, CourseHoleId = courseLayout.Holes.First(x => x.Number == 20).CourseHoleId });
+                    AddHoleResult(score.HoleResults, roundScore?.H1, 1, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H2, 2, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H3, 3, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H4, 4, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H5, 5, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H6, 6, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H7, 7, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H8, 8, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H9, 9, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H10, 10, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H11, 11, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H12, 12, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H13, 13, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H14, 14, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H15, 15, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H16, 16, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H17, 17, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H18, 18, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H19, 19, courseLayout);
+                    AddHoleResult(score.HoleResults, roundScore?.H20, 20, courseLayout);
+
+                    //Update number of ctps
+                    score.NumberOfCtps = score.HoleResults.Count(x => x.IsCtp);
 
                     r.RoundScores.Add(score);
-
                 }
             }
 
             e.Rounds.Add(r);
 
             return e;
+        }
+
+        private void AddHoleResult(List<HoleResult> results, string value, int holeNumber, CourseLayout? courseLayout)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+                return;
+
+            var vals = value.Split(',');
+
+            results.Add(new HoleResult
+            {
+                Score = Convert.ToInt32(vals[0] ?? "0"),
+                IsCtp = vals.Length == 1 ? false : true,
+                CourseHoleId = courseLayout.Holes.First(x => x.Number == 1).CourseHoleId
+            });
         }
     }
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Results.Domain;
+using Results.Domain.Configuration;
 using Results.Domain.Service;
 
 namespace DbTest
@@ -10,25 +11,10 @@ namespace DbTest
         /*
          
         TODO:
-        x Export all to xlsx
-        x Add support xlsx
-        x Add calculations of Hcp for round (48 = 0, 49 = 0,8 etc)
-        x Keep log of current hcp for each round?
-        x How to handle hcp and hcp score. 
-        x PlayerEvent add calculation and storage
-        - Add duplicate alias support
-        x Add support multiple players same name
-        - Export Skövde to xlsx
-
         
-        - Update ctp
-                
+        - Update ctp                
         - Add automatic binding to course and layout
-        - Move code to git project
-        - Update Api
-        - ...
-
-
+        
          */
 
         public static async Task Main(string[] args)

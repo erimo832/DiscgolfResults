@@ -1,4 +1,5 @@
-﻿using Results.Domain.Proxies;
+﻿using Results.Domain.Configuration;
+using Results.Domain.Proxies;
 
 namespace Results.Domain.Service
 {
@@ -11,6 +12,7 @@ namespace Results.Domain.Service
         private IHcpManager HcpManager { get; }
         private ISerieManager SeriesManager { get; }
         private ICourseManager CoursesManager { get; }
+        private IDatabaseConfiguration Configuration { get; }
 
         public SyncDatabaseService(ISeriesProxy externalSeries,
             ICoursesProxy coursesProxy,
@@ -18,7 +20,8 @@ namespace Results.Domain.Service
             IEventManager eventManager,
             IHcpManager hcpManager,
             ISerieManager seriesManager,
-            ICourseManager coursesManager)
+            ICourseManager coursesManager,
+            IDatabaseConfiguration configuration)
         {
             ExternalSeries = externalSeries;
             ExternalCourses = coursesProxy;
@@ -27,13 +30,14 @@ namespace Results.Domain.Service
             HcpManager = hcpManager;
             SeriesManager = seriesManager;
             CoursesManager = coursesManager;
+            Configuration = configuration;
         }
 
         public Task Sync()
         {
             if (HasDataSourceChanged())
             {
-                DropDatabase();
+                DropDatabase(Configuration.DbFolder);
                 RebuildDatabase();
             }
 
@@ -45,9 +49,9 @@ namespace Results.Domain.Service
             return true;
         }
 
-        private void DropDatabase()
+        private void DropDatabase(string dbFolder)
         {
-            var files = Directory.GetFiles("c:/db");
+            var files = Directory.GetFiles(dbFolder);
 
             foreach (var file in files)
             {

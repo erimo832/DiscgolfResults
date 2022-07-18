@@ -2,6 +2,9 @@
 {
     public interface IDatabaseConfiguration
     {
-        string DbPath { get; set; }
+        string DbName { get; set; }
+        string DbFolder { get; set; }
+
+        string DbPath { get; }
     }
 }
