@@ -7,6 +7,10 @@ import './custom.css';
 export default class App extends Component {
   static displayName = App.name;
 
+  componentDidMount(){
+    document.title = process.env.REACT_APP_WINDOW_TITLETEXT;
+  }
+
   render() {
     return (
       <Layout>

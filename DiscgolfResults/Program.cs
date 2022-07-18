@@ -44,8 +44,7 @@ app.Run();
 
 /*
  
-TODO:
- - Separate view- and backend-models with transformers 
+TODO: 
  - New
     - Player stats
         - Hcp trend
@@ -58,5 +57,7 @@ TODO:
         - Avg score per series
  - Move solution file
  - Disable highlighting swagger
+ - Problem publish profiles not building correct npm build
+ - bootstap dark theme
  
  */
