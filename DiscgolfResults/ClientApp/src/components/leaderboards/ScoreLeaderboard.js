@@ -66,13 +66,13 @@ export class ScoreLeaderboard extends Component {
       detailsArray: "eventScores",
       detailsValue: "score",
       columns: [
-        {columnName: "placement",       headerText: i18n.t('column_place'),     headerClassName: "",                        rowClassName: ""},
-        {columnName: "fullName",        headerText: i18n.t('column_name'),      headerClassName: "",                        rowClassName: ""},
-        {columnName: "avgScore",        headerText: i18n.t('column_avgscore'),  headerClassName: "",                        rowClassName: ""},
-        {columnName: "totalScore",      headerText: i18n.t('column_totalscore'),headerClassName: "d-none d-lg-table-cell",  rowClassName: "d-none d-lg-table-cell"},
-        {columnName: "minScore",        headerText: i18n.t('column_minthrows'), headerClassName: "d-none d-sm-table-cell",  rowClassName: "d-none d-sm-table-cell"},
-        {columnName: "maxScore",        headerText: i18n.t('column_maxthrows'), headerClassName: "d-none d-sm-table-cell",  rowClassName: "d-none d-sm-table-cell"},
-        {columnName: "numberOfEvents",  headerText: i18n.t('column_rounds'),    headerClassName: "d-none d-lg-table-cell",  rowClassName: "d-none d-lg-table-cell"}        
+        {columnName: "placement",       headerText: i18n.t('column_place'),     headerClassName: "",                        columnClass: ""},
+        {columnName: "fullName",        headerText: i18n.t('column_name'),      headerClassName: "",                        columnClass: ""},
+        {columnName: "avgScore",        headerText: i18n.t('column_avgscore'),  headerClassName: "",                        columnClass: ""},
+        {columnName: "totalScore",      headerText: i18n.t('column_totalscore'),headerClassName: "d-none d-lg-table-cell",  columnClass: "d-none d-lg-table-cell"},
+        {columnName: "minScore",        headerText: i18n.t('column_minthrows'), headerClassName: "d-none d-sm-table-cell",  columnClass: "d-none d-sm-table-cell"},
+        {columnName: "maxScore",        headerText: i18n.t('column_maxthrows'), headerClassName: "d-none d-sm-table-cell",  columnClass: "d-none d-sm-table-cell"},
+        {columnName: "numberOfEvents",  headerText: i18n.t('column_rounds'),    headerClassName: "d-none d-lg-table-cell",  columnClass: "d-none d-lg-table-cell"}        
       ]
     };
   }

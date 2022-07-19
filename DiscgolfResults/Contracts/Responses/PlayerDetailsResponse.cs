@@ -28,6 +28,8 @@
         public double HcpBefore { get; set; }
         public double HcpAfter { get; set; }
         public int NumberOfCtps { get; set; } = 0;
+        public bool InHcpCalc { get; set; } = false;
+        public bool InHcpAvgCalc { get; set; } = false;
     }
 
 }

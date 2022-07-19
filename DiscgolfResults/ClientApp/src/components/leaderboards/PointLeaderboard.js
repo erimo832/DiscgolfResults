@@ -67,15 +67,15 @@ export class PointLeaderboard extends Component {
       detailsArray: "eventPoints",
       detailsValue: "points",
       columns: [
-        {columnName: "placement",       headerText: i18n.t('column_place'),         headerClassName: "", rowClassName: ""},
-        {columnName: "fullName",        headerText: i18n.t('column_name'),          headerClassName: "", rowClassName: ""},
-        {columnName: "totalPoints",     headerText: i18n.t('column_totalpoints'),   headerClassName: "", rowClassName: ""},
-        {columnName: "avgPoints",       headerText: i18n.t('column_avgpoints'),     headerClassName: "d-none d-lg-table-cell", rowClassName: "d-none d-lg-table-cell"},
-        {columnName: "avgHcpScore",     headerText: i18n.t('column_avghcpscore'),   headerClassName: "d-none d-md-table-cell", rowClassName: "d-none d-md-table-cell"},
-        {columnName: "totalHcpScore",   headerText: i18n.t('column_totalhcpscore'), headerClassName: "d-none d-lg-table-cell", rowClassName: "d-none d-lg-table-cell"},
-        {columnName: "maxPoints",       headerText: i18n.t('column_maxpoints'),     headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"},
-        {columnName: "minPoints",       headerText: i18n.t('column_minpoints'),     headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"},        
-        {columnName: "numberOfEvents",  headerText: i18n.t('column_rounds'),        headerClassName: "d-none d-lg-table-cell", rowClassName: "d-none d-lg-table-cell"}        
+        {columnName: "placement",       headerText: i18n.t('column_place'),         headerClassName: "", columnClass: ""},
+        {columnName: "fullName",        headerText: i18n.t('column_name'),          headerClassName: "", columnClass: ""},
+        {columnName: "totalPoints",     headerText: i18n.t('column_totalpoints'),   headerClassName: "", columnClass: ""},
+        {columnName: "avgPoints",       headerText: i18n.t('column_avgpoints'),     headerClassName: "d-none d-lg-table-cell", columnClass: "d-none d-lg-table-cell"},
+        {columnName: "avgHcpScore",     headerText: i18n.t('column_avghcpscore'),   headerClassName: "d-none d-md-table-cell", columnClass: "d-none d-md-table-cell"},
+        {columnName: "totalHcpScore",   headerText: i18n.t('column_totalhcpscore'), headerClassName: "d-none d-lg-table-cell", columnClass: "d-none d-lg-table-cell"},
+        {columnName: "maxPoints",       headerText: i18n.t('column_maxpoints'),     headerClassName: "d-none d-sm-table-cell", columnClass: "d-none d-sm-table-cell"},
+        {columnName: "minPoints",       headerText: i18n.t('column_minpoints'),     headerClassName: "d-none d-sm-table-cell", columnClass: "d-none d-sm-table-cell"},        
+        {columnName: "numberOfEvents",  headerText: i18n.t('column_rounds'),        headerClassName: "d-none d-lg-table-cell", columnClass: "d-none d-lg-table-cell"}        
       ]
     };
   }

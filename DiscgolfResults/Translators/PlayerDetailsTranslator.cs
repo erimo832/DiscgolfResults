@@ -1,18 +1,27 @@
 ﻿using DiscgolfResults.Contracts.Responses;
+using DiscgolfResults.Extensions;
 using Results.Domain.Model;
+using Results.Domain.Service;
 
 namespace DiscgolfResults.Translators
 {
     public class PlayerDetailsTranslator : IPlayerDetailsTranslator
     {
+        public PlayerDetailsTranslator(IHcpManager hcpManager)
+        {
+            HcpManager = hcpManager;
+        }
+        private IHcpManager HcpManager { get; }
+
         public PlayerDetailsResponse Translate(Player player)
         {
             var results = new List<PlayerResult>();
+            var inHcpCalc = HcpManager.GetEventsIncludedInCalculations(player.PlayerEvents).ToDictionary(x => x.EventId);
+            var inHcpAvgCalc = HcpManager.GetEventsIncludedInHcpCalculations(player.PlayerEvents).ToDictionary(x => x.EventId);
 
             foreach (var ev in player.PlayerEvents)
             {
-                var hcp = player.PlayerCourseLayoutHcp.First(x => x.EventId == ev.EventId && x.PlayerId == ev.PlayerId);
-                
+                var hcp = player.PlayerCourseLayoutHcp.First(x => x.EventId == ev.EventId && x.PlayerId == ev.PlayerId);                
 
                 results.Add(new PlayerResult 
                 {
@@ -26,7 +35,9 @@ namespace DiscgolfResults.Translators
                     Placement = ev.Placement,
                     PlacementHcp = ev.PlacementHcp,
                     Points = ev.HcpPoints,
-                    Score = ev.TotalScore
+                    Score = ev.TotalScore,
+                    InHcpAvgCalc = inHcpAvgCalc.ContainsKey(ev.EventId),
+                    InHcpCalc = inHcpCalc.ContainsKey(ev.EventId)
                 });
             }
 
@@ -37,13 +48,13 @@ namespace DiscgolfResults.Translators
                 PlayerId = player.PlayerId,
                 PdgaNumber = player.PdgaNumberAsString,
                 
-                BestScore = results.Max(x => x.Score),
-                AvgScore = results.Average(x => x.Score),
+                BestScore = results.Min(x => x.Score),
+                AvgScore = Math.Round(results.Average(x => x.Score), 2),
                 WorstScore = results.Max(x => x.Score),
 
                 FirstAppearance = player.PlayerEvents.Select(x => x.Event).Min(x => x.StartTime),
                 LastAppearance = player.PlayerEvents.Select(x => x.Event).Max(x => x.StartTime),
-                CtpPercentage = Convert.ToDouble(results.Sum(x => x.NumberOfCtps)) / Convert.ToDouble(results.Count),
+                CtpPercentage = (Convert.ToDouble(results.Sum(x => x.NumberOfCtps)) / Convert.ToDouble(results.Count)).ToPercent(2),
                 TotalCtps = results.Sum(x => x.NumberOfCtps),
                 TotalRounds = results.Count,
                 

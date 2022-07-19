@@ -29,8 +29,8 @@ export class Hcp extends Component {
       detailsArray: "",
       detailsValue: "",
       columns: [        
-        {columnName: "fullName",  headerText: i18n.t('column_name'), headerClassName: "", rowClassName: ""},
-        {columnName: "currentHcp",       headerText: i18n.t('column_hcp'),  headerClassName: "", rowClassName: ""}
+        {columnName: "fullName",  headerText: i18n.t('column_name'), headerClassName: "", columnClass: ""},
+        {columnName: "currentHcp",       headerText: i18n.t('column_hcp'),  headerClassName: "", columnClass: ""}
       ]
     };
   }

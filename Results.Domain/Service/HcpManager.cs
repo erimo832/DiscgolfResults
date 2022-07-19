@@ -88,5 +88,18 @@ namespace Results.Domain.Service
 
             return Convert.ToInt32(cnt);
         }
+
+        public IList<PlayerEvent> GetEventsIncludedInCalculations(IList<PlayerEvent> playerEvents)
+        {
+            return playerEvents.OrderBy(x => x.PlayerEventId).TakeLast(Configuration.RoundsForHcp).ToList();
+        }
+
+        public IList<PlayerEvent> GetEventsIncludedInHcpCalculations(IList<PlayerEvent> playerEvents)
+        {
+            var lastEvents = GetEventsIncludedInCalculations(playerEvents);
+            var roundsForHcpCnt = TakeCountForAvg(playerEvents.Count(), Configuration.RoundsForHcp);
+
+            return lastEvents.OrderBy(x => x.TotalScore).Take(roundsForHcpCnt).ToList();
+        }
     }
 }

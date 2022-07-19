@@ -56,10 +56,10 @@ export class CtpLeaderboard extends Component {
       detailsArray: "",
       detailsValue: "",
       columns: [
-        {columnName: "placement",       headerText: i18n.t('column_place'),         headerClassName: "", rowClassName: ""},
-        {columnName: "fullName",        headerText: i18n.t('column_name'),          headerClassName: "", rowClassName: ""},
-        {columnName: "numberOfCtps",    headerText: i18n.t('column_numerofctps'),   headerClassName: "", rowClassName: ""},      
-        {columnName: "numberOfEvents",  headerText: i18n.t('column_rounds'),        headerClassName: "d-none d-sm-table-cell", rowClassName: "d-none d-sm-table-cell"}        
+        {columnName: "placement",       headerText: i18n.t('column_place'),         headerClassName: "", columnClass: ""},
+        {columnName: "fullName",        headerText: i18n.t('column_name'),          headerClassName: "", columnClass: ""},
+        {columnName: "numberOfCtps",    headerText: i18n.t('column_numerofctps'),   headerClassName: "", columnClass: ""},      
+        {columnName: "numberOfEvents",  headerText: i18n.t('column_rounds'),        headerClassName: "d-none d-sm-table-cell", columnClass: "d-none d-sm-table-cell"}        
       ]
     };
   }

@@ -77,15 +77,15 @@ export class Grid extends Component {
     if(obj.isDetails)
     {
         return (
-        <tr key={obj.key}>
+        <tr key={obj.key} className={obj.rowClassName} >
             <td colSpan={this.state.format.columns.length} style={{textAlign: 'center'}}>{obj.value}</td>
         </tr>
         );
     }
 
     return (
-        <tr key={obj.key} onClick={() => this.handleRowSelected(obj.key)} >
-            {this.state.format.columns.map(x => <td key={obj.key + x.columnName} className={x.rowClassName}>{ typeof(x.formatedValue) === 'function' ? x.formatedValue(obj.value) : obj.value[x.columnName]}</td> )}
+        <tr key={obj.key} onClick={() => this.handleRowSelected(obj.key)} className={obj.rowClassName} >
+            {this.state.format.columns.map(x => <td key={obj.key + x.columnName} className={x.columnClass}>{ typeof(x.formatedValue) === 'function' ? x.formatedValue(obj.value) : obj.value[x.columnName]}</td> )}
         </tr>
         );
   }
@@ -100,6 +100,7 @@ export class Grid extends Component {
         {
           isDetails: false,
           key: x[this.state.format.key],
+          rowClassName: typeof(this.state.format.rowClass) === 'function' ? this.state.format.rowClass(x): "",
           value: x
         });
 
@@ -126,8 +127,8 @@ export class Grid extends Component {
         <table className={this.state.format.className} aria-labelledby="tabelLabel">{/* table-striped */}
             {this.getHeader()}
             <tbody>
-                { obj.map(obj =>
-                    this.getRow(obj)
+                { obj.map(x =>
+                    this.getRow(x)
                 )}
             </tbody>
         </table>
