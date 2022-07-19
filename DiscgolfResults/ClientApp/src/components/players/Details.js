@@ -1,18 +1,18 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState, useEffect, PureComponent } from 'react';
-import i18n from "../../i18n";
+import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Grid } from '../common/Grid';
 import { useParams } from 'react-router-dom';
 import Collapse, { Panel } from 'rc-collapse';
-import {Container, Row, Col } from 'react-bootstrap'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
 
 export function Details() {
   const [loading, setLoading] = useState(true);
-  const [rounds, setRounds] = useState(null);
+  const [rounds, setRounds] = useState(null);  
   let params = useParams(rounds);
+  const { t, i18n } = useTranslation();
 
   let contents = loading
       ? <p><em>{i18n.t('common_loading')}</em></p>
@@ -31,20 +31,20 @@ export function Details() {
 
     let stats = getStatTable(info);
     let hcpTrend = getHcpTrend(sortedEvents);
-    let scoreTrend = getScoreTrend(sortedEvents);    
+    let scoreTrend = getScoreTrend(sortedEvents);
 
     return (
         <>
           <h1>{info.fullName}</h1>          
           {stats}
           <Collapse accordion={false}>
-            <Panel header="nt_Hcp trend">
+            <Panel header={i18n.t('player_details_hcptrend')}>
               {hcpTrend}
             </Panel>
-            <Panel header="nt_Score trend">
+            <Panel header={i18n.t('player_details_scoretrend')}>
               {scoreTrend}
             </Panel>
-            <Panel header="nt_Events">
+            <Panel header={i18n.t('player_details_events')}>
               <Grid data={info.eventResults} format={getGridConf()} />
             </Panel>
           </Collapse>
@@ -78,18 +78,19 @@ export function Details() {
   {
     return (
       <p>
-          nt_Total number of events: {info.totalRounds}<br />
-          nt_Total number of ctps: {info.totalCtps}<br />
-          nt_Ctp%: {info.ctpPercentage}%<br />
-          nt_First appearance : {info.firstAppearance.substring(0,10)}<br />
-          nt_Last appearance : {info.lastAppearance.substring(0,10)}<br />
-          nt_Best score: {info.bestScore}<br />
-          nt_Worst score: {info.worstScore}<br />
-          nt_Average score: {info.avgScore}<br />
+          {i18n.t('player_details_totalnumberevents')}: {info.totalRounds}<br />
+          {i18n.t('player_details_winpercentage')}: {info.winPercentage}%<br />
+          {i18n.t('player_details_totalctps')}: {info.totalCtps}<br />          
+          {i18n.t('player_details_ctppercentage')}: {info.ctpPercentage}%<br />
+          {i18n.t('player_details_firstappearance')}: {info.firstAppearance.substring(0,10)}<br />
+          {i18n.t('player_details_lastappearance')}: {info.lastAppearance.substring(0,10)}<br />
+          {i18n.t('player_details_bestscore')}: {info.bestScore}<br />
+          {i18n.t('player_details_worstscore')}: {info.worstScore}<br />
+          {i18n.t('player_details_avgscore')}: {info.avgScore}<br />
       </p>
     );
   }
-
+  
   function getHcpTrend(data) {    
     return (
       <ResponsiveContainer width="100%" height="100%" minHeight={300}>
@@ -104,7 +105,7 @@ export function Details() {
           <YAxis />
           <Tooltip content={<CustomTooltip />} />
           <Legend />
-          <Line name="nt_Handicap" type="monotone" dataKey="hcpAfter" stroke="#8884d8" dot={false} />
+          <Line name={i18n.t('player_details_legend_hcp')} type="monotone" dataKey="hcpAfter" stroke="#8884d8" dot={false} />
         </LineChart>
       </ResponsiveContainer>
     );
@@ -115,6 +116,8 @@ export function Details() {
     let cnt = 0;
     let sum = 0;
     let result = [];
+    let from = data[0].startTime;    
+
 
     for (let i = 0; i < data.length; i++) {
         sum += data[i].score;
@@ -124,12 +127,15 @@ export function Details() {
         {
             result.push(
               {
-                "avgScore": sum / cnt,
-                "numValues": cnt
+                avgScore: sum / cnt,
+                numValues: cnt,
+                from: from,
+                to: data[i].startTime
               }
             );
             cnt = 0;
             sum = 0;
+            from = data[i].startTime;
         }
     }
 
@@ -137,8 +143,10 @@ export function Details() {
     if(cnt > 0) {
       result.push(
         {
-          "avgScore": sum / cnt,
-          "numValues": cnt
+          avgScore: sum / cnt,
+          numValues: cnt,
+          from: from,
+          to: data[data.length - 1].startTime
         }
       );
     }
@@ -154,9 +162,9 @@ export function Details() {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="playedEvent" />
           <YAxis domain={['auto', 'auto']} />
-          <Tooltip />
+          <Tooltip content={<CustomAggregatedTooltip />} />
           <Legend />
-          <Line name="nt_Score" type="monotone" dataKey="avgScore" stroke="#8884d8" dot={false} />
+          <Line name={i18n.t('player_details_legend_avgscore')} type="monotone" dataKey="avgScore" stroke="#8884d8" dot={false} />
         </LineChart>
       </ResponsiveContainer>
     );
@@ -186,6 +194,24 @@ const CustomTooltip = ({ active, payload, label }) => {
           <p>
             {payload[0].payload.eventName} <br/>
             {payload[0].payload.startTime.substring(0,10)}
+          </p>        
+      </div>
+    );
+  }
+
+  return null;
+};
+
+const CustomAggregatedTooltip = ({ active, payload, label }) => {
+  const { t, i18n } = useTranslation();
+
+  if (active && payload && payload.length) {
+    return (
+      <div className="custom-tooltip">        
+          <p>{`${i18n.t('player_details_legend_avgscore')}: ${payload[0].value}`}</p>
+          <p>
+            {i18n.t('player_details_tooltip_numvalues')}: {payload[0].payload.numValues} <br/>
+            {i18n.t('player_details_tooltip_between')}: {payload[0].payload.from.substring(0,10)} {i18n.t('player_details_tooltip_and')} {payload[0].payload.to.substring(0,10)}
           </p>        
       </div>
     );
