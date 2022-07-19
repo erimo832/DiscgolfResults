@@ -27,16 +27,22 @@ export function Details() {
     if(info.length === 0)
         return (<div>{i18n.t('playersinfo_no_found')}</div>);
     
-    var stats = getStatTable(info);
-    var hcpTrend = getHcpTrend(info);
+    let sortedEvents = info.eventResults.map( (x) => x ).sort( (a, b) => a.playedEvent - b.playedEvent ); //map for simple clone
+
+    let stats = getStatTable(info);
+    let hcpTrend = getHcpTrend(sortedEvents);
+    let scoreTrend = getScoreTrend(sortedEvents);    
 
     return (
         <>
           <h1>{info.fullName}</h1>          
           {stats}
-          <Collapse accordion={true}>
+          <Collapse accordion={false}>
             <Panel header="nt_Hcp trend">
               {hcpTrend}
+            </Panel>
+            <Panel header="nt_Score trend">
+              {scoreTrend}
             </Panel>
             <Panel header="nt_Events">
               <Grid data={info.eventResults} format={getGridConf()} />
@@ -71,22 +77,20 @@ export function Details() {
   function getStatTable(info)
   {
     return (
-      <div>
-          <div>nt_Total number of events: {info.totalRounds}</div>
-          <div>nt_Total number of ctps: {info.totalCtps}</div>
-          <div>nt_Ctp%: {info.ctpPercentage}%</div>
-          <div>nt_First appearance : {info.firstAppearance.substring(0,10)}</div>
-          <div>nt_Last appearance : {info.lastAppearance.substring(0,10)}</div>
-          <div>nt_Best score: {info.bestScore}</div>
-          <div>nt_Worst score: {info.worstScore}</div>
-          <div>nt_Average score: {info.avgScore}</div>
-      </div>
+      <p>
+          nt_Total number of events: {info.totalRounds}<br />
+          nt_Total number of ctps: {info.totalCtps}<br />
+          nt_Ctp%: {info.ctpPercentage}%<br />
+          nt_First appearance : {info.firstAppearance.substring(0,10)}<br />
+          nt_Last appearance : {info.lastAppearance.substring(0,10)}<br />
+          nt_Best score: {info.bestScore}<br />
+          nt_Worst score: {info.worstScore}<br />
+          nt_Average score: {info.avgScore}<br />
+      </p>
     );
   }
 
-  function getHcpTrend(info) {
-    var data = info.eventResults.sort( (a, b) => a.playedEvent - b.playedEvent );
-
+  function getHcpTrend(data) {    
     return (
       <ResponsiveContainer width="100%" height="100%" minHeight={300}>
         <LineChart
@@ -101,6 +105,58 @@ export function Details() {
           <Tooltip content={<CustomTooltip />} />
           <Legend />
           <Line name="nt_Handicap" type="monotone" dataKey="hcpAfter" stroke="#8884d8" dot={false} />
+        </LineChart>
+      </ResponsiveContainer>
+    );
+  }
+
+  function getScoreTrend(data) {
+    let limit = 5;
+    let cnt = 0;
+    let sum = 0;
+    let result = [];
+
+    for (let i = 0; i < data.length; i++) {
+        sum += data[i].score;
+        cnt++;
+
+        if(cnt === limit)
+        {
+            result.push(
+              {
+                "avgScore": sum / cnt,
+                "numValues": cnt
+              }
+            );
+            cnt = 0;
+            sum = 0;
+        }
+    }
+
+    //Add last
+    if(cnt > 0) {
+      result.push(
+        {
+          "avgScore": sum / cnt,
+          "numValues": cnt
+        }
+      );
+    }
+
+    return (
+      <ResponsiveContainer width="100%" height="100%" minHeight={300}>
+        <LineChart
+          width={500}
+          height={300}
+          data={result}
+          margin={{ top: 50, right: 5, left: 5, bottom: 5, }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="playedEvent" />
+          <YAxis domain={['auto', 'auto']} />
+          <Tooltip />
+          <Legend />
+          <Line name="nt_Score" type="monotone" dataKey="avgScore" stroke="#8884d8" dot={false} />
         </LineChart>
       </ResponsiveContainer>
     );
