@@ -31,3 +31,11 @@ code {
 {
   background-color:  rgba(255,255,255,.05)
 }
+
+.custom-tooltip 
+{
+    margin: 0;
+    padding: 0.5em;
+    background-color: rgba(250,250,250,.8);
+    border-radius: 0.5em;
+}

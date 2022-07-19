@@ -19,11 +19,12 @@ namespace DiscgolfResults.Translators
             var inHcpCalc = HcpManager.GetEventsIncludedInCalculations(player.PlayerEvents).ToDictionary(x => x.EventId);
             var inHcpAvgCalc = HcpManager.GetEventsIncludedInHcpCalculations(player.PlayerEvents).ToDictionary(x => x.EventId);
 
-            foreach (var ev in player.PlayerEvents)
+            var playedEvent = 1;
+            foreach (var ev in player.PlayerEvents.OrderBy(x => x.EventId))
             {
-                var hcp = player.PlayerCourseLayoutHcp.First(x => x.EventId == ev.EventId && x.PlayerId == ev.PlayerId);                
+                var hcp = player.PlayerCourseLayoutHcp.First(x => x.EventId == ev.EventId && x.PlayerId == ev.PlayerId);
 
-                results.Add(new PlayerResult 
+                results.Add(new PlayerResult
                 {
                     EventId = ev.EventId,
                     EventName = ev.Event.EventName,
@@ -37,7 +38,8 @@ namespace DiscgolfResults.Translators
                     Points = ev.HcpPoints,
                     Score = ev.TotalScore,
                     InHcpAvgCalc = inHcpAvgCalc.ContainsKey(ev.EventId),
-                    InHcpCalc = inHcpCalc.ContainsKey(ev.EventId)
+                    InHcpCalc = inHcpCalc.ContainsKey(ev.EventId),
+                    PlayedEvent = playedEvent++
                 });
             }
 

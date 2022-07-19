@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import { NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import i18n from "../../i18n";
 
 export class Players extends Component {

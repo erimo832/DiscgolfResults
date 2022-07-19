@@ -1,10 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, PureComponent } from 'react';
 import i18n from "../../i18n";
 import { Grid } from '../common/Grid';
 import { useParams } from 'react-router-dom';
 import Collapse, { Panel } from 'rc-collapse';
 import {Container, Row, Col } from 'react-bootstrap'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+
 
 
 export function Details() {
@@ -26,29 +28,21 @@ export function Details() {
         return (<div>{i18n.t('playersinfo_no_found')}</div>);
     
     var stats = getStatTable(info);
+    var hcpTrend = getHcpTrend(info);
 
     return (
-        <div>
-          <h1>{info.fullName}</h1>
-          {stats}         
-          <Grid data={info.eventResults} format={getGridConf()} />
-        </div>
-    );
-  }
-
-  function getStatTable(info)
-  {
-    return (
-      <div>
-          <div>nt_Total number of events: {info.totalRounds}</div>
-          <div>nt_Total number of ctps: {info.totalCtps}</div>
-          <div>nt_Ctp%: {info.ctpPercentage}%</div>
-          <div>nt_First appearance : {info.firstAppearance.substring(0,10)}</div>
-          <div>nt_Last appearance : {info.lastAppearance.substring(0,10)}</div>
-          <div>nt_Best score: {info.bestScore}</div>
-          <div>nt_Worst score: {info.worstScore}</div>
-          <div>nt_Average score: {info.avgScore}</div>
-      </div>
+        <>
+          <h1>{info.fullName}</h1>          
+          {stats}
+          <Collapse accordion={true}>
+            <Panel header="nt_Hcp trend">
+              {hcpTrend}
+            </Panel>
+            <Panel header="nt_Events">
+              <Grid data={info.eventResults} format={getGridConf()} />
+            </Panel>
+          </Collapse>
+        </>
     );
   }
 
@@ -74,6 +68,44 @@ export function Details() {
     };
   }
 
+  function getStatTable(info)
+  {
+    return (
+      <div>
+          <div>nt_Total number of events: {info.totalRounds}</div>
+          <div>nt_Total number of ctps: {info.totalCtps}</div>
+          <div>nt_Ctp%: {info.ctpPercentage}%</div>
+          <div>nt_First appearance : {info.firstAppearance.substring(0,10)}</div>
+          <div>nt_Last appearance : {info.lastAppearance.substring(0,10)}</div>
+          <div>nt_Best score: {info.bestScore}</div>
+          <div>nt_Worst score: {info.worstScore}</div>
+          <div>nt_Average score: {info.avgScore}</div>
+      </div>
+    );
+  }
+
+  function getHcpTrend(info) {
+    var data = info.eventResults.sort( (a, b) => a.playedEvent - b.playedEvent );
+
+    return (
+      <ResponsiveContainer width="100%" height="100%" minHeight={300}>
+        <LineChart
+          width={500}
+          height={300}
+          data={data}
+          margin={{ top: 5, right: 5, left: 5, bottom: 5, }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="playedEvent" />
+          <YAxis />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend />
+          <Line name="nt_Handicap" type="monotone" dataKey="hcpAfter" stroke="#8884d8" dot={false} />
+        </LineChart>
+      </ResponsiveContainer>
+    );
+  }
+
   async function fetchData() {
     var path = '/api/players/'+ params.playerId + '/details';
     const response = await fetch(path);
@@ -84,8 +116,25 @@ export function Details() {
   };
 
   return (
-    <div>         
+    <div>
         {contents}
     </div>
   );
 }
+
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="custom-tooltip">        
+          <p>{`Hcp: ${payload[0].value}`}</p>
+          <p>
+            {payload[0].payload.eventName} <br/>
+            {payload[0].payload.startTime.substring(0,10)}
+          </p>        
+      </div>
+    );
+  }
+
+  return null;
+};
+
