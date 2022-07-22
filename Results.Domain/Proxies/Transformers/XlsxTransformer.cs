@@ -110,7 +110,7 @@ namespace Results.Domain.Proxies.Transformers
             {
                 Score = Convert.ToInt32(vals[0] ?? "0"),
                 IsCtp = vals.Length == 1 ? false : true,
-                CourseHoleId = courseLayout.Holes.First(x => x.Number == 1).CourseHoleId
+                CourseHoleId = courseLayout.Holes.First(x => x.Number == holeNumber).CourseHoleId
             });
         }
     }

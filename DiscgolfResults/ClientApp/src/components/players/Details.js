@@ -5,12 +5,13 @@ import { Grid } from '../common/Grid';
 import { useParams } from 'react-router-dom';
 import Collapse, { Panel } from 'rc-collapse';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { HoleAverage } from '../common/HoleAverage';
 
 
 
 export function Details() {
   const [loading, setLoading] = useState(true);
-  const [rounds, setRounds] = useState(null);  
+  const [rounds, setRounds] = useState(null);
   let params = useParams(rounds);
   const { t, i18n } = useTranslation();
 
@@ -43,6 +44,9 @@ export function Details() {
             </Panel>
             <Panel header={i18n.t('player_details_scoretrend')}>
               {scoreTrend}
+            </Panel>
+            <Panel header={i18n.t('player_details_holeavg')}>
+              <HoleAverage playerId={params.playerId}></HoleAverage>
             </Panel>
             <Panel header={i18n.t('player_details_events')}>
               <Grid data={info.eventResults} format={getGridConf()} />
@@ -171,7 +175,7 @@ export function Details() {
   }
 
   async function fetchData() {
-    var path = '/api/players/'+ params.playerId + '/details';
+    let path = '/api/players/'+ params.playerId + '/details';
     const response = await fetch(path);
     const data = await response.json();
 
@@ -203,7 +207,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 const CustomAggregatedTooltip = ({ active, payload, label }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   if (active && payload && payload.length) {
     return (

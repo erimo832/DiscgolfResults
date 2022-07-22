@@ -28,6 +28,7 @@ namespace Results.Domain
             services.AddTransient<IHcpManager, HcpManager>();
             services.AddTransient<IPlayerManager, PlayerManager>();
             services.AddTransient<IRoundManager, RoundManager>();
+            services.AddTransient<IHoleResultManager, HoleResultManager>();
 
             services.AddTransient<ICourseHoleRepository, CourseHoleRepository>();
             services.AddTransient<ICourseRepository, CourseRepository>();
