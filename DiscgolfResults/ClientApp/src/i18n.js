@@ -7,6 +7,7 @@ const resources = {
     translation: {       
       "language": "English",           
       "common_loading": "Loading...",
+      "common_refresh": "Refresh",
       "column_date": "Date",
       "column_round": "Round",
       "column_name": "Name",
@@ -82,6 +83,7 @@ const resources = {
     translation: { 
       "language": "Svenska",
       "common_loading": "Laddar...",
+      "common_refresh": "Uppdatera",
       "column_date": "Datum",
       "column_round": "Runda",
       "column_name": "Namn",
@@ -120,7 +122,7 @@ const resources = {
       "players_header": "Spelar statistik",
       "players_description": "Klicka på spelare i tabellen för att få mer information.",
       "playersinfo_no_found": "Spelare inte funnen",
-      "player_details_hcptrend": "Handikap trend",
+      "player_details_hcptrend": "Handikapp trend",
       "player_details_scoretrend": "Snittresultat trend",
       "player_details_events": "Spelade rundor",
       "player_details_holeavg": "Snittresultat hål",
@@ -133,7 +135,7 @@ const resources = {
       "player_details_bestscore": "Bästa resultat",
       "player_details_worstscore": "Sämsta resultat",
       "player_details_avgscore": "Snittresultat",
-      "player_details_legend_hcp": "Handikap",
+      "player_details_legend_hcp": "Handikapp",
       "player_details_legend_avgscore": "Snittresultat",
       "player_details_tooltip_numvalues": "Antal värden",
       "player_details_tooltip_between": "Mellan",

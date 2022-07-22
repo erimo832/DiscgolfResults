@@ -8,7 +8,7 @@ namespace Results.Domain.Service
         void UpdateEventResults();
         void Insert(IList<Event> items);
 
-        IList<Event> GetBy(int seriesId = -1, bool includeRounds = false, bool includePlayerEvents = false, bool includePlayerhcp = false);
+        IList<Event> GetBy(int seriesId = -1, int playerId = -1, bool includeRounds = false, bool includePlayerEvents = false, bool includePlayerhcp = false);
 
         IList<PlayerEvent> GetPlayerEvents(int playerId);
     }

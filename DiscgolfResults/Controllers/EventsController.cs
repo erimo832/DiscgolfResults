@@ -20,8 +20,8 @@ namespace DiscgolfResults.Controllers
         private IPlayerManager PlayerManager { get; }
 
         [HttpGet]
-        [Route("api/series/events")]
-        public IEnumerable<EventResultResponse> GetAll()
+        [Route("api/series/event-results")]
+        public IEnumerable<EventResultResponse> GetAllResults()
         {
             var data = EventManager.GetBy(includePlayerEvents: true, includePlayerhcp: true);
             var players = PlayerManager.GetBy();
@@ -30,13 +30,22 @@ namespace DiscgolfResults.Controllers
         }
 
         [HttpGet]
-        [Route("api/series/{seriesId}/events")]
-        public IEnumerable<EventResultResponse> GetEventBySeriesId(int seriesId)
+        [Route("api/series/{seriesId}/event-results")]
+        public IEnumerable<EventResultResponse> GetEventResultsBySeriesId(int seriesId)
         {
             var data = EventManager.GetBy(seriesId: seriesId, includePlayerEvents: true, includePlayerhcp: true);
             var players = PlayerManager.GetBy();
 
             return Translator.Translate(data, players);
+        }
+
+        [HttpGet]
+        [Route("api/players/{playerId}/events")]
+        public IEnumerable<EventResponse> GetEventsByPlayerId(int playerId)
+        {
+            var data = EventManager.GetBy(playerId: playerId, includeRounds: false, includePlayerEvents: true, includePlayerhcp: true);            
+
+            return Translator.Translate(data);
         }
     }
 }

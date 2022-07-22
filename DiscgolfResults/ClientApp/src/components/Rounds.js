@@ -85,7 +85,7 @@ export class Rounds extends Component {
   }
 
   async populateResultData() {
-    const response = await fetch('api/series/events');
+    const response = await fetch('api/series/event-results');
     const data = await response.json();
     this.setState({ rounds: data, loading: false });
   }

@@ -43,5 +43,16 @@ namespace DiscgolfResults.Translators
 
             return result.OrderByDescending(x => x.StartTime).ToList();
         }
+
+        public IList<EventResponse> Translate(IList<Event> events)
+        {
+            return events.Select(x => new EventResponse
+            {
+                EventId = x.EventId,
+                EventName = x.EventName,
+                SerieId = x.SerieId,
+                StartTime = x.StartTime
+            }).ToList();
+        }
     }
 }
