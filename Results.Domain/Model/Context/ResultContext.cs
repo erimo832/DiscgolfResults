@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Results.Domain.Configuration;
-using Results.Domain.Model.ReadObjects;
 
 namespace Results.Domain.Model.Context
 {
@@ -27,19 +26,9 @@ namespace Results.Domain.Model.Context
         public DbSet<PlayerEvent> PlayerEvents { get; set; }
         public DbSet<PlayerCourseLayoutHcp> PlayerCourseLayoutHcps { get; set; }
 
-        //Read queries
-        public DbSet<HoleResultRo> HoleResultRoView { get; set; }
-        public DbSet<AverageHoleResultRo> AverageHoleResultRoView { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options.UseSqlite($"Data Source={Config.DbPath}");
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<HoleResultRo>().HasNoKey();
-            modelBuilder.Entity<AverageHoleResultRo>().HasNoKey();
         }
     }
 }

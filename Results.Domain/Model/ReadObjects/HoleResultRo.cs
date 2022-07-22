@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Results.Domain.Model.ReadObjects
+﻿namespace Results.Domain.Model.ReadObjects
 {
-    [Keyless]
     public class HoleResultRo
     {
         public int SerieId { get; set; }
@@ -17,11 +14,9 @@ namespace Results.Domain.Model.ReadObjects
         public int RoundScoreId { get; set; }
         public int CourseHoleId { get; set; }
         public int Score { get; set; }
-        public bool IsCtp { get; set; }
+        //public bool IsCtp { get; set; }
     }
 
-
-    [Keyless]
     public class AverageHoleResultRo
     {        
         public int PlayerId { get; set; }
