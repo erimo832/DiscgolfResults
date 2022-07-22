@@ -1,4 +1,4 @@
-import { Slider, Button } from '@mui/material';
+import { Slider, Button, CircularProgress } from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { Box } from '@mui/system';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -35,7 +35,7 @@ export function HoleAverage(props) {
   /////////
 
   let contents = loading
-      ? <p><em>{i18n.t('common_loading')}</em></p>
+      ? <Box display="flex" justifyContent="center" alignItems="center"><CircularProgress /></Box>
       : getContent(holeAvg);
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export function HoleAverage(props) {
         return (<div>{i18n.t('playersinfo_no_found')}</div>);
 
     return (
-      <>
+      <>      
       <Button variant="outlined" startIcon={<RefreshIcon />} onClick={() => { fetchData(false); }}>
         {i18n.t('common_refresh')}
       </Button>

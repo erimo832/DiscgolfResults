@@ -1,3 +1,4 @@
+import { Box, CircularProgress } from '@mui/material';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { Component } from 'react';
 import i18n from "../i18n";
@@ -42,7 +43,7 @@ export class Hcp extends Component {
 
   render() {    
     let contents = this.state.loading
-      ? <p><em>{i18n.t('common_loading')}</em></p>
+      ? <Box display="flex" justifyContent="center" alignItems="center"><CircularProgress /></Box>
       : this.renderHcpTable(this.state.hcp);
      
     return (

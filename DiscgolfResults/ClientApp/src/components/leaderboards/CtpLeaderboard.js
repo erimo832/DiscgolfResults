@@ -5,6 +5,7 @@ import Collapse, { Panel } from 'rc-collapse';
 import {Container, Row, Col } from 'react-bootstrap'
 import i18n from "../../i18n";
 import { Grid } from '../common/Grid';
+import { Box, CircularProgress } from '@mui/material';
 
 export class CtpLeaderboard extends Component {
   static displayName = CtpLeaderboard.name;
@@ -71,7 +72,7 @@ export class CtpLeaderboard extends Component {
 
   render() {
     let contents = this.state.loading
-      ? <p><em>{i18n.t('common_loading')}</em></p>
+      ? <Box display="flex" justifyContent="center" alignItems="center"><CircularProgress /></Box>
       : this.renderSeriesTable(this.state.series);
      
     return (

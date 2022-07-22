@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import Collapse, { Panel } from 'rc-collapse';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { HoleAverage } from './HoleAverage';
+import { Box, CircularProgress } from '@mui/material';
 
 
 export function Details() {
@@ -15,7 +16,7 @@ export function Details() {
   const { i18n } = useTranslation(); //t
 
   let contents = loading
-      ? <p><em>{i18n.t('common_loading')}</em></p>
+      ? <Box display="flex" justifyContent="center" alignItems="center"><CircularProgress /></Box>
       : renderDetailsTable(rounds);
 
   useEffect(() => {
