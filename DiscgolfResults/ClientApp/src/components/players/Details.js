@@ -5,15 +5,14 @@ import { Grid } from '../common/Grid';
 import { useParams } from 'react-router-dom';
 import Collapse, { Panel } from 'rc-collapse';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { HoleAverage } from '../common/HoleAverage';
-
+import { HoleAverage } from './HoleAverage';
 
 
 export function Details() {
   const [loading, setLoading] = useState(true);
   const [rounds, setRounds] = useState(null);
   let params = useParams(rounds);
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation(); //t
 
   let contents = loading
       ? <p><em>{i18n.t('common_loading')}</em></p>
@@ -89,7 +88,6 @@ export function Details() {
           {i18n.t('player_details_firstappearance')}: {info.firstAppearance.substring(0,10)}<br />
           {i18n.t('player_details_lastappearance')}: {info.lastAppearance.substring(0,10)}<br />
           {i18n.t('player_details_bestscore')}: {info.bestScore}<br />
-          {i18n.t('player_details_worstscore')}: {info.worstScore}<br />
           {i18n.t('player_details_avgscore')}: {info.avgScore}<br />
       </p>
     );

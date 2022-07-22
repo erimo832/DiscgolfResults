@@ -74,7 +74,7 @@ export function HoleAverage(props) {
 }
 
 const HoleAvgTooltip = ({ active, payload, label }) => {
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   if (active && payload && payload.length) {
     let diff = round(payload[0].payload.averageScore - payload[0].payload.par);
