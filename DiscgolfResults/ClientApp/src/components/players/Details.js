@@ -81,12 +81,15 @@ export function Details() {
   {
     return (
       <p>
-          {i18n.t('player_details_totalnumberevents')}: {info.totalRounds}<br />
-          {i18n.t('player_details_winpercentage')}: {info.winPercentage}%<br />
-          {i18n.t('player_details_totalctps')}: {info.totalCtps}<br />          
-          {i18n.t('player_details_ctppercentage')}: {info.ctpPercentage}%<br />
           {i18n.t('player_details_firstappearance')}: {info.firstAppearance.substring(0,10)}<br />
           {i18n.t('player_details_lastappearance')}: {info.lastAppearance.substring(0,10)}<br />
+          {i18n.t('player_details_totalnumberevents')}: {info.totalRounds}<br />
+          {i18n.t('player_details_winpercentage')}: {info.winPercentage}%<br />
+          {i18n.t('player_details_legend_hcp')}: {info.eventResults[0].hcpAfter}<br />
+
+          {i18n.t('player_details_totalctps')}: {info.totalCtps}<br />          
+          {i18n.t('player_details_ctppercentage')}: {info.ctpPercentage}%<br />
+          
           {i18n.t('player_details_bestscore')}: {info.bestScore}<br />
           {i18n.t('player_details_avgscore')}: {info.avgScore}<br />
       </p>
