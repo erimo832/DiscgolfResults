@@ -37,6 +37,7 @@ export function Players(props) {
           <thead>
             <tr>
               <th>{i18n.t('column_name')}</th>
+              <th>{i18n.t('column_pdgalink')}</th>
             </tr>
           </thead>
           <tbody>
@@ -44,7 +45,10 @@ export function Players(props) {
               <tr key={x.playerId}>
                   <td>                  
                     <NavLink href={"players/" + x.playerId } className="text-dark">{x.firstName + ' ' + x.lastName}</NavLink>
-                  </td>              
+                  </td>
+                  <td>
+                    <a href={`https://www.pdga.com/player/${x.pdgaNumber}`} target={"_blank"} rel="noopener noreferrer">{x.pdgaNumber}</a>
+                  </td>
               </tr>
             )}
           </tbody>
