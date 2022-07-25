@@ -1,11 +1,12 @@
 using DiscgolfResults.Extensions;
 using Microsoft.OpenApi.Models;
 using Results.Domain;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services
+builder.Services    
     .AddResultBackend(builder.Configuration)
     .AddTranslators();
 
@@ -14,7 +15,10 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
 });
 
+builder.Host.UseSerilog((ctx, lc) => lc.ReadFrom.Configuration(ctx.Configuration));
+
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
@@ -32,6 +36,7 @@ app.UseSwaggerUI(c =>
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseLoggingMiddleware();
 
 app.MapControllerRoute(
     name: "default",
@@ -40,24 +45,3 @@ app.MapControllerRoute(
 app.MapFallbackToFile("index.html"); ;
 
 app.Run();
-
-
-/*
- 
-TODO: 
- - New
-    - Player stats
-        - Hcp trend
-        - Score trend
-        - Best/Worst/avgerage score
-    - Course stats
-        - Avg score
-        - ???
-    - Hole stats
-        - Avg score per series
- - Move solution file
- - Disable highlighting swagger
- - Problem publish profiles not building correct npm build
- - bootstap dark theme
- 
- */
