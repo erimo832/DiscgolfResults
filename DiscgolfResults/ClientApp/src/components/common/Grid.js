@@ -16,10 +16,17 @@ export class Grid extends Component {
     };
   }
 
+  static getDerivedStateFromProps(nextProps, prevState){
+    if (nextProps.data !== prevState.data) {
+        return { data: nextProps.data };
+    }
+    else return null; // Triggers no change in the state
+  }
+
   handleRowSelected(name) {
     let rows = this.state.selectedRows;
     if(rows.includes(name))
-        rows.splice(rows.indexOf(name), 1);//removes selection
+        rows.splice(rows.indexOf(name), 1); //removes selection
     else
         rows.push(name);
     
