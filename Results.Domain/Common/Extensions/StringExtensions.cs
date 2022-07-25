@@ -4,9 +4,9 @@ namespace Results.Domain.Common.Extensions
 {
     public static class StringExtensions
     {
-        public static string ToJson<T>(this T obj)
+        public static string ToJson<T>(this T obj, Formatting format = Formatting.None)
         {
-            return JsonConvert.SerializeObject(obj, Formatting.Indented);
+            return JsonConvert.SerializeObject(obj, format);
         }
 
         public static T FromJson<T>(this string json)

@@ -1,5 +1,14 @@
-﻿namespace DiscgolfResults.Filters
+﻿using Results.Domain.Common.Extensions;
+
+namespace DiscgolfResults.Filters
 {
+
+    public class RequestLog
+    {
+        public string Ip { get; set; } = "";
+        public string Path { get; set; } = "";
+        public double DurationMs { get; set; }
+    }
 
     public class LoggingMiddleware
     {
@@ -18,9 +27,15 @@
             
             // Call the next delegate/middleware in the pipeline.
             await _next(context);
-            var log = $"Request from: {context?.Connection?.RemoteIpAddress?.ToString() ?? ""} to path: {context?.Request?.Path ?? ""} Duration: {DateTime.Now.Subtract(start)}";
 
-            _logger.LogInformation(log);
+            var log = new RequestLog
+            {
+                 Ip = context?.Connection?.RemoteIpAddress?.ToString() ?? "",
+                 Path = context?.Request?.Path ?? "",
+                 DurationMs = DateTime.Now.Subtract(start).TotalMilliseconds
+            };
+
+            _logger.LogInformation(log.ToJson());
         }
     }
 }
