@@ -60,6 +60,8 @@ namespace DiscgolfResults.Translators
                 TotalCtps = results.Sum(x => x.NumberOfCtps),
                 TotalRounds = results.Count,
                 WinPercentage = (Convert.ToDouble(results.Count(x => x.Placement == 1)) / Convert.ToDouble(results.Count())).ToPercent(2),
+                WinPercentageHcp = (Convert.ToDouble(results.Count(x => x.PlacementHcp == 1)) / Convert.ToDouble(results.Count())).ToPercent(2),
+
 
                 EventResults = results.OrderByDescending(x => x.StartTime).ToList()
             };

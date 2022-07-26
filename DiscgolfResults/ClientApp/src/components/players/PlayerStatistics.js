@@ -21,19 +21,23 @@ export function PlayerStatistics(props) {
                                     <Container>
                                         <Row>
                                             <Col>{i18n.t('player_card_firstappearance')}</Col>
-                                            <Col style={{textAlign: 'right'}}>{props.player.firstAppearance.substring(0,10)}</Col>                                            
+                                            <Col style={{textAlign: 'left'}}>{props.player.firstAppearance.substring(0,10)}</Col>                                            
                                         </Row>
                                         <Row>
                                             <Col>{i18n.t('player_card_totalnumberevents')}</Col>
-                                            <Col style={{textAlign: 'right'}}>{props.player.totalRounds}</Col>                                            
+                                            <Col style={{textAlign: 'left'}}>{props.player.totalRounds}</Col>                                            
                                         </Row>
                                         <Row>
                                             <Col>{i18n.t('player_card_bestscore')}</Col>
-                                            <Col style={{textAlign: 'right'}}>{props.player.bestScore} </Col>                                            
+                                            <Col style={{textAlign: 'left'}}>{props.player.bestScore} </Col>                                            
                                         </Row>
                                         <Row>
                                             <Col>{i18n.t('player_card_avgscore')}</Col>
-                                            <Col style={{textAlign: 'right'}}>{props.player.avgScore} </Col>                                            
+                                            <Col style={{textAlign: 'left'}}>{props.player.avgScore} </Col>                                            
+                                        </Row>
+                                        <Row>
+                                            <Col>{i18n.t('player_card_winpercentage')}</Col>
+                                            <Col style={{textAlign: 'left'}}>{props.player.winPercentage}%</Col>                                            
                                         </Row>
                                     </Container>
                                 </Col>
@@ -41,19 +45,19 @@ export function PlayerStatistics(props) {
                                     <Container>
                                         <Row>
                                             <Col>{i18n.t('player_card_hcp')}</Col>
-                                            <Col style={{textAlign: 'right'}}>{props.player.eventResults[0].hcpAfter}</Col>                                            
+                                            <Col style={{textAlign: 'left'}}>{props.player.eventResults[0].hcpAfter}</Col>                                            
                                         </Row>
                                         <Row>
-                                            <Col>{i18n.t('player_card_winpercentage')}</Col>
-                                            <Col style={{textAlign: 'right'}}>{props.player.winPercentage}%</Col>                                            
+                                            <Col>{i18n.t('player_card_winpercentagehcp')}</Col>
+                                            <Col style={{textAlign: 'left'}}>{props.player.winPercentageHcp}%</Col>                                            
                                         </Row>
                                         <Row>
                                             <Col>{i18n.t('player_card_ctppercentage')}</Col>
-                                            <Col style={{textAlign: 'right'}}>{props.player.ctpPercentage}%</Col>                                            
+                                            <Col style={{textAlign: 'left'}}>{props.player.ctpPercentage}%</Col>                                            
                                         </Row>
                                         <Row>
                                             <Col>{i18n.t('player_card_totalctps')}</Col>
-                                            <Col style={{textAlign: 'right'}}>{props.player.totalCtps}</Col>                                            
+                                            <Col style={{textAlign: 'left'}}>{props.player.totalCtps}</Col>                                            
                                         </Row>
                                     </Container>
                                 </Col>
@@ -61,7 +65,7 @@ export function PlayerStatistics(props) {
                         </Container>
                     </CardContent>
                 </Card>
-            </Box>            
+            </Box>         
         </>
     ); 
 }

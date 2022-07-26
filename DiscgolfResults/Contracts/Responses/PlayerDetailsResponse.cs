@@ -4,6 +4,7 @@
     {
         public int TotalRounds { get; set; }
         public double WinPercentage { get; set; }
+        public double WinPercentageHcp { get; set; }
         public int TotalCtps { get; set; }
         public double CtpPercentage { get; set; }
         public DateTime FirstAppearance { get; set; }
