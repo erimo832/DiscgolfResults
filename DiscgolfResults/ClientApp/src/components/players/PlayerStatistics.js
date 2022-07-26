@@ -20,40 +20,40 @@ export function PlayerStatistics(props) {
                                 <Col xs={12} md={6} lg={6}>
                                     <Container>
                                         <Row>
-                                            <Col style={{textAlign: 'right'}}>{props.player.firstAppearance.substring(0,10)}</Col>
                                             <Col>{i18n.t('player_card_firstappearance')}</Col>
+                                            <Col style={{textAlign: 'right'}}>{props.player.firstAppearance.substring(0,10)}</Col>                                            
                                         </Row>
                                         <Row>
-                                            <Col style={{textAlign: 'right'}}>{props.player.totalRounds}</Col>
                                             <Col>{i18n.t('player_card_totalnumberevents')}</Col>
+                                            <Col style={{textAlign: 'right'}}>{props.player.totalRounds}</Col>                                            
                                         </Row>
                                         <Row>
-                                            <Col style={{textAlign: 'right'}}>{props.player.bestScore} </Col>
                                             <Col>{i18n.t('player_card_bestscore')}</Col>
+                                            <Col style={{textAlign: 'right'}}>{props.player.bestScore} </Col>                                            
                                         </Row>
                                         <Row>
-                                            <Col style={{textAlign: 'right'}}>{props.player.avgScore} </Col>
                                             <Col>{i18n.t('player_card_avgscore')}</Col>
+                                            <Col style={{textAlign: 'right'}}>{props.player.avgScore} </Col>                                            
                                         </Row>
                                     </Container>
                                 </Col>
                                 <Col xs={12} md={6} lg={6}>
                                     <Container>
                                         <Row>
-                                            <Col style={{textAlign: 'right'}}>{props.player.eventResults[0].hcpAfter}</Col>
                                             <Col>{i18n.t('player_card_hcp')}</Col>
+                                            <Col style={{textAlign: 'right'}}>{props.player.eventResults[0].hcpAfter}</Col>                                            
                                         </Row>
                                         <Row>
-                                            <Col style={{textAlign: 'right'}}>{props.player.winPercentage}%</Col>
                                             <Col>{i18n.t('player_card_winpercentage')}</Col>
+                                            <Col style={{textAlign: 'right'}}>{props.player.winPercentage}%</Col>                                            
                                         </Row>
                                         <Row>
-                                            <Col style={{textAlign: 'right'}}>{props.player.ctpPercentage}%</Col>
                                             <Col>{i18n.t('player_card_ctppercentage')}</Col>
+                                            <Col style={{textAlign: 'right'}}>{props.player.ctpPercentage}%</Col>                                            
                                         </Row>
                                         <Row>
-                                            <Col style={{textAlign: 'right'}}>{props.player.totalCtps}</Col>
                                             <Col>{i18n.t('player_card_totalctps')}</Col>
+                                            <Col style={{textAlign: 'right'}}>{props.player.totalCtps}</Col>                                            
                                         </Row>
                                     </Container>
                                 </Col>
