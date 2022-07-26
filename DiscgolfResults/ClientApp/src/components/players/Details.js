@@ -7,6 +7,7 @@ import Collapse, { Panel } from 'rc-collapse';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { HoleAverage } from './HoleAverage';
 import { Box, CircularProgress } from '@mui/material';
+import { PlayerStatistics } from './PlayerStatistics';
 
 
 export function Details() {
@@ -30,14 +31,12 @@ export function Details() {
     
     let sortedEvents = info.eventResults.map( (x) => x ).sort( (a, b) => a.playedEvent - b.playedEvent ); //map for simple clone
 
-    let stats = getStatTable(info);
     let hcpTrend = getHcpTrend(sortedEvents);
     let scoreTrend = getScoreTrend(sortedEvents);
 
     return (
         <>
-          <h1>{info.fullName}</h1>          
-          {stats}
+          <PlayerStatistics player={info}></PlayerStatistics>
           <Collapse accordion={false}>
             <Panel header={i18n.t('player_details_hcptrend')}>
               {hcpTrend}
@@ -76,25 +75,6 @@ export function Details() {
         {columnName: "hcpScore",    headerText: i18n.t('column_hcpscore'), headerClassName: "d-none d-sm-table-cell", columnClass: "d-none d-sm-table-cell"}       
       ]
     };
-  }
-
-  function getStatTable(info)
-  {
-    return (
-      <p>
-          {i18n.t('player_details_firstappearance')}: {info.firstAppearance.substring(0,10)}<br />
-          {i18n.t('player_details_lastappearance')}: {info.lastAppearance.substring(0,10)}<br />
-          {i18n.t('player_details_totalnumberevents')}: {info.totalRounds}<br />
-          {i18n.t('player_details_winpercentage')}: {info.winPercentage}%<br />
-          {i18n.t('player_details_legend_hcp')}: {info.eventResults[0].hcpAfter}<br />
-
-          {i18n.t('player_details_totalctps')}: {info.totalCtps}<br />          
-          {i18n.t('player_details_ctppercentage')}: {info.ctpPercentage}%<br />
-          
-          {i18n.t('player_details_bestscore')}: {info.bestScore}<br />
-          {i18n.t('player_details_avgscore')}: {info.avgScore}<br />
-      </p>
-    );
   }
   
   function getHcpTrend(data) {    
@@ -225,4 +205,3 @@ const CustomAggregatedTooltip = ({ active, payload, label }) => {
 
   return null;
 };
-
