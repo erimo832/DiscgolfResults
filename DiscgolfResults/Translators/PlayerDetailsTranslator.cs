@@ -42,7 +42,7 @@ namespace DiscgolfResults.Translators
                     PlayedEvent = playedEvent++
                 });
             }
-
+            
             return new PlayerDetailsResponse
             { 
                 FirstName = player.FirstName,
@@ -62,9 +62,25 @@ namespace DiscgolfResults.Translators
                 WinPercentage = (Convert.ToDouble(results.Count(x => x.Placement == 1)) / Convert.ToDouble(results.Count())).ToPercent(2),
                 WinPercentageHcp = (Convert.ToDouble(results.Count(x => x.PlacementHcp == 1)) / Convert.ToDouble(results.Count())).ToPercent(2),
 
-
-                EventResults = results.OrderByDescending(x => x.StartTime).ToList()
+                EventResults = results.OrderByDescending(x => x.StartTime).ToList(),
+                ScoreDistibution = GetDistribution(player.PlayerEvents)
+                
             };
+        }
+
+        private IList<PlayerScoreDistribution> GetDistribution(IList<PlayerEvent> events)
+        {
+            var min = events.Min(x => x.TotalScore).ToInt();
+            var max = events.Max(x => x.TotalScore).ToInt();
+
+            var result = new List<PlayerScoreDistribution>();
+
+            for (int i = min; i < max +1; i++)
+            {
+                result.Add(new PlayerScoreDistribution { NumberOfTimes = events.Count(x => x.TotalScore.ToInt() == i), Score = i });
+            }
+
+            return result;
         }
     }
 }

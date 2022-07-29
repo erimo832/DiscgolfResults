@@ -9,5 +9,10 @@
 
             return Math.Round((value * 100.0), decimals);
         }
+
+        public static int ToInt(this double value)
+        {
+            return Convert.ToInt32(value);
+        }
     }
 }

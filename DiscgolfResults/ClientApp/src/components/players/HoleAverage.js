@@ -65,27 +65,27 @@ export function HoleAverage(props) {
           aria-labelledby="non-linear-slider"
         />
       </Box>
-        <ResponsiveContainer width="100%" height="100%" minHeight={300}>
-          <BarChart width={500} height={300} data={data} margin={{ top: 5, right: 5, left: 5, bottom: 5, }} >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="holeNumber" />
-            <YAxis domain={[2, 'auto']} />
-            <Tooltip content={<HoleAvgTooltip />}  />
-            <Legend />
-            <Bar name={i18n.t('hole_stats_avgscore')} dataKey="averageScore" fill="#8884d8" />
-            <Bar name={i18n.t('hole_stats_par')} dataKey="par" fill="#82ca9d" />
-          </BarChart>
-        </ResponsiveContainer>
-        <ResponsiveContainer width="100%" height="100%" minHeight={300}>
-          <BarChart width={500} height={300} data={data} margin={{ top: 5, right: 5, left: 5, bottom: 5, }} >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="holeNumber" />
-            <YAxis domain={['auto', 'auto']} />
-            <Tooltip content={<HoleAvgTooltip />}  />
-            <Legend />
-            <Bar name={i18n.t('hole_stats_diffpar')} dataKey="diffToPar" fill="#8884d8" />
-          </BarChart>
-        </ResponsiveContainer>
+      <ResponsiveContainer width="100%" height="100%" minHeight={300}>
+        <BarChart width={500} height={300} data={data} margin={{ top: 5, right: 5, left: 5, bottom: 5, }} >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="holeNumber" />
+          <YAxis domain={[2, 'auto']} />
+          <Tooltip content={<HoleAvgTooltip />}  />
+          <Legend />
+          <Bar name={i18n.t('hole_stats_avgscore')} dataKey="averageScore" fill="#8884d8" />
+          <Bar name={i18n.t('hole_stats_par')} dataKey="par" fill="#82ca9d" />
+        </BarChart>
+      </ResponsiveContainer>
+      <ResponsiveContainer width="100%" height="100%" minHeight={300}>
+        <BarChart width={500} height={300} data={data} margin={{ top: 5, right: 5, left: 5, bottom: 5, }} >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="holeNumber" />
+          <YAxis domain={['auto', 'auto']} />
+          <Tooltip content={<HoleAvgTooltip />}  />
+          <Legend />
+          <Bar name={i18n.t('hole_stats_diffpar')} dataKey="diffToPar" fill="#8884d8" />
+        </BarChart>
+      </ResponsiveContainer>
       </>
     );
   }

@@ -15,6 +15,7 @@
         public double AvgScore { get; set; }
 
         public IList<PlayerResult> EventResults { get; set; } = new List<PlayerResult>();
+        public IList<PlayerScoreDistribution> ScoreDistibution { get; set; } = new List<PlayerScoreDistribution>();
     }
 
     public class PlayerResult
@@ -35,4 +36,9 @@
         public int PlayedEvent { get; set; } = 0;
     }
 
+    public class PlayerScoreDistribution
+    {
+        public int Score { get; set; }
+        public int NumberOfTimes { get; set; }
+    }
 }

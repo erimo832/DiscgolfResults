@@ -1,12 +1,11 @@
 ﻿using DiscgolfResults.Contracts.Responses;
 using DiscgolfResults.Translators;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Results.Domain.Model.ReadObjects;
 using Results.Domain.Service;
 
 namespace DiscgolfResults.Controllers
-{    
+{
     [ApiController]
     public class HoleResultController : ControllerBase
     {

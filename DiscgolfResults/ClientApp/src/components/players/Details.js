@@ -8,6 +8,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { HoleAverage } from './HoleAverage';
 import { Box, CircularProgress } from '@mui/material';
 import { PlayerStatistics } from './PlayerStatistics';
+import { ScoreDistribution } from './ScoreDistribution';
 
 
 export function Details() {
@@ -46,6 +47,9 @@ export function Details() {
             </Panel>
             <Panel header={i18n.t('player_details_holeavg')}>
               <HoleAverage playerId={params.playerId}></HoleAverage>
+            </Panel>
+            <Panel header={i18n.t('player_details_scoredistibution')}>
+            <ScoreDistribution data={info.scoreDistibution} />
             </Panel>
             <Panel header={i18n.t('player_details_events')}>
               <Grid data={info.eventResults} format={getGridConf()} />
