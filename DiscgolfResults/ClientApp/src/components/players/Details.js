@@ -4,12 +4,12 @@ import { useTranslation } from 'react-i18next';
 import { Grid } from '../common/Grid';
 import { useParams } from 'react-router-dom';
 import Collapse, { Panel } from 'rc-collapse';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { HoleAverage } from './HoleAverage';
 import { Box, CircularProgress } from '@mui/material';
 import { PlayerStatistics } from './PlayerStatistics';
 import { ScoreDistribution } from './ScoreDistribution';
 import { HcpTrend } from './HcpTrend';
+import { AggregatedScoreTrend } from './AggregatedScoreTrend';
 
 
 export function Details() {
@@ -33,8 +33,6 @@ export function Details() {
     
     let sortedEvents = info.eventResults.map( (x) => x ).sort( (a, b) => a.playedEvent - b.playedEvent ); //map for simple clone
 
-    let scoreTrend = getScoreTrend(sortedEvents);
-
     return (
         <>
           <PlayerStatistics player={info}></PlayerStatistics>
@@ -43,7 +41,7 @@ export function Details() {
               <HcpTrend data={sortedEvents}></HcpTrend>
             </Panel>
             <Panel header={i18n.t('player_details_scoretrend')}>
-              {scoreTrend}
+              <AggregatedScoreTrend data={sortedEvents} />
             </Panel>
             <Panel header={i18n.t('player_details_holeavg')}>
               <HoleAverage playerId={params.playerId} />
@@ -81,65 +79,6 @@ export function Details() {
     };
   }
   
-  function getScoreTrend(data) {
-    let limit = 5;
-    let cnt = 0;
-    let sum = 0;
-    let result = [];
-    let from = data[0].startTime;    
-
-
-    for (let i = 0; i < data.length; i++) {
-        sum += data[i].score;
-        cnt++;
-
-        if(cnt === limit)
-        {
-            result.push(
-              {
-                avgScore: sum / cnt,
-                numValues: cnt,
-                from: from,
-                to: data[i].startTime
-              }
-            );
-            cnt = 0;
-            sum = 0;
-            from = data[i].startTime;
-        }
-    }
-
-    //Add last
-    if(cnt > 0) {
-      result.push(
-        {
-          avgScore: sum / cnt,
-          numValues: cnt,
-          from: from,
-          to: data[data.length - 1].startTime
-        }
-      );
-    }
-
-    return (
-      <ResponsiveContainer width="100%" height="100%" minHeight={300}>
-        <LineChart
-          width={500}
-          height={300}
-          data={result}
-          margin={{ top: 50, right: 5, left: 5, bottom: 5, }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="playedEvent" />
-          <YAxis domain={['auto', 'auto']} />
-          <Tooltip content={<CustomAggregatedTooltip />} />
-          <Legend />
-          <Line name={i18n.t('player_details_legend_avgscore')} type="monotone" dataKey="avgScore" stroke="#8884d8" dot={false} />
-        </LineChart>
-      </ResponsiveContainer>
-    );
-  }
-
   async function fetchData() {
     let path = '/api/players/'+ params.playerId + '/details';
     const response = await fetch(path);
@@ -155,21 +94,3 @@ export function Details() {
     </div>
   );
 }
-
-const CustomAggregatedTooltip = ({ active, payload, label }) => {
-  const { i18n } = useTranslation();
-
-  if (active && payload && payload.length) {
-    return (
-      <div className="custom-tooltip">        
-          <p>{`${i18n.t('player_details_legend_avgscore')}: ${payload[0].value}`}</p>
-          <p>
-            {i18n.t('player_details_tooltip_numvalues')}: {payload[0].payload.numValues} <br/>
-            {i18n.t('player_details_tooltip_between')}: {payload[0].payload.from.substring(0,10)} {i18n.t('player_details_tooltip_and')} {payload[0].payload.to.substring(0,10)}
-          </p>        
-      </div>
-    );
-  }
-
-  return null;
-};
