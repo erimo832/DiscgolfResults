@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import { Col, Container, Row } from 'react-bootstrap';
 
-export function PlayerStatistics(props) {
+export function SummaryCard(props) {
     const { i18n } = useTranslation();
 
     return (

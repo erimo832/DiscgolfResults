@@ -6,13 +6,13 @@ import { useParams } from 'react-router-dom';
 import Collapse, { Panel } from 'rc-collapse';
 import { HoleAverage } from './HoleAverage';
 import { Box, CircularProgress } from '@mui/material';
-import { PlayerStatistics } from './PlayerStatistics';
+import { SummaryCard } from './SummaryCard';
 import { ScoreDistribution } from './ScoreDistribution';
 import { HcpTrend } from './HcpTrend';
 import { AggregatedScoreTrend } from './AggregatedScoreTrend';
 
 
-export function Details() {
+export function PlayerDetails() {
   const [loading, setLoading] = useState(true);
   const [rounds, setRounds] = useState(null);
   let params = useParams(rounds);
@@ -35,7 +35,7 @@ export function Details() {
 
     return (
         <>
-          <PlayerStatistics player={info}></PlayerStatistics>
+          <SummaryCard player={info} />
           <Collapse accordion={false}>
             <Panel header={i18n.t('player_details_hcptrend')}>
               <HcpTrend data={sortedEvents}></HcpTrend>
