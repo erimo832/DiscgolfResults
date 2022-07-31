@@ -59,6 +59,10 @@ export function PlayerStatistics(props) {
                                             <Col xs={6} md={6} lg={6}>{i18n.t('player_card_totalctps')}</Col>
                                             <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.player.totalCtps}</Col>
                                         </Row>
+                                        <Row>
+                                            <Col xs={6} md={6} lg={6}>{i18n.t('player_card_stddev')} (&sigma;)</Col>
+                                            <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.player.stdDeviation}</Col>
+                                        </Row>
                                     </Container>
                                 </Col>
                             </Row>

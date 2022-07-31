@@ -39,5 +39,15 @@ namespace DiscgolfResults.Controllers
 
             return Translator.Translate(data);
         }
+
+        /*
+        [HttpGet]
+        [Route("api/courses/average-hole-results")]
+        public IEnumerable<AverageHoleResultResponse> GetAverageByPlayerId(int playerId, int fromEventId = -1, int toEventId = -1)
+        {
+            var data = HoleResultManager.GetAverageRoBy(playerId: playerId, fromEventId: fromEventId, toEventId: toEventId);
+
+            return Translator.Translate(data);
+        }*/
     }
 }

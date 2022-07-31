@@ -5,7 +5,7 @@ export function ScoreDistribution(props) {
     const { i18n } = useTranslation();
 
     return (
-        <>            
+        <>        
             <ResponsiveContainer width="100%" height="100%" minHeight={300}>
                 <BarChart width={500} height={300} data={props.data} margin={{ top: 5, right: 5, left: 5, bottom: 5 }} >
                     <CartesianGrid strokeDasharray="3 3" />

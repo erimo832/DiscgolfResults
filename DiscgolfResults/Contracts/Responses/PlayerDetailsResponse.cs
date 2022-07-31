@@ -14,6 +14,8 @@
         public double WorstScore { get; set; }
         public double AvgScore { get; set; }
 
+        public double StdDeviation { get; set; }
+
         public IList<PlayerResult> EventResults { get; set; } = new List<PlayerResult>();
         public IList<PlayerScoreDistribution> ScoreDistibution { get; set; } = new List<PlayerScoreDistribution>();
     }
