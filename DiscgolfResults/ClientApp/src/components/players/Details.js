@@ -9,6 +9,7 @@ import { HoleAverage } from './HoleAverage';
 import { Box, CircularProgress } from '@mui/material';
 import { PlayerStatistics } from './PlayerStatistics';
 import { ScoreDistribution } from './ScoreDistribution';
+import { HcpTrend } from './HcpTrend';
 
 
 export function Details() {
@@ -32,7 +33,6 @@ export function Details() {
     
     let sortedEvents = info.eventResults.map( (x) => x ).sort( (a, b) => a.playedEvent - b.playedEvent ); //map for simple clone
 
-    let hcpTrend = getHcpTrend(sortedEvents);
     let scoreTrend = getScoreTrend(sortedEvents);
 
     return (
@@ -40,16 +40,16 @@ export function Details() {
           <PlayerStatistics player={info}></PlayerStatistics>
           <Collapse accordion={false}>
             <Panel header={i18n.t('player_details_hcptrend')}>
-              {hcpTrend}
+              <HcpTrend data={sortedEvents}></HcpTrend>
             </Panel>
             <Panel header={i18n.t('player_details_scoretrend')}>
               {scoreTrend}
             </Panel>
             <Panel header={i18n.t('player_details_holeavg')}>
-              <HoleAverage playerId={params.playerId}></HoleAverage>
+              <HoleAverage playerId={params.playerId} />
             </Panel>
             <Panel header={i18n.t('player_details_scoredistibution')}>
-            <ScoreDistribution data={info.scoreDistibution} />
+              <ScoreDistribution data={info.scoreDistibution} />
             </Panel>
             <Panel header={i18n.t('player_details_events')}>
               <Grid data={info.eventResults} format={getGridConf()} />
@@ -81,26 +81,6 @@ export function Details() {
     };
   }
   
-  function getHcpTrend(data) {    
-    return (
-      <ResponsiveContainer width="100%" height="100%" minHeight={300}>
-        <LineChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{ top: 5, right: 5, left: 5, bottom: 5, }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="playedEvent" />
-          <YAxis />
-          <Tooltip content={<CustomTooltip />} />
-          <Legend />
-          <Line name={i18n.t('player_details_legend_hcp')} type="monotone" dataKey="hcpAfter" stroke="#8884d8" dot={false} />
-        </LineChart>
-      </ResponsiveContainer>
-    );
-  }
-
   function getScoreTrend(data) {
     let limit = 5;
     let cnt = 0;
@@ -175,22 +155,6 @@ export function Details() {
     </div>
   );
 }
-
-const CustomTooltip = ({ active, payload, label }) => {
-  if (active && payload && payload.length) {
-    return (
-      <div className="custom-tooltip">        
-          <p>{`Hcp: ${payload[0].value}`}</p>
-          <p>
-            {payload[0].payload.eventName} <br/>
-            {payload[0].payload.startTime.substring(0,10)}
-          </p>        
-      </div>
-    );
-  }
-
-  return null;
-};
 
 const CustomAggregatedTooltip = ({ active, payload, label }) => {
   const { i18n } = useTranslation();
