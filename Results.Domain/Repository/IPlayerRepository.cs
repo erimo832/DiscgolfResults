@@ -4,7 +4,7 @@ namespace Results.Domain.Repository
 {
     public interface IPlayerRepository
     {
-        IList<Player> GetBy(int playerId = -1, bool includePlayerEvents = false, bool includeRoundScores = false, bool includeCourseHcps = false);
+        IList<Player> GetBy(int playerId = -1, int fromEventId = -1, int toEventId = -1, bool includePlayerEvents = false, bool includeRoundScores = false, bool includeCourseHcps = false);
         Player Get(int playerId);
 
         void Insert(IList<Player> items);

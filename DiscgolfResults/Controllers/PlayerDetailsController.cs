@@ -20,9 +20,9 @@ namespace DiscgolfResults.Controllers
 
         [HttpGet]
         [Route("api/players/{playerId}/details")]
-        public PlayerDetailsResponse? GetDetails(int playerId)
+        public PlayerDetailsResponse? GetDetails(int playerId, int fromEventId = -1, int toEventId = -1)
         {
-            var player = PlayerManager.GetBy(playerId: playerId, includePlayerEvents: true, includeRoundScores: true, includeCourseHcps: true).FirstOrDefault();
+            var player = PlayerManager.GetBy(playerId: playerId, fromEventId: fromEventId, toEventId: toEventId, includePlayerEvents: true, includeRoundScores: false, includeCourseHcps: true).FirstOrDefault();
             
             return Translator.Translate(player);
         }

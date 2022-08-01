@@ -104,7 +104,7 @@ export function PlayerDetails() {
   };
 
   async function fetchDetails() {
-    let path = '/api/players/'+ params.playerId + '/details';
+    let path = '/api/players/'+ params.playerId + '/details?fromEventId=' + fromEvent + '&toEventId=' + toEvent;
     const response = await fetch(path);
     const data = await response.json();
 

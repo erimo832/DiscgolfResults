@@ -88,9 +88,9 @@ namespace Results.Domain.Service
             return false;
         }
 
-        public IList<Player> GetBy(int playerId = -1, bool includePlayerEvents = false, bool includeRoundScores = false, bool includeCourseHcps = false)
+        public IList<Player> GetBy(int playerId = -1, int fromEventId = -1, int toEventId = -1, bool includePlayerEvents = false, bool includeRoundScores = false, bool includeCourseHcps = false)
         {
-            return Repository.GetBy(playerId, includePlayerEvents, includeRoundScores, includeCourseHcps);
+            return Repository.GetBy(playerId, fromEventId, toEventId, includePlayerEvents, includeRoundScores, includeCourseHcps);
         }
 
         public Player Get(int playerId)

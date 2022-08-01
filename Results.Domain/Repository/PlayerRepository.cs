@@ -52,7 +52,7 @@ namespace Results.Domain.Repository
             }
         }
 
-        public IList<Player> GetBy(int playerId = -1, bool includePlayerEvents = false, bool includeRoundScores = false, bool includeCourseHcps = false)
+        public IList<Player> GetBy(int playerId = -1, int fromEventId = -1, int toEventId = -1, bool includePlayerEvents = false, bool includeRoundScores = false, bool includeCourseHcps = false)
         {
             using (var context = new ResultContext(Config))
             {
@@ -66,9 +66,30 @@ namespace Results.Domain.Repository
                 //Do it manually
                 foreach (var player in players)
                 {
-                    player.PlayerEvents = includePlayerEvents ? context.PlayerEvents.Where(x => x.PlayerId == player.PlayerId).Include(q => q.Event).ToList() : new List<PlayerEvent>();
-                    player.PlayerCourseLayoutHcp = includeCourseHcps ? context.PlayerCourseLayoutHcps.Where(x => x.PlayerId == player.PlayerId).ToList() : new List<PlayerCourseLayoutHcp>();
-                    player.RoundScores = includeRoundScores ? context.RoundScore.Where(x => x.PlayerId == player.PlayerId).ToList() : new List<RoundScore>();
+                    player.PlayerEvents = includePlayerEvents ? 
+                        context.PlayerEvents
+                        .Where(x => x.PlayerId == player.PlayerId)
+                        .If(fromEventId != -1, q => q.Where(x => x.EventId >= fromEventId))
+                        .If(toEventId != -1, q => q.Where(x => x.EventId <= toEventId))
+                        .Include(q => q.Event).ToList() 
+                        : new List<PlayerEvent>();
+
+                    player.PlayerCourseLayoutHcp = includeCourseHcps ? 
+                        context.PlayerCourseLayoutHcps
+                        .Where(x => x.PlayerId == player.PlayerId)
+                        .If(fromEventId != -1, q => q.Where(x => x.EventId >= fromEventId))
+                        .If(toEventId != -1, q => q.Where(x => x.EventId <= toEventId))
+                        .ToList() 
+                        : new List<PlayerCourseLayoutHcp>();
+
+                    player.RoundScores = includeRoundScores ?
+                        context.Rounds
+                        .If(fromEventId != -1, q => q.Where(x => x.EventId >= fromEventId))
+                        .If(toEventId != -1, q => q.Where(x => x.EventId <= toEventId))
+                        .Include(q => q.RoundScores)
+                        .SelectMany(x => x.RoundScores)
+                        .Where(x => x.PlayerId == player.PlayerId).ToList()
+                        : new List<RoundScore>();
                 }
 
                 return players;
