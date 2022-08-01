@@ -81,7 +81,7 @@ export function PlayerDetails() {
                   </Col>
                 </Row>
               </Container>
-              <Box display="flex" flexDirection="column" ml={16} mr={16} mt={1} mb={1}>
+              <Box display="flex" flexDirection="column" ml={6} mr={6} mt={1} mb={1}>
                 <Slider value={value} min={1} step={1} max={events.length} getAriaValueText={valueLabelFormat} valueLabelFormat={valueLabelFormat}
                   onChange={handleChange} valueLabelDisplay="auto" aria-labelledby="non-linear-slider"/>
               </Box>
