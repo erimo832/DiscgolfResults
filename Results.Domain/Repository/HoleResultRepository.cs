@@ -82,13 +82,13 @@ namespace Results.Domain.Repository
                     .If(playerId != -1, q => q.Where(x => x.PlayerId == playerId))
                     .If(fromEventId != -1, q => q.Where(x => x.EventId >= fromEventId))
                     .If(toEventId != -1, q => q.Where(x => x.EventId <= toEventId))
-                    .GroupBy(x => new { x.CourseHoleId, x.Par, x.Number, x.PlayerId })
+                    .GroupBy(x => new { x.CourseHoleId, x.Par, x.Number /*, x.PlayerId*/ })
                     .Select(x => new AverageHoleResultRo
                     {
                         CourseHoleId = x.Key.CourseHoleId,
                         HoleNumber = x.Key.Number,
                         Par = x.Key.Par,
-                        PlayerId = x.Key.PlayerId,
+                        //PlayerId = x.Key.PlayerId,
                         AverageScore = x.Average(x => x.Score)
                     }).ToList();
 

@@ -23,9 +23,6 @@ namespace DiscgolfResults.Controllers
         public IEnumerable<HoleResultRo> GetByPlayerId(int playerId)
         {
             var data = HoleResultManager.GetRoBy(playerId: playerId);
-            //var players = PlayerManager.GetBy();
-
-            //return Translator.Translate(data, players);
 
             return data;
         }
@@ -40,14 +37,14 @@ namespace DiscgolfResults.Controllers
             return Translator.Translate(data);
         }
 
-        /*
+       
         [HttpGet]
-        [Route("api/courses/average-hole-results")]
-        public IEnumerable<AverageHoleResultResponse> GetAverageByPlayerId(int playerId, int fromEventId = -1, int toEventId = -1)
+        [Route("api/courses/{courseId}/average-hole-results")]
+        public IEnumerable<AverageHoleResultResponse> GetAverageByCourseId(int courseId = 1, int fromEventId = -1, int toEventId = -1)
         {
-            var data = HoleResultManager.GetAverageRoBy(playerId: playerId, fromEventId: fromEventId, toEventId: toEventId);
+            var data = HoleResultManager.GetAverageRoBy(fromEventId: fromEventId, toEventId: toEventId);
 
             return Translator.Translate(data);
-        }*/
+        }
     }
 }

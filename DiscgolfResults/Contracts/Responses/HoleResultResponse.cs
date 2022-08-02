@@ -6,7 +6,6 @@
 
     public class AverageHoleResultResponse
     {
-        public int PlayerId { get; set; }
         public int HoleNumber { get; set; }
         public int Par { get; set; }
 

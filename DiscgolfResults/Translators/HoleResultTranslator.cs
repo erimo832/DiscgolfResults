@@ -12,8 +12,7 @@ namespace DiscgolfResults.Translators
                 AverageScore = Math.Round(x.AverageScore, 2),
                 CourseHoleId = x.CourseHoleId,
                 HoleNumber = x.HoleNumber, 
-                Par = x.Par, 
-                PlayerId = x.PlayerId
+                Par = x.Par
             }).ToList();
         }
     }
