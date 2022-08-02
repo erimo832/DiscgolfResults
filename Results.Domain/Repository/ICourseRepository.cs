@@ -6,5 +6,6 @@ namespace Results.Domain.Repository
     {
         void Insert(IList<Course> items);
         IList<Course> GetAll();
+        IList<Course> GetBy(int courseId = -1, bool includeLayouts = false);
     }
 }

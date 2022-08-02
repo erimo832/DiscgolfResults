@@ -14,5 +14,10 @@
         {
             return Convert.ToInt32(value);
         }
+
+        public static double ToDouble(this int value)
+        {
+            return Convert.ToDouble(value);
+        }
     }
 }

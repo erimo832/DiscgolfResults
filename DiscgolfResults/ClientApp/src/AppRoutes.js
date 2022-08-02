@@ -6,6 +6,8 @@ import { ScoreLeaderboard} from './components/leaderboards/ScoreLeaderboard';
 import { CtpLeaderboard} from './components/leaderboards/CtpLeaderboard';
 import { Players } from './components/players/Players';
 import { PlayerDetails } from './components/players/PlayerDetails';
+import { Courses } from "./components/courses/Courses";
+import { CourseDetails } from "./components/courses/CourseDetails";
 
 const AppRoutes = [
   {
@@ -27,6 +29,14 @@ const AppRoutes = [
   {
     path: '/players/:playerId',
     element: <PlayerDetails />
+  },
+  {
+    path: '/courses',
+    element: <Courses />
+  },
+  {
+    path: '/courses/:courseId',
+    element: <CourseDetails />
   },
   {
     path: '/leaderboards/point',

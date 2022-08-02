@@ -43,7 +43,16 @@ namespace DiscgolfResults.Controllers
         [Route("api/players/{playerId}/events")]
         public IEnumerable<EventResponse> GetEventsByPlayerId(int playerId)
         {
-            var data = EventManager.GetBy(playerId: playerId, includeRounds: false, includePlayerEvents: true, includePlayerhcp: true);            
+            var data = EventManager.GetBy(playerId: playerId, includeRounds: false, includePlayerEvents: false, includePlayerhcp: false);            
+
+            return Translator.Translate(data);
+        }
+
+        [HttpGet]
+        [Route("api/events")]
+        public IEnumerable<EventResponse> GetAll()
+        {
+            var data = EventManager.GetBy( includeRounds: false, includePlayerEvents: false, includePlayerhcp: false);
 
             return Translator.Translate(data);
         }

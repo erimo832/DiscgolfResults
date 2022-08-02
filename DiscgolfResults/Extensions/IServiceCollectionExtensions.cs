@@ -7,6 +7,8 @@ namespace DiscgolfResults.Extensions
     {
         public static IServiceCollection AddTranslators(this IServiceCollection services)
         {
+            services.TryAddTransient<ICourseDetailsTranslator, CourseDetailsTranslator>();
+            services.TryAddTransient<ICourseTranslator, CourseTranslator>();
             services.TryAddTransient<IEventResultTranslator, EventResultTranslator>();
             services.TryAddTransient<IPlayerTranslator, PlayerTranslator>();
             services.TryAddTransient<IPlayerDetailsTranslator, PlayerDetailsTranslator>();

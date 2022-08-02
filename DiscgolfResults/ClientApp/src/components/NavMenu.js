@@ -46,6 +46,9 @@ export class NavMenu extends Component {
                   <NavLink tag={Link} className="text-dark" to="/players">{i18n.t('menu_players')}</NavLink>
                 </NavItem>
                 <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/courses">{i18n.t('menu_courses')}</NavLink>
+                </NavItem>
+                <NavItem>
                   <NavLink tag={Link} className="text-dark" to="/rounds">{i18n.t('menu_rounds')}</NavLink>
                 </NavItem>
                 

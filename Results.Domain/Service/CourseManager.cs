@@ -28,5 +28,10 @@ namespace Results.Domain.Service
         {
             CourseRepository.Insert(items);
         }
+
+        public IList<Course> GetBy(int courseId = -1, bool includeLayouts = false)
+        {
+            return CourseRepository.GetBy(courseId, includeLayouts);
+        }
     }
 }
