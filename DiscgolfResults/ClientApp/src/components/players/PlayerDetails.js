@@ -89,16 +89,16 @@ export function PlayerDetails() {
           </Accordion>
           <SummaryCard player={info} />
           <Accordion disableGutters>
+            <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holeavg')}</AccordionSummary>
+            <AccordionDetails><HoleAverage data={holeAvg} /></AccordionDetails>
+          </Accordion>
+          <Accordion disableGutters>
             <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_hcptrend')}</AccordionSummary>
             <AccordionDetails><HcpTrend data={sortedEvents} /></AccordionDetails>
           </Accordion>
           <Accordion disableGutters>
             <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_scoretrend')}</AccordionSummary>
             <AccordionDetails><AggregatedScoreTrend data={sortedEvents} /></AccordionDetails>
-          </Accordion>
-          <Accordion disableGutters>
-            <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holeavg')}</AccordionSummary>
-            <AccordionDetails><HoleAverage data={holeAvg} /></AccordionDetails>
           </Accordion>
           <Accordion disableGutters>
             <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_scoredistibution')}</AccordionSummary>
