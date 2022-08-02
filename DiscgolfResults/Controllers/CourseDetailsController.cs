@@ -22,10 +22,10 @@ namespace DiscgolfResults.Controllers
 
         [HttpGet]
         [Route("api/courses/{courseId}/details")]
-        public CourseDetailsResponse GetDetailsByCourseId(int courseId)
+        public CourseDetailsResponse GetDetailsByCourseId(int courseId, int fromEventId = -1, int toEventId = -1)
         {
             var data = CourseManager.GetBy(courseId: courseId, includeLayouts: true).FirstOrDefault();
-            var events = EventManager.GetBy(includePlayerEvents: true);
+            var events = EventManager.GetBy(fromEventId: fromEventId, toEventId: toEventId, includePlayerEvents: true);
 
             return Translator.Translate(data, events);
         }

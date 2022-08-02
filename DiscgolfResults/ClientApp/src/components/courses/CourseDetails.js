@@ -101,7 +101,6 @@ export function CourseDetails() {
     const data = await response.json();
 
     setCourseDetails(data);
-    setEvents(data.events);
 
     if(isInit) {
         setEvents(data.events);

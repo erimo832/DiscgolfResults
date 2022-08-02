@@ -101,9 +101,9 @@ namespace Results.Domain.Service
             return PlayerEventRepository.GetPlayerEvents(playerId);
         }
 
-        public IList<Event> GetBy(int seriesId = -1, int playerId = -1, bool includeRounds = false, bool includePlayerEvents = false, bool includePlayerhcp = false)
+        public IList<Event> GetBy(int seriesId = -1, int playerId = -1, int fromEventId = -1, int toEventId = -1, bool includeRounds = false, bool includePlayerEvents = false, bool includePlayerhcp = false)
         {
-            return Repository.GetBy(seriesId, playerId, includeRounds, includePlayerEvents, includePlayerhcp);
+            return Repository.GetBy(seriesId, playerId, fromEventId, toEventId, includeRounds, includePlayerEvents, includePlayerhcp);
         }
     }
 }

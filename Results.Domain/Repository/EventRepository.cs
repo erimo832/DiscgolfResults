@@ -36,7 +36,7 @@ namespace Results.Domain.Repository
             }
         }
 
-        public IList<Event> GetBy(int serieId = -1, int playerId = -1, bool includeRounds = false, bool includePlayerEvents = false, bool includePlayerhcp = false)
+        public IList<Event> GetBy(int serieId = -1, int playerId = -1, int fromEventId = -1, int toEventId = -1, bool includeRounds = false, bool includePlayerEvents = false, bool includePlayerhcp = false)
         {
             using (var context = new ResultContext(Config))
             {
@@ -45,6 +45,8 @@ namespace Results.Domain.Repository
                     .If(includePlayerEvents, q => q.Include(x => x.PlayerEvents))
                     .If(includePlayerhcp, q => q.Include(x => x.PlayerCourseLayoutHcp))
                     .If(serieId != -1, q => q.Where(x => x.SerieId == serieId))
+                    .If(fromEventId != -1, q => q.Where(x => x.EventId >= fromEventId))
+                    .If(toEventId != -1, q => q.Where(x => x.EventId <= toEventId))
                     .If(playerId != -1, q => q
                         .Join(context.Rounds, e => e.EventId, r => r.EventId, (e, r) => new { Event = e, r.RoundId })
                         .Join(context.RoundScore, e => e.RoundId, rs => rs.RoundId, (e, rs) => new { Event = e.Event, rs.PlayerId })
