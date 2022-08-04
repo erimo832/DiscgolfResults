@@ -59,7 +59,7 @@ const HoleTooltip = ({ active, payload, label }) => {
       let relative = i18n.t('hole_stats_relativescore_' + payload[0].payload.relativeScore);
       return (
         <div className="custom-tooltip">        
-            {`${payload[0].payload.numberOfScores} ${relative}`}
+            {`${payload[0].payload.numberOfScores} ${relative}`} ({payload[0].payload.percentage}%)
         </div>
       );
     }

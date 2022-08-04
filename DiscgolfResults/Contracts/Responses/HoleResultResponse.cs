@@ -1,4 +1,6 @@
-﻿namespace DiscgolfResults.Contracts.Responses
+﻿using DiscgolfResults.Extensions;
+
+namespace DiscgolfResults.Contracts.Responses
 {
     public class HoleResultResponse
     {
@@ -20,8 +22,10 @@
     public class ScoreDistibution
     {
         public int NumberOfScores { get; set; }
+        public int TotalPlayed { get; set; }
         public RelativeScore RelativeScore { get; set; }
 
+        public double Percentage => (NumberOfScores.ToDouble() / TotalPlayed.ToDouble()).ToPercent(2);
     }
 
     public enum RelativeScore
