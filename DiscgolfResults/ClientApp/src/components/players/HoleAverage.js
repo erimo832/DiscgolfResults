@@ -17,7 +17,7 @@ export function HoleAverage(props) {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="holeNumber" />
             <YAxis domain={['auto', 'auto']} />
-            <Tooltip content={<HoleAvgTooltip />}  />
+            <Tooltip content={<HoleAvgTooltip />} />
             <Legend />
             <Bar name={i18n.t('hole_stats_diffpar')} dataKey="diffToPar" fill="#8884d8" />
           </BarChart>
@@ -27,7 +27,7 @@ export function HoleAverage(props) {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="holeNumber" />
             <YAxis domain={[2, 'auto']} />
-            <Tooltip content={<HoleAvgTooltip />}  />
+            <Tooltip content={<HoleAvgTooltip />} />
             <Legend />
             <Bar name={i18n.t('hole_stats_avgscore')} dataKey="averageScore" fill="#8884d8" />
             <Bar name={i18n.t('hole_stats_par')} dataKey="par" fill="#82ca9d" />
