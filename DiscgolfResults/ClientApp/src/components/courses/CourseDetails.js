@@ -9,6 +9,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Button, CircularPro
 import { Col, Container, Row } from 'react-bootstrap';
 import { HoleAverage } from '../players/HoleAverage';
 import { CourseCard } from './CourseCard';
+import { HoleScoreDistributionPieChart } from '../common/HoleScoreDistributionPieChart';
 
 
 const style = {
@@ -82,6 +83,12 @@ export function CourseDetails() {
           <Accordion disableGutters>
             <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holeavg')}</AccordionSummary>
             <AccordionDetails><HoleAverage data={holeAvg} /></AccordionDetails>
+          </Accordion>
+          <Accordion disableGutters>
+            <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holescoredistribution')}</AccordionSummary>
+            <AccordionDetails>
+              {holeAvg.map(x => <div style={{ display: "inline-block"}} key={x.courseHoleId}> <HoleScoreDistributionPieChart data={x} key={x.courseHoleId}/> </div> )}
+            </AccordionDetails>
           </Accordion>
         </>
     );
