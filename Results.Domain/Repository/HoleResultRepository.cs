@@ -28,16 +28,19 @@ namespace Results.Domain.Repository
             }
         }
 
-        public IList<HoleResultRo> GetRoBy(int playerId = -1, int eventId = -1, int courseHoleId = -1)
+        public IList<HoleResultRo> GetRoBy(int playerId = -1, int fromEventId = -1, int toEventId = -1, int courseHoleId = -1)
         {
             using (var context = new ResultContext(Config))
             {
                 return context.HoleResult
-                    .Join(context.CourseHoles, hr => hr.CourseHoleId, ch => ch.CourseHoleId, (hr, ch) => new { hr.CourseHoleId, hr.Score, hr.HoleResultId, ch.Par, ch.Number, hr.RoundScoreId })
-                    .Join(context.RoundScore, x => x.RoundScoreId, rs => rs.RoundScoreId, (x, rs) => new { x.CourseHoleId, x.Score, x.HoleResultId, x.Par, x.Number, rs.PlayerId, rs.RoundId, x.RoundScoreId })
-                    .Join(context.Rounds, x => x.RoundId, rs => rs.RoundId, (x, rs) => new { x.CourseHoleId, x.Score, x.HoleResultId, x.Par, x.Number, x.PlayerId, rs.EventId, x.RoundScoreId })
-                    .Join(context.Events, x => x.EventId, r => r.EventId, (x, r) => new { x.CourseHoleId, x.Score, x.HoleResultId, x.Par, x.Number, x.PlayerId, x.EventId, x.RoundScoreId, r.SerieId })
+                    .Join(context.CourseHoles, hr => hr.CourseHoleId, ch => ch.CourseHoleId, (hr, ch) => new { hr.CourseHoleId, hr.Score, hr.HoleResultId, ch.Par, ch.Number, hr.RoundScoreId, ch.CourseLayoutId, hr.IsCtp })
+                    .Join(context.RoundScore, x => x.RoundScoreId, rs => rs.RoundScoreId, (x, rs) => new { x.CourseHoleId, x.Score, x.HoleResultId, x.Par, x.Number, rs.PlayerId, rs.RoundId, x.RoundScoreId, x.CourseLayoutId, x.IsCtp })
+                    .Join(context.Rounds, x => x.RoundId, rs => rs.RoundId, (x, rs) => new { x.CourseHoleId, x.Score, x.HoleResultId, x.Par, x.Number, x.PlayerId, rs.EventId, x.RoundScoreId, x.CourseLayoutId, x.IsCtp })
+                    .Join(context.Events, x => x.EventId, r => r.EventId, (x, r) => new { x.CourseHoleId, x.Score, x.HoleResultId, x.Par, x.Number, x.PlayerId, x.EventId, x.RoundScoreId, r.SerieId, r.StartTime, x.CourseLayoutId, x.IsCtp })
                     .If(playerId != -1, q => q.Where(x => x.PlayerId == playerId))
+                    .If(fromEventId != -1, q => q.Where(x => x.EventId >= fromEventId))
+                    .If(toEventId != -1, q => q.Where(x => x.EventId <= toEventId))
+                    .If(courseHoleId != -1, q => q.Where(x => x.CourseHoleId <= courseHoleId))
                     .Select(x => new HoleResultRo
                     {
                         CourseHoleId = x.CourseHoleId,
@@ -45,11 +48,13 @@ namespace Results.Domain.Repository
                         Par = x.Par,
                         PlayerId = x.PlayerId,
                         EventId = x.EventId,
-                        EventName = "",
+                        EventStartTime = x.StartTime,
                         HoleResultId = x.HoleResultId,
                         RoundScoreId = x.RoundScoreId,
                         Score = x.Score,
-                        SerieId = x.SerieId
+                        SerieId = x.SerieId,
+                        CourseLayoutId = x.CourseLayoutId,
+                        IsCtp = x.IsCtp
                     }).ToList();
 
                 /*return context.HoleResultRoView.FromSqlInterpolated($@"select 	

@@ -5,15 +5,17 @@ namespace DiscgolfResults.Translators
 {
     public class HoleResultTranslator : IHoleResultTranslator
     {
-        public IList<AverageHoleResultResponse> Translate(IList<AverageHoleResultRo> results)
+        public IList<AverageHoleResultResponse> Translate(IList<HoleResultRo> results)
         {
-            return results.Select(x => new AverageHoleResultResponse
-            {
-                AverageScore = Math.Round(x.AverageScore, 2),
-                CourseHoleId = x.CourseHoleId,
-                HoleNumber = x.HoleNumber, 
-                Par = x.Par
-            }).ToList();
+            return results
+                .GroupBy(x => new { x.CourseHoleId, x.HoleNumber, x.Par })
+                .Select(x => new AverageHoleResultResponse
+                {
+                    CourseHoleId = x.Key.CourseHoleId,
+                    HoleNumber = x.Key.HoleNumber,
+                    Par = x.Key.Par,
+                    AverageScore = Math.Round(x.Average(y => y.Score), 2)
+                }).ToList();
         }
     }
 }
