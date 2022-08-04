@@ -1,7 +1,6 @@
 ﻿using DiscgolfResults.Contracts.Responses;
 using DiscgolfResults.Translators;
 using Microsoft.AspNetCore.Mvc;
-using Results.Domain.Model.ReadObjects;
 using Results.Domain.Service;
 
 namespace DiscgolfResults.Controllers

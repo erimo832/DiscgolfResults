@@ -14,5 +14,23 @@
         public double AverageScore { get; set; }
 
         public double DiffToPar => Math.Round(AverageScore - Par, 2);
+        public IList<ScoreDistibution> ScoreDistibutions { get; set; }
+    }
+
+    public class ScoreDistibution
+    {
+        public int NumberOfScores { get; set; }
+        public RelativeScore RelativeScore { get; set; }
+
+    }
+
+    public enum RelativeScore
+    {
+        Eagle = -2,
+        Birdie = -1,
+        Par = 0,
+        Bogey = 1,
+        DoubleBogey = 2,
+        PlusBogey = 3
     }
 }
