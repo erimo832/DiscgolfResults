@@ -38,6 +38,9 @@ export function HoleScoreDistributionPieChart(props) {
                                     </Pie>
                                 </PieChart>
                             </ResponsiveContainer>
+                            <Typography variant='body1' align='center'>
+                                {data.averageScore}
+                            </Typography>
                         </CardContent>
                     </Card>
                 </Box>  
