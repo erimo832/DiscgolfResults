@@ -81,15 +81,15 @@ export function CourseDetails() {
           </Accordion>
           <CourseCard course={courseDetails} />
           <Accordion disableGutters>
-            <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holeavg')}</AccordionSummary>
-            <AccordionDetails><HoleAverage data={holeAvg} /></AccordionDetails>
-          </Accordion>
-          <Accordion disableGutters>
             <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holescoredistribution')}</AccordionSummary>
             <AccordionDetails>
               {holeAvg.map(x => <div style={{ display: "inline-block"}} key={x.courseHoleId}> <HoleScoreDistributionPieChart data={x} key={x.courseHoleId}/> </div> )}
             </AccordionDetails>
           </Accordion>
+          <Accordion disableGutters>
+            <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holeavg')}</AccordionSummary>
+            <AccordionDetails><HoleAverage data={holeAvg} /></AccordionDetails>
+          </Accordion>          
         </>
     );
   }
