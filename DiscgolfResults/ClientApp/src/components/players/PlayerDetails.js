@@ -68,7 +68,7 @@ export function PlayerDetails() {
 
     return (
         <>
-          <Accordion disableGutters defaultExpanded={true} elevation={1}>
+          <Accordion disableGutters defaultExpanded={false} elevation={1}>
             <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>
               <Typography><FilterAltIcon /> {i18n.t('common_filter')}</Typography>
             </AccordionSummary>

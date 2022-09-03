@@ -3,6 +3,7 @@
     public class CourseDetailsResponse : CourseResponse
     {
         public int NumberOfEvents { get; set; }
+        public int NumberOfPlayedRounds { get; set; }
         public double AverageNumerOfPlayers { get; set; }
 
         public IList<EventResponse> Events { get; set; } = new List<EventResponse>();

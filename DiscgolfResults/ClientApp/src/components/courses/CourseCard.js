@@ -23,6 +23,10 @@ export function CourseCard(props) {
                                             <Col xs={6} md={6} lg={6}>{i18n.t('course_card_numberofevents')}</Col>
                                             <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.course.numberOfEvents}</Col>
                                         </Row>
+                                        <Row>
+                                            <Col xs={6} md={6} lg={6}>{i18n.t('course_card_numberofplayedrounds')}</Col>
+                                            <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.course.numberOfPlayedRounds}</Col>
+                                        </Row>
                                     </Container>
                                 </Col>
                                 <Col xs={12} md={6} lg={4}>
@@ -33,7 +37,7 @@ export function CourseCard(props) {
                                         </Row>
                                     </Container>
                                 </Col>
-                            </Row>
+                            </Row>                            
                         </Container>
                     </CardContent>
                 </Card>

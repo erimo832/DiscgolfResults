@@ -20,6 +20,7 @@ namespace DiscgolfResults.Translators
                 CourseId = course.CourseId,
                 Name = course.Name,
                 NumberOfEvents = events.Count,
+                NumberOfPlayedRounds = events.SelectMany(x => x.PlayerEvents).Count(),
                 AverageNumerOfPlayers = Math.Round(events.SelectMany(x => x.PlayerEvents).Count().ToDouble() / events.Count.ToDouble(), 2),
                 Events = EventTranslator.Translate(events),
                 ScoreDistibution = GetDistribution(events.SelectMany(x => x.PlayerEvents).ToList())
