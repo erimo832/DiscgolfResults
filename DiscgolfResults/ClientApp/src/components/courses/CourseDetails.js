@@ -10,6 +10,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 import { HoleAverage } from '../players/HoleAverage';
 import { CourseCard } from './CourseCard';
 import { HoleScoreDistributionPieChart } from '../common/HoleScoreDistributionPieChart';
+import { ScoreDistribution } from '../players/ScoreDistribution';
 
 
 const style = {
@@ -89,7 +90,11 @@ export function CourseDetails() {
           <Accordion disableGutters>
             <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holeavg')}</AccordionSummary>
             <AccordionDetails><HoleAverage data={holeAvg} /></AccordionDetails>
-          </Accordion>          
+          </Accordion>
+          <Accordion disableGutters>
+            <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_scoredistibution')}</AccordionSummary>
+            <AccordionDetails><ScoreDistribution data={courseDetails.scoreDistibution} /></AccordionDetails>
+          </Accordion>
         </>
     );
   }

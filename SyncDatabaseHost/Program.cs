@@ -62,9 +62,11 @@ namespace DbTest
             Service = service;
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        public async Task StartAsync(CancellationToken cancellationToken)
         {
-            return Service.Sync();
+            await Service.Sync();
+
+            return;
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

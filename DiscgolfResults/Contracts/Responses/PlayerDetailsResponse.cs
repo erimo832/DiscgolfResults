@@ -17,7 +17,7 @@
         public double StdDeviation { get; set; }
 
         public IList<PlayerResult> EventResults { get; set; } = new List<PlayerResult>();
-        public IList<PlayerScoreDistribution> ScoreDistibution { get; set; } = new List<PlayerScoreDistribution>();
+        public IList<ScoreDistribution> ScoreDistibution { get; set; } = new List<ScoreDistribution>();
     }
 
     public class PlayerResult
@@ -38,7 +38,7 @@
         public int PlayedEvent { get; set; } = 0;
     }
 
-    public class PlayerScoreDistribution
+    public class ScoreDistribution
     {
         public int Score { get; set; }
         public int NumberOfTimes { get; set; }
