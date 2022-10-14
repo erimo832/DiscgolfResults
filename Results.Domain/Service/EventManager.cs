@@ -52,36 +52,42 @@ namespace Results.Domain.Service
                         PlayerId = playerHcp.PlayerId,
                         TotalScore = ev.Rounds.SelectMany(x => x.RoundScores).Where(x => x.PlayerId == playerHcp.PlayerId).Sum(z => z.Score),
                         TotalHcpScore = ev.Rounds.SelectMany(x => x.RoundScores).Where(x => x.PlayerId == playerHcp.PlayerId).Sum(z => z.Score) - playerHcp.HcpBefore, //Is a bug here if multiple rounds on different layouts
-                        NumberOfCtp = ev.Rounds.SelectMany(x => x.RoundScores).Where(x => x.PlayerId == playerHcp.PlayerId).Sum(z => z.NumberOfCtps)
+                        NumberOfCtp = ev.Rounds.SelectMany(x => x.RoundScores).Where(x => x.PlayerId == playerHcp.PlayerId).Sum(z => z.NumberOfCtps),
+                        Division = ev.Rounds.SelectMany(x => x.RoundScores).Where(x => x.PlayerId == playerHcp.PlayerId).FirstOrDefault()?.Division ?? ""
                     });
                 }
 
-                int pos = 0;
-                double lastScore = 0;
-                var sorted = eventResults.OrderBy(x => x.TotalScore).ToList();
+                var grouped = eventResults.GroupBy(x => x.Division);
 
-                for (int i = 0; i < eventResults.Count; i++)
+                foreach (var grp in grouped)
                 {
-                    if (sorted[i].TotalScore != lastScore)
-                        pos = i + 1;
+                    var sorted = grp.OrderBy(x => x.TotalScore).ToList();
 
-                    sorted[i].Placement = pos;
-                    lastScore = sorted[i].TotalScore;
+                    int pos = 0;
+                    double lastScore = 0;
+
+                    for (int i = 0; i < grp.Count(); i++)
+                    {
+                        if (sorted[i].TotalScore != lastScore)
+                            pos = i + 1;
+
+                        sorted[i].Placement = pos;
+                        lastScore = sorted[i].TotalScore;
+                    }
+
+                    lastScore = 0;
+                    var sortedHcp = grp.OrderBy(x => x.TotalHcpScore).ToList();
+
+                    for (int i = 0; i < grp.Count(); i++)
+                    {
+                        if (sortedHcp[i].TotalHcpScore != lastScore)
+                            pos = i + 1;
+
+                        sortedHcp[i].PlacementHcp = pos;
+                        sortedHcp[i].HcpPoints = GetPoints(pos, grp.Count());
+                        lastScore = sortedHcp[i].TotalHcpScore;
+                    }
                 }
-
-                lastScore = 0;
-                var sortedHcp = eventResults.OrderBy(x => x.TotalHcpScore).ToList();
-
-                for (int i = 0; i < eventResults.Count; i++)
-                {
-                    if (sortedHcp[i].TotalHcpScore != lastScore)
-                        pos = i + 1;
-
-                    sortedHcp[i].PlacementHcp = pos;
-                    sortedHcp[i].HcpPoints = GetPoints(pos, eventResults.Count);
-                    lastScore = sortedHcp[i].TotalHcpScore;
-                }
-
 
                 results.AddRange(eventResults);
             }

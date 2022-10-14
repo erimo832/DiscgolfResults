@@ -5,6 +5,7 @@
         public int PlayerEventId { get; set; }
         public int PlayerId { get; set; }
         public int EventId { get; set; }
+        public string Division { get; set; } = "";
 
         public double TotalScore { get; set; }
         public double TotalHcpScore { get; set; }
