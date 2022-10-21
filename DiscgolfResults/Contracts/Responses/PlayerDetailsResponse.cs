@@ -25,6 +25,7 @@
         public int EventId { get; set; }
         public string EventName { get; set; } = "";
         public DateTime StartTime { get; set; }
+        public string Division { get; set; } = "";
         public int Placement { get; set; }
         public int PlacementHcp { get; set; }        
         public double Points { get; set; }

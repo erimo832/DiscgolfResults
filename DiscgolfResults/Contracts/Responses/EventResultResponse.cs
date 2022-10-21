@@ -5,6 +5,12 @@
         public int EventId { get; set; }
         public string EventName { get; set; } = "";
         public DateTime StartTime { get; set; }
+        public IList<Division> Divisions { get; set; } = new List<Division>();
+    }
+
+    public class Division
+    {
+        public string Name { get; set; } = "";
         public IList<Result> Results { get; set; } = new List<Result>();
     }
 
@@ -14,6 +20,7 @@
         public int PlacementHcp { get; set; }
         public int PlayerId { get; set; }
         public string FullName { get; set; } = "";
+        public string Division { get; set; } = "";
         public double Points { get; set; }
         public double Score { get; set; }
         public double HcpScore { get; set; }

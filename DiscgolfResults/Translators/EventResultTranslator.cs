@@ -28,16 +28,23 @@ namespace DiscgolfResults.Translators
                         PlayerId = pe.PlayerId,
                         Points = pe.HcpPoints,
                         Score = pe.TotalScore,
-                        HcpScore = pe.TotalHcpScore
+                        HcpScore = pe.TotalHcpScore,
+                        Division = pe.Division
                     });
                 }
+
+                var divisionResults = eventResults.GroupBy(x => x.Division).Select(x => new Division
+                {
+                    Name = x.Key,
+                    Results = x.Select(y => y).ToList().OrderBy(x => x.PlacementHcp).ToList()
+                }).ToList();
 
                 result.Add(new EventResultResponse
                 {
                     EventId = ev.EventId,
                     EventName = ev.EventName,
                     StartTime = ev.StartTime,
-                    Results = eventResults.OrderBy(x => x.PlacementHcp).ToList()
+                    Divisions = divisionResults
                 });
             }
 

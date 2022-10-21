@@ -1,6 +1,6 @@
 import { Home } from "./components/Home";
 import { Hcp } from './components/Hcp';
-import { Rounds } from './components/Rounds';
+import { Rounds } from "./components/rounds/Rounds";
 import { PointLeaderboard } from './components/leaderboards/PointLeaderboard';
 import { ScoreLeaderboard} from './components/leaderboards/ScoreLeaderboard';
 import { CtpLeaderboard} from './components/leaderboards/CtpLeaderboard';

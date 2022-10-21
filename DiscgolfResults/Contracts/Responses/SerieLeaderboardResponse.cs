@@ -5,11 +5,17 @@
         public int SerieId { get; set; }
         public string SerieName { get; set; } = "";
         public int RoundsToCount { get; set; }
-
-        public IList<HcpResult> HcpResults { get; set; } = new List<HcpResult>();
-        public IList<ScoreResult> ScoreResults { get; set; } = new List<ScoreResult>();
+        public IList<DivisionResult> DivisionResults { get; set; } = new List<DivisionResult>();
         public IList<CtpResult> CtpResults { get; set; } = new List<CtpResult>();
     }
+
+    public class DivisionResult
+    {
+        public string Division { get; set; } = "";
+        public IList<HcpResult> HcpResults { get; set; } = new List<HcpResult>();
+        public IList<ScoreResult> ScoreResults { get; set; } = new List<ScoreResult>();
+    }
+
 
     public class CtpResult
     {

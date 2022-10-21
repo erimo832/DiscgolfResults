@@ -20,21 +20,39 @@ namespace DiscgolfResults.Translators
                     SerieName = serie.Name,
                     RoundsToCount = serie.RoundsToCount,
                     CtpResults = GetCtpResults(serie, players),
-                    HcpResults = GetHcpResults(serie, players),
-                    ScoreResults = GetScoreResults(serie, players)
+                    DivisionResults = GetDivisionResults(serie, players)
                 });
             }
 
             return result;
         }
 
-        private IList<HcpResult> GetHcpResults(Serie serie, IList<Player> players)
+        private IList<DivisionResult> GetDivisionResults(Serie serie, IList<Player> players)
+        {
+            var divisions = serie.Events.SelectMany(x => x.PlayerEvents).Select(x => x.Division).Distinct();
+
+            var result = new List<DivisionResult>();
+
+            foreach (var division in divisions)
+            {
+                result.Add(new DivisionResult 
+                {
+                    Division = division,
+                    HcpResults = GetHcpResults(serie, players, division).OrderBy(x => x.Placement).ToList(),
+                    ScoreResults = GetScoreResults(serie, players, division).OrderBy(x => x.Placement).ToList()
+                });
+            }
+
+            return result;
+        }
+
+        private IList<HcpResult> GetHcpResults(Serie serie, IList<Player> players, string division)
         {
             var dictionary = new Dictionary<int, HcpResult>();
 
             foreach (var ev in serie.Events)
             {
-                foreach (var item in ev.PlayerEvents)
+                foreach (var item in ev.PlayerEvents.Where(x => x.Division == division))
                 {
                     if (!dictionary.ContainsKey(item.PlayerId))
                     {
@@ -82,13 +100,13 @@ namespace DiscgolfResults.Translators
             return result;
         }
 
-        private IList<ScoreResult> GetScoreResults(Serie serie, IList<Player> players)
+        private IList<ScoreResult> GetScoreResults(Serie serie, IList<Player> players, string division)
         {
             var dictionary = new Dictionary<int, ScoreResult>();
 
             foreach (var ev in serie.Events)
             {
-                foreach (var item in ev.PlayerEvents)
+                foreach (var item in ev.PlayerEvents.Where(x => x.Division == division))
                 {
                     if (!dictionary.ContainsKey(item.PlayerId))
                     {

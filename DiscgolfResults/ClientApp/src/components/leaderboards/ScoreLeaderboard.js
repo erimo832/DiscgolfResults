@@ -26,9 +26,7 @@ export class ScoreLeaderboard extends Component {
 
   renderSeriesTable(series) {
     return (<div>           
-      <Collapse
-        accordion={false}
-      >
+      <Collapse accordion={false}>
         {this.getItems(series)}
       </Collapse>
     </div>
@@ -49,7 +47,13 @@ export class ScoreLeaderboard extends Component {
             </Row>
             <Row>
               <Col sm={12} lg={12}>
-                <Grid data={this.getDataForGrid(series[i].scoreResults)} format={this.getGridConf()} />
+                { series[i].divisionResults.map(x => 
+                  <Collapse accordion={false} key={series[i].serieId + x.division + i}>
+                    <Panel header={`${x.division}`} key={series[i].serieId + x.division}>
+                      <Grid data={this.getDataForGrid(x.scoreResults)} format={this.getGridConf()} />
+                    </Panel>
+                  </Collapse>) 
+                }
               </Col>
             </Row>
         </Container>

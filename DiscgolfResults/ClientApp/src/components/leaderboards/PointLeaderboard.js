@@ -49,8 +49,14 @@ export class PointLeaderboard extends Component {
                </Col>
             </Row>
             <Row>
-              <Col sm={12} lg={12}>                
-                <Grid data={this.getDataForGrid(series[i].hcpResults)} format={this.getGridConf()} />
+              <Col sm={12} lg={12}>
+                { series[i].divisionResults.map(x => 
+                  <Collapse accordion={false} key={series[i].serieId + x.division + i}>
+                    <Panel header={`${x.division}`} key={series[i].serieId + x.division}>
+                      <Grid data={this.getDataForGrid(x.hcpResults)} format={this.getGridConf()} />
+                    </Panel>
+                  </Collapse>) 
+                }
               </Col>
             </Row>
         </Container>
