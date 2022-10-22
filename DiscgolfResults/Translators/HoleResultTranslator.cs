@@ -14,6 +14,7 @@ namespace DiscgolfResults.Translators
                     CourseHoleId = x.Key.CourseHoleId,
                     HoleNumber = x.Key.HoleNumber,
                     Par = x.Key.Par,
+                    Hios = x.Where(y => y.Score == 1).Count(),
                     AverageScore = Math.Round(x.Average(y => y.Score), 2),
                     ScoreDistibutions = new List<ScoreDistibution>
                     {

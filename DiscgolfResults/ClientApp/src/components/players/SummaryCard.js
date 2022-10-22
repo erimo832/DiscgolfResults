@@ -38,7 +38,10 @@ export function SummaryCard(props) {
                                         <Row>
                                             <Col xs={6} md={6} lg={6}>{i18n.t('player_card_stddev')} (&sigma;)</Col>
                                             <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.player.stdDeviation}</Col>
-                                            
+                                        </Row>
+                                        <Row>
+                                            <Col xs={6} md={6} lg={6}>{i18n.t('player_card_holeinone')}</Col>
+                                            <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.holeAvg.map(x => x.hios).reduce((partialSum, a) => partialSum + a, 0)}</Col>
                                         </Row>
                                     </Container>
                                 </Col>

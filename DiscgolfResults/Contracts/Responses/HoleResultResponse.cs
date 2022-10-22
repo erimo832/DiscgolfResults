@@ -10,13 +10,14 @@ namespace DiscgolfResults.Contracts.Responses
     {
         public int HoleNumber { get; set; }
         public int Par { get; set; }
+        public int Hios { get; set; }
 
         //From HoleResult
         public int CourseHoleId { get; set; }
         public double AverageScore { get; set; }
 
         public double DiffToPar => Math.Round(AverageScore - Par, 2);
-        public IList<ScoreDistibution> ScoreDistibutions { get; set; }
+        public IList<ScoreDistibution> ScoreDistibutions { get; set; } = new List<ScoreDistibution>();
     }
 
     public class ScoreDistibution

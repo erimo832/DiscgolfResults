@@ -88,7 +88,7 @@ export function PlayerDetails() {
               </Box>
             </AccordionDetails>
           </Accordion>
-          <SummaryCard player={info} />
+          <SummaryCard player={info} holeAvg={holeAvg} />
           <Accordion disableGutters>
             <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holescoredistribution')}</AccordionSummary>
             <AccordionDetails>
