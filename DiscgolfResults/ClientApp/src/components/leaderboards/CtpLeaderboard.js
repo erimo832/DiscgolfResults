@@ -37,8 +37,14 @@ export class CtpLeaderboard extends Component {
         <Panel header={`${series[i].serieName}`} key={series[i].serieId}>          
           <Container>            
             <Row>            
-              <Col sm={12} lg={12}>                
-                <Grid data={this.getDataForGrid(series[i].ctpResults)} format={this.getGridConf()} />
+              <Col sm={12} lg={12}>
+                { series[i].divisionResults.map(x => 
+                  <Collapse accordion={false} key={series[i].serieId + x.division + i}>
+                    <Panel header={`${x.division}`} key={series[i].serieId + x.division}>
+                      <Grid data={this.getDataForGrid(x.ctpResults)} format={this.getGridConf()} />
+                    </Panel>
+                  </Collapse>) 
+                }
               </Col>              
             </Row>
             

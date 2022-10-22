@@ -18,8 +18,7 @@ namespace DiscgolfResults.Translators
                 {
                     SerieId = serie.SerieId,
                     SerieName = serie.Name,
-                    RoundsToCount = serie.RoundsToCount,
-                    CtpResults = GetCtpResults(serie, players),
+                    RoundsToCount = serie.RoundsToCount,                    
                     DivisionResults = GetDivisionResults(serie, players)
                 });
             }
@@ -39,7 +38,8 @@ namespace DiscgolfResults.Translators
                 {
                     Division = division,
                     HcpResults = GetHcpResults(serie, players, division).OrderBy(x => x.Placement).ToList(),
-                    ScoreResults = GetScoreResults(serie, players, division).OrderBy(x => x.Placement).ToList()
+                    ScoreResults = GetScoreResults(serie, players, division).OrderBy(x => x.Placement).ToList(),
+                    CtpResults = GetCtpResults(serie, players, division)
                 });
             }
 
@@ -154,13 +154,13 @@ namespace DiscgolfResults.Translators
             return result;
         }
 
-        private IList<CtpResult> GetCtpResults(Serie serie, IList<Player> players)
+        private IList<CtpResult> GetCtpResults(Serie serie, IList<Player> players, string division)
         {
             var dictionary = new Dictionary<int, CtpResult>();
 
             foreach (var ev in serie.Events)
             {
-                foreach (var item in ev.PlayerEvents)
+                foreach (var item in ev.PlayerEvents.Where(x => x.Division == division))
                 {
                     if (!dictionary.ContainsKey(item.PlayerId))
                     {
