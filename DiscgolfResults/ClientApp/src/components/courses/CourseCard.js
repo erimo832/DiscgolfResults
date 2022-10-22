@@ -27,13 +27,21 @@ export function CourseCard(props) {
                                             <Col xs={6} md={6} lg={6}>{i18n.t('course_card_numberofplayedrounds')}</Col>
                                             <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.course.numberOfPlayedRounds}</Col>
                                         </Row>
+                                        <Row>
+                                            <Col xs={6} md={6} lg={6}>{i18n.t('course_card_holeinone')}</Col>
+                                            <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.holeAvg.map(x => x.hios).reduce((partialSum, a) => partialSum + a, 0)}</Col>
+                                        </Row>
                                     </Container>
                                 </Col>
                                 <Col xs={12} md={6} lg={4}>
                                     <Container>
                                         <Row>
                                             <Col xs={6} md={6} lg={6}>{i18n.t('course_card_avgnumplayers')}</Col>
-                                            <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.course.averageNumerOfPlayers}</Col>
+                                            <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.course.averageNumberOfPlayers}</Col>
+                                        </Row>
+                                        <Row>
+                                            <Col xs={6} md={6} lg={6}>{i18n.t('course_card_uniquenumplayers')}</Col>
+                                            <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.course.uniqueNumberOfPlayers}</Col>
                                         </Row>
                                     </Container>
                                 </Col>
