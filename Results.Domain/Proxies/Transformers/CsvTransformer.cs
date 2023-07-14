@@ -1,5 +1,6 @@
 ﻿using Results.Domain.Configuration.External;
 using Results.Domain.Model;
+using Results.Domain.Proxies.Contracts;
 using Results.Domain.Service;
 
 namespace Results.Domain.Proxies.Transformers
@@ -31,15 +32,15 @@ namespace Results.Domain.Proxies.Transformers
         private const int Col_Total = 6;
         private const int Col_Ctp = 7;
 
-        public Event ParseCsv(FileInfo file, Serie serie, IDuplicatePlayerConfiguration duplicatePlayers)
+        public Event ParseCsv(FileInfo file, SerieExternal serie, IDuplicatePlayerConfiguration duplicatePlayers)
         {
-            var courseLayout = CourseManager.GetLayout(serie.DefaultCourseLayout);
+            var courseLayout = CourseManager.GetLayout(serie.CourseLayoutId);
 
             var e = EventManager.Get($"{CommonHelper.GetRoundNumber(file.Name)} - {serie.Name}", serie.SerieId, CommonHelper.GetRoundTime(file.Name));
 
             var r = new Round
             {
-                CourseLayoutId = serie.DefaultCourseLayout,
+                CourseLayoutId = serie.CourseLayoutId,
                 RoundName = "R1",
                 StartTime = CommonHelper.GetRoundTime(file.Name)
             };

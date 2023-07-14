@@ -2,6 +2,7 @@
 using Npoi.Mapper.Attributes;
 using Results.Domain.Configuration.External;
 using Results.Domain.Model;
+using Results.Domain.Proxies.Contracts;
 using Results.Domain.Service;
 
 namespace Results.Domain.Proxies.Transformers
@@ -21,21 +22,20 @@ namespace Results.Domain.Proxies.Transformers
             EventManager = eventManager;
         }
 
-        public Event ParseXlsx(FileInfo file, Serie serie, IDuplicatePlayerConfiguration duplicatePlayers)
+        public Event ParseXlsx(FileInfo file, SerieExternal serie, IDuplicatePlayerConfiguration duplicatePlayers)
         {
             var mapper = new Mapper(file.FullName);
 
             var courseInfo = mapper.Take<PoolInformation>(1).FirstOrDefault();
 
-            var courseLayout = CourseManager.GetLayout(serie.DefaultCourseLayout);
-
+            var courseLayout = CourseManager.GetLayout(serie.CourseLayoutId);
 
             //Add support to have multiple rounds for one event
             var e = EventManager.Get($"{CommonHelper.GetRoundNumber(file.Name)} - {serie.Name}", serie.SerieId, courseInfo?.Value?.Date ?? CommonHelper.GetRoundTime(file.Name));
 
             var r = new Round
             {
-                CourseLayoutId = serie.DefaultCourseLayout,
+                CourseLayoutId = serie.CourseLayoutId,
                 RoundName = "R1",
                 StartTime = courseInfo?.Value?.Date ?? CommonHelper.GetRoundTime(file.Name)
             };

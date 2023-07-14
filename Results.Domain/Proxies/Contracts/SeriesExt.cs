@@ -7,6 +7,7 @@
 
     public class SerieExternal
     {
+        public int SerieId { get; set; } = -1;
         public string Name { get; set; } = "";
         public string RoundsPath { get; set; } = "";
         public int RoundsToCount { get; set; } = 1;

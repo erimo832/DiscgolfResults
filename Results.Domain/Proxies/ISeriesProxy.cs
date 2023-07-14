@@ -1,9 +1,10 @@
 ﻿using Results.Domain.Model;
+using Results.Domain.Proxies.Contracts;
 
 namespace Results.Domain.Proxies
 {
     public interface ISeriesProxy
     {
-        IList<Serie> GetSeries();
+        SeriesListExternal GetSeries();
     }
 }

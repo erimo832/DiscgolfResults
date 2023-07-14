@@ -1,5 +1,6 @@
 ﻿using Results.Domain.Configuration;
 using Results.Domain.Proxies;
+using Results.Domain.Proxies.Extensions;
 
 namespace Results.Domain.Service
 {
@@ -67,10 +68,11 @@ namespace Results.Domain.Service
 
             //Synch series
             var series = ExternalSeries.GetSeries();
-            SeriesManager.Insert(series);
+            var internalSeries = series.Series.ToInternal();
+            SeriesManager.Insert(internalSeries);
 
             //Synch rounds, and players
-            foreach (var serie in series)
+            foreach (var serie in series.Series)
             {
                 var events = ExternalEvents.GetEvents(serie);
                 EventManager.Insert(events);

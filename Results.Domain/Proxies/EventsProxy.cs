@@ -2,6 +2,7 @@
 using Results.Domain.Configuration;
 using Results.Domain.Configuration.External;
 using Results.Domain.Model;
+using Results.Domain.Proxies.Contracts;
 using Results.Domain.Proxies.Transformers;
 
 namespace Results.Domain.Proxies
@@ -19,9 +20,9 @@ namespace Results.Domain.Proxies
             Config = syncConfiguration;
         }
 
-        public IList<Event> GetEvents(Serie serie)
+        public IList<Event> GetEvents(SerieExternal serie)
         {
-            var files = new DirectoryInfo(serie.SourcePath).GetFiles();
+            var files = new DirectoryInfo(serie.RoundsPath).GetFiles();
             var duplicatePlayers = File.ReadAllText(Config.DuplicatePlayersSettingsPath).FromJson<DuplicatePlayerConfiguration>();
 
             var result = new List<Event>();
