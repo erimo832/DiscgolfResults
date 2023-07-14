@@ -12,11 +12,6 @@ namespace Results.Domain.Service
 
         private IHoleResultRepository HoleRespository { get; }
 
-        public IList<AverageHoleResultRo> GetAverageRoBy(int playerId = -1, int fromEventId = -1, int toEventId = -1)
-        {
-            return HoleRespository.GetAverageRoBy(playerId, fromEventId, toEventId);
-        }
-
         public IList<HoleResultRo> GetRoBy(int playerId = -1, int fromEventId = -1, int toEventId = -1, int courseHoleId = -1)
         {
             return HoleRespository.GetRoBy(playerId, fromEventId, toEventId, courseHoleId);
