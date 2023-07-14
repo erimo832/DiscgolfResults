@@ -34,16 +34,17 @@ namespace Results.Domain.Proxies.Transformers
 
         public Event ParseCsv(FileInfo file, SerieExternal serie, IDuplicatePlayerConfiguration duplicatePlayers)
         {
-            var courseLayout = CourseManager.GetLayout(serie.CourseLayoutId);
-
             var e = EventManager.Get($"{CommonHelper.GetRoundNumber(file.Name)} - {serie.Name}", serie.SerieId, CommonHelper.GetRoundTime(file.Name));
+            var startTime = CommonHelper.GetRoundTime(file.Name);
 
             var r = new Round
             {
-                CourseLayoutId = serie.CourseLayoutId,
+                CourseLayoutId = serie.GetLayoutId(startTime),
                 RoundName = "R1",
                 StartTime = CommonHelper.GetRoundTime(file.Name)
             };
+
+            var courseLayout = CourseManager.GetLayout(r.CourseLayoutId);
 
             var lines = File.ReadAllLines(file.FullName);
 

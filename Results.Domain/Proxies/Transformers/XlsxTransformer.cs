@@ -28,17 +28,18 @@ namespace Results.Domain.Proxies.Transformers
 
             var courseInfo = mapper.Take<PoolInformation>(1).FirstOrDefault();
 
-            var courseLayout = CourseManager.GetLayout(serie.CourseLayoutId);
-
             //Add support to have multiple rounds for one event
             var e = EventManager.Get($"{CommonHelper.GetRoundNumber(file.Name)} - {serie.Name}", serie.SerieId, courseInfo?.Value?.Date ?? CommonHelper.GetRoundTime(file.Name));
+            var startTime = courseInfo?.Value?.Date ?? CommonHelper.GetRoundTime(file.Name);
 
             var r = new Round
             {
-                CourseLayoutId = serie.CourseLayoutId,
+                CourseLayoutId = serie.GetLayoutId(startTime),
                 RoundName = "R1",
-                StartTime = courseInfo?.Value?.Date ?? CommonHelper.GetRoundTime(file.Name)
+                StartTime = startTime
             };
+
+            var courseLayout = CourseManager.GetLayout(r.CourseLayoutId);
 
             var results = mapper.Take<ResultExcel>(0);
 
