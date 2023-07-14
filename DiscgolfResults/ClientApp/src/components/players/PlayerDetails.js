@@ -88,17 +88,24 @@ export function PlayerDetails() {
               </Box>
             </AccordionDetails>
           </Accordion>
-          <SummaryCard player={info} holeAvg={holeAvg} />
-          <Accordion disableGutters>
-            <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holescoredistribution')}</AccordionSummary>
-            <AccordionDetails>
-              {holeAvg.map(x => <div style={{ display: "inline-block"}} key={x.courseHoleId}> <HoleScoreDistributionPieChart data={x} key={x.courseHoleId}/> </div> )}
-            </AccordionDetails>
-          </Accordion>
-          <Accordion disableGutters>
-            <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holeavg')}</AccordionSummary>
-            <AccordionDetails><HoleAverage data={holeAvg} /></AccordionDetails>
-          </Accordion>          
+          <SummaryCard player={info} />
+          {holeAvg.map(x => 
+            <Accordion key={x.courseLayoutId} disableGutters>
+              <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('common_course_layout')} ({x.layoutName})</AccordionSummary>
+              <AccordionDetails>
+                <Accordion disableGutters>
+                  <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holescoredistribution')}</AccordionSummary>
+                  <AccordionDetails>
+                    {x.holeResults.map(y => <div style={{ display: "inline-block"}} key={y.courseHoleId}> <HoleScoreDistributionPieChart data={y} key={y.courseHoleId}/> </div> )}
+                  </AccordionDetails>
+                </Accordion>
+                <Accordion disableGutters>
+                  <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holeavg')}</AccordionSummary>
+                  <AccordionDetails><HoleAverage data={x.holeResults} /></AccordionDetails>
+                </Accordion>
+              </AccordionDetails>              
+            </Accordion> 
+          )}      
           <Accordion disableGutters>
             <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_hcptrend')}</AccordionSummary>
             <AccordionDetails><HcpTrend data={sortedEvents} /></AccordionDetails>

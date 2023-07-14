@@ -2,11 +2,14 @@
 
 namespace DiscgolfResults.Contracts.Responses
 {
-    public class HoleResultResponse
+    public class AverageHoleResultResponse
     {
+        public int CourseLayoutId { get; set;}
+        public string LayoutName { get; set; } = "";
+        public HoleResultResponse[] HoleResults { get; set; } = new HoleResultResponse[0];
     }
 
-    public class AverageHoleResultResponse
+    public class HoleResultResponse
     {
         public int HoleNumber { get; set; }
         public int Par { get; set; }

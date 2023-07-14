@@ -27,10 +27,10 @@ export function CourseCard(props) {
                                             <Col xs={6} md={6} lg={6}>{i18n.t('course_card_numberofplayedrounds')}</Col>
                                             <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.course.numberOfPlayedRounds}</Col>
                                         </Row>
-                                        <Row>
+                                        {/*<Row>
                                             <Col xs={6} md={6} lg={6}>{i18n.t('course_card_holeinone')}</Col>
                                             <Col xs={6} md={6} lg={6} style={{textAlign: 'left'}}>{props.holeAvg.map(x => x.hios).reduce((partialSum, a) => partialSum + a, 0)}</Col>
-                                        </Row>
+                                        </Row>*/}
                                     </Container>
                                 </Col>
                                 <Col xs={12} md={6} lg={4}>
