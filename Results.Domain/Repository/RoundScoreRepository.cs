@@ -54,7 +54,7 @@ namespace Results.Domain.Repository
                     })
                     //.Where(x => x.PlayerId == playerId && x.Round.CourseLayoutId == courseLayoutId).ToList();
                     .If(playerId != -1, q => q.Where(x => x.PlayerId == playerId))
-                    .If(playerId != -1, q => q.Where(x => x.CourseLayoutId == courseLayoutId))
+                    .If(courseLayoutId != -1, q => q.Where(x => x.CourseLayoutId == courseLayoutId))
                     .ToList();
             }
         }

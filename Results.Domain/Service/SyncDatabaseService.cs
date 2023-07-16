@@ -79,7 +79,7 @@ namespace Results.Domain.Service
             }
 
             //Synch courselayout hcps
-            HcpManager.UpdateHcp();
+            HcpManager.UpdateHcp(hcpPerLayout: false);
 
             //Synch player events
             EventManager.UpdateEventResults();

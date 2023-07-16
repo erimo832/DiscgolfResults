@@ -25,9 +25,14 @@ namespace Results.Domain.Service
         }
 
 
-        public void UpdateHcp()
+        public void UpdateHcp(bool hcpPerLayout)
         {
-            var layouts = CourseManager.GetAllLayouts();
+            //Just a dummy one
+            IList<CourseLayout> layouts = new[] { new CourseLayout { CourseLayoutId = -1 } };
+                
+            if(hcpPerLayout)
+                layouts = CourseManager.GetAllLayouts();            
+
             var players = PlayerManager.GetBy();
 
             var hcps = new List<PlayerCourseLayoutHcp>();
