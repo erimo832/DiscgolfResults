@@ -32,10 +32,11 @@ namespace Results.Domain.Proxies
                 {
                     var l = new CourseLayout
                     {
-                        CourseAdjusterPar = layout.CourseAdjustedPar,
+                        HcpAdjustedPar = layout.LayoutAdjustedPar,
+                        HcpSlopeFactor = layout.LayoutSlopeFactor,
                         CourseLayoutId = layout.CourseLayoutId,
                         Name = layout.Name,
-                        NumberOfHoles = layout.NumberOfHoles,
+                        NumberOfHoles = layout.NumberOfHoles,                        
                         //Par is updated later
                     };
 

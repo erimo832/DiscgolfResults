@@ -17,7 +17,8 @@
         public int CourseLayoutId { get; set; } = 1;
         public string Name { get; set; } = "";
         public int NumberOfHoles { get; set; }
-        public int CourseAdjustedPar { get; set; } = 0;
+        public int LayoutAdjustedPar { get; set; } = 0;
+        public double LayoutSlopeFactor { get; set; } = 0.8;
         public CourseHoleExternal[] Holes { get; set; } = new CourseHoleExternal[0];
     }
 

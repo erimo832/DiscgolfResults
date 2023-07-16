@@ -21,7 +21,7 @@ namespace Results.Domain.Service
 
         public double RoundHcp(int score, CourseLayout courseLayout)
         {
-            return (score - courseLayout.CourseAdjusterPar) * Configuration.SlopeFactor;
+            return (score - courseLayout.HcpAdjustedPar) * courseLayout.HcpSlopeFactor;
         }
 
 
