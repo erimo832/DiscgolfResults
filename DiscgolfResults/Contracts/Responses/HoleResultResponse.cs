@@ -2,10 +2,11 @@
 
 namespace DiscgolfResults.Contracts.Responses
 {
-    public class AverageHoleResultResponse
+    public class AverageHoleResultResponse //Wrong name
     {
         public int CourseLayoutId { get; set;}
         public string LayoutName { get; set; } = "";
+        public ScoreDistribution[] ScoreDistributions { get; set; } = new ScoreDistribution[0];
         public HoleResultResponse[] HoleResults { get; set; } = new HoleResultResponse[0];
     }
 
@@ -20,10 +21,10 @@ namespace DiscgolfResults.Contracts.Responses
         public double AverageScore { get; set; }
 
         public double DiffToPar => Math.Round(AverageScore - Par, 2);
-        public IList<ScoreDistibution> ScoreDistibutions { get; set; } = new List<ScoreDistibution>();
+        public IList<HoleScoreDistribution> ScoreDistibutions { get; set; } = new List<HoleScoreDistribution>();
     }
 
-    public class ScoreDistibution
+    public class HoleScoreDistribution
     {
         public int NumberOfScores { get; set; }
         public int TotalPlayed { get; set; }
@@ -40,5 +41,11 @@ namespace DiscgolfResults.Contracts.Responses
         Bogey = 1,
         DoubleBogey = 2,
         PlusBogey = 3
+    }
+
+    public class ScoreDistribution
+    {
+        public int Score { get; set; }
+        public int NumberOfTimes { get; set; }
     }
 }

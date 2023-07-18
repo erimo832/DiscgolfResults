@@ -14,11 +14,13 @@ namespace DiscgolfResults.Translators
         }
         private IHcpManager HcpManager { get; }
 
-        public PlayerDetailsResponse Translate(Player player)
+        public PlayerDetailsResponse Translate(Player player, IList<Course> courses)
         {
             var results = new List<PlayerResult>();
             var inHcpCalc = HcpManager.GetEventsIncludedInCalculations(player.PlayerEvents).ToDictionary(x => x.EventId);
             var inHcpAvgCalc = HcpManager.GetEventsIncludedInHcpCalculations(player.PlayerEvents).ToDictionary(x => x.EventId);
+
+            var layouts = courses.SelectMany(x => x.Layouts);
 
             var playedEvent = 1;
             foreach (var ev in player.PlayerEvents.OrderBy(x => x.EventId))
@@ -29,6 +31,9 @@ namespace DiscgolfResults.Translators
                 {
                     EventId = ev.EventId,
                     EventName = ev.Event.EventName,
+                    CourseLayoutId = hcp.CourseLayoutId,
+                    LayoutName = layouts.First(x => x.CourseLayoutId == hcp.CourseLayoutId).Name,
+                    Division = ev.Division,
                     StartTime = ev.Event.StartTime,
                     HcpAfter = hcp.HcpAfter,
                     HcpBefore = hcp.HcpBefore,
@@ -66,24 +71,7 @@ namespace DiscgolfResults.Translators
                 WinPercentageHcp = (Convert.ToDouble(results.Count(x => x.PlacementHcp == 1)) / Convert.ToDouble(results.Count())).ToPercent(2),
 
                 EventResults = results.OrderByDescending(x => x.StartTime).ToList(),
-                ScoreDistibution = GetDistribution(player.PlayerEvents)
-                
             };
-        }
-
-        private IList<ScoreDistribution> GetDistribution(IList<PlayerEvent> events)
-        {
-            var min = events.Min(x => x.TotalScore).ToInt();
-            var max = events.Max(x => x.TotalScore).ToInt();
-
-            var result = new List<ScoreDistribution>();
-
-            for (int i = min; i < max +1; i++)
-            {
-                result.Add(new ScoreDistribution { NumberOfTimes = events.Count(x => x.TotalScore.ToInt() == i), Score = i });
-            }
-
-            return result;
         }
     }
 }

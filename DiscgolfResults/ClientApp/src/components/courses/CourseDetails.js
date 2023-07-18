@@ -84,7 +84,7 @@ export function CourseDetails() {
           {holeAvg.map(x => 
             <Accordion key={x.courseLayoutId} disableGutters>
               <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('common_course_layout')} ({x.layoutName})</AccordionSummary>
-              <AccordionDetails>                
+              <AccordionDetails>
                 <Accordion disableGutters>
                   <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holescoredistribution')}</AccordionSummary>
                   <AccordionDetails>
@@ -95,13 +95,13 @@ export function CourseDetails() {
                   <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holeavg')}</AccordionSummary>
                   <AccordionDetails><HoleAverage data={x.holeResults} /></AccordionDetails>
                 </Accordion>
-              </AccordionDetails>              
-            </Accordion> 
+                <Accordion disableGutters>
+                  <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_scoredistibution')}</AccordionSummary>
+                  <AccordionDetails><ScoreDistribution data={x.scoreDistributions} /></AccordionDetails>
+                </Accordion>
+              </AccordionDetails>
+            </Accordion>
           )}
-          <Accordion disableGutters>
-            <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_scoredistibution')}</AccordionSummary>
-            <AccordionDetails><ScoreDistribution data={courseDetails.scoreDistibution} /></AccordionDetails>
-          </Accordion>
         </>
     );
   }

@@ -103,7 +103,11 @@ export function PlayerDetails() {
                   <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_holeavg')}</AccordionSummary>
                   <AccordionDetails><HoleAverage data={x.holeResults} /></AccordionDetails>
                 </Accordion>
-              </AccordionDetails>              
+                <Accordion disableGutters>
+                  <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_scoredistibution')}</AccordionSummary>
+                  <AccordionDetails><ScoreDistribution data={x.scoreDistributions} /></AccordionDetails>
+                </Accordion>
+              </AccordionDetails>
             </Accordion> 
           )}      
           <Accordion disableGutters>
@@ -113,10 +117,6 @@ export function PlayerDetails() {
           <Accordion disableGutters>
             <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_scoretrend')}</AccordionSummary>
             <AccordionDetails><AggregatedScoreTrend data={sortedEvents} /></AccordionDetails>
-          </Accordion>
-          <Accordion disableGutters>
-            <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_scoredistibution')}</AccordionSummary>
-            <AccordionDetails><ScoreDistribution data={info.scoreDistibution} /></AccordionDetails>
           </Accordion>
           <Accordion disableGutters>
             <AccordionSummary expandIcon={ <ExpandMoreIcon />} sx={style}>{i18n.t('player_details_events')}</AccordionSummary>

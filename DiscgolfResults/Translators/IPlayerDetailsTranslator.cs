@@ -5,6 +5,6 @@ namespace DiscgolfResults.Translators
 {
     public interface IPlayerDetailsTranslator
     {
-        PlayerDetailsResponse Translate(Player player);
+        PlayerDetailsResponse Translate(Player player, IList<Course> courses);
     }
 }

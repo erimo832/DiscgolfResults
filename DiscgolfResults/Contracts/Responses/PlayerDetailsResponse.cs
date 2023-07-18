@@ -17,13 +17,14 @@
         public double StdDeviation { get; set; }
 
         public IList<PlayerResult> EventResults { get; set; } = new List<PlayerResult>();
-        public IList<ScoreDistribution> ScoreDistibution { get; set; } = new List<ScoreDistribution>();
     }
 
     public class PlayerResult
     {
         public int EventId { get; set; }
         public string EventName { get; set; } = "";
+        public int CourseLayoutId { get; set; }
+        public string LayoutName { get; set; } = "";
         public DateTime StartTime { get; set; }
         public string Division { get; set; } = "";
         public int Placement { get; set; }
@@ -37,11 +38,5 @@
         public bool InHcpCalc { get; set; } = false;
         public bool InHcpAvgCalc { get; set; } = false;
         public int PlayedEvent { get; set; } = 0;
-    }
-
-    public class ScoreDistribution
-    {
-        public int Score { get; set; }
-        public int NumberOfTimes { get; set; }
     }
 }

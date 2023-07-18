@@ -29,7 +29,7 @@ namespace DiscgolfResults.Controllers
        
         [HttpGet]
         [Route("api/courses/{courseId}/average-hole-results")]
-        public IEnumerable<AverageHoleResultResponse> GetAverageByCourseId(int courseId = 1, int fromEventId = -1, int toEventId = -1)
+        public IEnumerable<AverageHoleResultResponse> GetAverageByCourseId(int courseId, int fromEventId = -1, int toEventId = -1)
         {
             var data = HoleResultManager.GetRoBy(fromEventId: fromEventId, toEventId: toEventId);
 

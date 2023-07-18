@@ -8,6 +8,5 @@
         public int UniqueNumberOfPlayers { get; set; }
 
         public IList<EventResponse> Events { get; set; } = new List<EventResponse>();
-        public IList<ScoreDistribution> ScoreDistibution { get; set; } = new List<ScoreDistribution>();
     }
 }
