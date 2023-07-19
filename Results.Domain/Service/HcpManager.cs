@@ -94,12 +94,12 @@ namespace Results.Domain.Service
             return Convert.ToInt32(cnt);
         }
 
-        public IList<PlayerEvent> GetEventsIncludedInCalculations(IList<PlayerEvent> playerEvents)
+        public IList<EventScore> GetEventsIncludedInCalculations(IList<EventScore> playerEvents)
         {
-            return playerEvents.OrderBy(x => x.PlayerEventId).TakeLast(Configuration.RoundsForHcp).ToList();
+            return playerEvents.OrderBy(x => x.EventScoreId).TakeLast(Configuration.RoundsForHcp).ToList();
         }
 
-        public IList<PlayerEvent> GetEventsIncludedInHcpCalculations(IList<PlayerEvent> playerEvents)
+        public IList<EventScore> GetEventsIncludedInHcpCalculations(IList<EventScore> playerEvents)
         {
             var lastEvents = GetEventsIncludedInCalculations(playerEvents);
             var roundsForHcpCnt = TakeCountForAvg(playerEvents.Count(), Configuration.RoundsForHcp);

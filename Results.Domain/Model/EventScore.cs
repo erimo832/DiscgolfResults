@@ -1,8 +1,8 @@
 ﻿namespace Results.Domain.Model
 {
-    public class PlayerEvent
+    public class EventScore
     {
-        public int PlayerEventId { get; set; }
+        public int EventScoreId { get; set; }
         public int PlayerId { get; set; }
         public int EventId { get; set; }
         public string Division { get; set; } = "";

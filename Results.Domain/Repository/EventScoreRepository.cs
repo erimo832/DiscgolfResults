@@ -4,16 +4,16 @@ using Results.Domain.Model.Context;
 
 namespace Results.Domain.Repository
 {
-    internal class PlayerEventRepository : IPlayerEventRepository
+    internal class EventScoreRepository : IEventScoreRepository
     {
         private IDatabaseConfiguration Config { get; }
 
-        public PlayerEventRepository(IDatabaseConfiguration configuration)
+        public EventScoreRepository(IDatabaseConfiguration configuration)
         {
             Config = configuration;
         }
 
-        public void Insert(IList<PlayerEvent> items)
+        public void Insert(IList<EventScore> items)
         {
             using (var context = new ResultContext(Config))
             {
@@ -26,11 +26,11 @@ namespace Results.Domain.Repository
             }
         }
 
-        public IList<PlayerEvent> GetPlayerEvents(int playerId)
+        public IList<EventScore> GetPlayerEvents(int playerId)
         {
             using (var context = new ResultContext(Config))
             {
-                return context.PlayerEvents.Where(x => x.PlayerId == playerId).ToList();
+                return context.EventScores.Where(x => x.PlayerId == playerId).ToList();
             }
         }
     }

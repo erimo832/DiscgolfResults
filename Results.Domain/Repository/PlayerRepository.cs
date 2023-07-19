@@ -67,12 +67,12 @@ namespace Results.Domain.Repository
                 foreach (var player in players)
                 {
                     player.PlayerEvents = includePlayerEvents ? 
-                        context.PlayerEvents
+                        context.EventScores
                         .Where(x => x.PlayerId == player.PlayerId)
                         .If(fromEventId != -1, q => q.Where(x => x.EventId >= fromEventId))
                         .If(toEventId != -1, q => q.Where(x => x.EventId <= toEventId))
                         .Include(q => q.Event).ToList() 
-                        : new List<PlayerEvent>();
+                        : new List<EventScore>();
 
                     player.PlayerCourseLayoutHcp = includeCourseHcps ? 
                         context.PlayerCourseLayoutHcps

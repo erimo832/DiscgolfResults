@@ -7,7 +7,7 @@ namespace Results.Domain.Service
         double RoundHcp(int score, CourseLayout courseLayout);
         void UpdateHcp(bool hcpPerLayout);
 
-        IList<PlayerEvent> GetEventsIncludedInCalculations(IList<PlayerEvent> playerEvents);
-        IList<PlayerEvent> GetEventsIncludedInHcpCalculations(IList<PlayerEvent> playerEvents);
+        IList<EventScore> GetEventsIncludedInCalculations(IList<EventScore> playerEvents);
+        IList<EventScore> GetEventsIncludedInHcpCalculations(IList<EventScore> playerEvents);
     }
 }

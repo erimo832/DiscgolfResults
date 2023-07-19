@@ -44,7 +44,7 @@ namespace Results.Domain.Repository
                     {
                         foreach (var ev in serie.Events)
                         {
-                            ev.PlayerEvents = includePlayerEvents ? context.PlayerEvents.Where(x => x.EventId == ev.EventId).ToList() : new List<PlayerEvent>();
+                            ev.PlayerEvents = includePlayerEvents ? context.EventScores.Where(x => x.EventId == ev.EventId).ToList() : new List<EventScore>();
                             ev.PlayerCourseLayoutHcp = includePlayerhcp ? context.PlayerCourseLayoutHcps.Where(x => x.EventId == ev.EventId).ToList() : new List<PlayerCourseLayoutHcp>();
                         }
                     }

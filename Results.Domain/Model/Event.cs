@@ -9,7 +9,7 @@
 
         public Serie Serie { get; set; } = null;
         public List<Round> Rounds { get; set; } = new List<Round>();
-        public List<PlayerEvent> PlayerEvents { get; set; } = new List<PlayerEvent>();
+        public List<EventScore> PlayerEvents { get; set; } = new List<EventScore>();
         public List<PlayerCourseLayoutHcp> PlayerCourseLayoutHcp { get; set; } = new List<PlayerCourseLayoutHcp>();
     }
 }

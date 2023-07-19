@@ -6,9 +6,9 @@ namespace Results.Domain.Service
     internal class EventManager : IEventManager
     {
         private IEventRepository Repository { get; }
-        private IPlayerEventRepository PlayerEventRepository { get; }
+        private IEventScoreRepository PlayerEventRepository { get; }
 
-        public EventManager(IEventRepository repository, IPlayerEventRepository playerEventRepository)
+        public EventManager(IEventRepository repository, IEventScoreRepository playerEventRepository)
         {
             Repository = repository;
             PlayerEventRepository = playerEventRepository;
@@ -38,15 +38,15 @@ namespace Results.Domain.Service
         {
             var events = Repository.GetBy(includePlayerhcp: true, includeRounds: true);
 
-            var results = new List<PlayerEvent>();
+            var results = new List<EventScore>();
 
             foreach (var ev in events)
             {
-                var eventResults = new List<PlayerEvent>();
+                var eventResults = new List<EventScore>();
 
                 foreach (var playerHcp in ev.PlayerCourseLayoutHcp)
                 {
-                    eventResults.Add(new PlayerEvent
+                    eventResults.Add(new EventScore
                     {
                         EventId = playerHcp.EventId,
                         PlayerId = playerHcp.PlayerId,
@@ -102,7 +102,7 @@ namespace Results.Domain.Service
             return maxScore - (place - 1);
         }
 
-        public IList<PlayerEvent> GetPlayerEvents(int playerId)
+        public IList<EventScore> GetPlayerEvents(int playerId)
         {
             return PlayerEventRepository.GetPlayerEvents(playerId);
         }

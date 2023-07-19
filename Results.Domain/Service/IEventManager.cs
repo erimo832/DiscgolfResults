@@ -10,6 +10,6 @@ namespace Results.Domain.Service
 
         IList<Event> GetBy(int seriesId = -1, int playerId = -1, int fromEventId = -1, int toEventId = -1, bool includeRounds = false, bool includePlayerEvents = false, bool includePlayerhcp = false);
 
-        IList<PlayerEvent> GetPlayerEvents(int playerId);
+        IList<EventScore> GetPlayerEvents(int playerId);
     }
 }

@@ -36,7 +36,7 @@ namespace Results.Domain
             services.AddTransient<IHoleResultRepository, HoleResultRepository>();
             services.AddTransient<ICourseLayoutRepository, CourseLayoutRepository>();
             services.AddTransient<IPlayerRepository, PlayerRepository>();
-            services.AddTransient<IPlayerEventRepository, PlayerEventRepository>();
+            services.AddTransient<IEventScoreRepository, EventScoreRepository>();
             services.AddTransient<IRoundRepository, RoundRepository>();
             services.AddTransient<IRoundScoreRepository, RoundScoreRepository>();
             services.AddTransient<ISerieRepository, SerieRepository>();
