@@ -48,7 +48,7 @@ namespace DiscgolfResults.Translators
                     PlayedEvent = playedEvent++
                 });
             }
-            
+
             return new PlayerDetailsResponse
             { 
                 FirstName = player.FirstName,
